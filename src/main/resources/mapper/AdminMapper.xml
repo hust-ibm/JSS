@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hust.jss.dao.AdminDao">
+  <resultMap id="BaseResultMap" type="com.hust.jss.entity.Admin">
+    <id column="adminid" jdbcType="INTEGER" property="adminid" />
+    <result column="adminname" jdbcType="VARCHAR" property="adminname" />
+    <result column="adminpassword" jdbcType="VARCHAR" property="adminpassword" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    adminid, adminname, adminpassword
+  </sql>
+  
+    <select id="findAll" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from admin
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from admin
+    where adminid = #{adminid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from admin
+    where adminid = #{adminid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hust.jss.entity.Admin">
+    insert into admin (adminid, adminname, adminpassword
+      )
+    values (#{adminid,jdbcType=INTEGER}, #{adminname,jdbcType=VARCHAR}, #{adminpassword,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hust.jss.entity.Admin">
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="adminid != null">
+        adminid,
+      </if>
+      <if test="adminname != null">
+        adminname,
+      </if>
+      <if test="adminpassword != null">
+        adminpassword,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="adminid != null">
+        #{adminid,jdbcType=INTEGER},
+      </if>
+      <if test="adminname != null">
+        #{adminname,jdbcType=VARCHAR},
+      </if>
+      <if test="adminpassword != null">
+        #{adminpassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hust.jss.entity.Admin">
+    update admin
+    <set>
+      <if test="adminname != null">
+        adminname = #{adminname,jdbcType=VARCHAR},
+      </if>
+      <if test="adminpassword != null">
+        adminpassword = #{adminpassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where adminid = #{adminid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hust.jss.entity.Admin">
+    update admin
+    set adminname = #{adminname,jdbcType=VARCHAR},
+      adminpassword = #{adminpassword,jdbcType=VARCHAR}
+    where adminid = #{adminid,jdbcType=INTEGER}
+  </update>
+</mapper>
