@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hust.jss.dao.StudentDao">
+  <resultMap id="StudentMap" type="com.hust.jss.entity.Student">
+    <id column="stu_id" jdbcType="CHAR" property="stuId" />
+    <result column="stu_name" jdbcType="VARCHAR" property="stuName" />
+    <result column="stu_pwd" jdbcType="VARCHAR" property="stuPwd" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    stu_id, stu_name, stu_pwd
+  </sql>
+  <select id="selectByStuId" parameterType="java.lang.String" resultMap="StudentMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student
+    where stu_id = #{stuId,jdbcType=CHAR}
+  </select>
+  <select id="selectAllStu" resultMap="StudentMap">
+    select 
+    <include refid="Base_Column_List" />
+    from student
+  </select>
+    
+  <delete id="deleteByStuId" parameterType="java.lang.String">
+    delete from student
+    where stu_id = #{stuId,jdbcType=CHAR}
+  </delete>
+  
+   <delete id="deleteBatch" parameterType="java.util.List">
+    delete from student
+    where stu_id in
+    <foreach  item="id" collection="list" open="(" close=")" separator=",">
+    	#{id}
+    </foreach>
+  </delete>
+  
+  <insert id="insert" parameterType="com.hust.jss.entity.Student">
+    insert into student (stu_id, stu_name, stu_pwd
+      )
+    values (#{stuId,jdbcType=CHAR}, #{stuName,jdbcType=VARCHAR}, #{stuPwd,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertBatch" parameterType="java.util.List">
+    insert into student (stu_id, stu_name, stu_pwd
+      )
+    values 
+     <foreach collection="list" item="item" index="index" separator="," >  
+        (#{item.stuId},#{item.stuName},#{item.stuPwd})  
+    </foreach>  
+   
+  </insert>
+  <insert id="insertSelective" parameterType="com.hust.jss.entity.Student">
+    insert into student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stuId != null">
+        stu_id,
+      </if>
+      <if test="stuName != null">
+        stu_name,
+      </if>
+      <if test="stuPwd != null">
+        stu_pwd,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stuId != null">
+        #{stuId,jdbcType=CHAR},
+      </if>
+      <if test="stuName != null">
+        #{stuName,jdbcType=VARCHAR},
+      </if>
+      <if test="stuPwd != null">
+        #{stuPwd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByStuIdSelective" parameterType="com.hust.jss.entity.Student">
+    update student
+    <set>
+      <if test="stuName != null">
+        stu_name = #{stuName,jdbcType=VARCHAR},
+      </if>
+      <if test="stuPwd != null">
+        stu_pwd = #{stuPwd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stu_id = #{stuId,jdbcType=CHAR}
+  </update>
+  <update id="updateByStuId" parameterType="com.hust.jss.entity.Student">
+    update student
+    set stu_name = #{stuName,jdbcType=VARCHAR},
+      stu_pwd = #{stuPwd,jdbcType=VARCHAR}
+    where stu_id = #{stuId,jdbcType=CHAR}
+  </update>
+</mapper>

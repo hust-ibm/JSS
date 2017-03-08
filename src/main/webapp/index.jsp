@@ -13,17 +13,18 @@
 <h2>Hello World!</h2>
 	<table id="tab">
   		<tr>
-  			<th>id</th>
-  			<th>用户名</th>
-  			<th>密码</th>
-  		
+  			<th>学生ID</th>
+  			<th>作业ID</th>
+  			<th>是否提交</th>
+  		<th>分数</th>
   		</tr>
   		 
-  		<%----%> <c:forEach items="${adminList}"  var="admin">
+  		<%----%> <c:forEach items="${resultList}"  var="result">
      	<tr>
-  			<td>${admin.adminid}</td>
-  			<td>${admin.adminname}</td>
-  			<td>${admin.adminpassword}</td>
+  			<td>${result.stuId}</td>
+  			<td>${result.taskId}</td>
+  			<td>${result.submit}</td>
+  			<td>${result.score}</td>
   		</tr>
      </c:forEach> 
   	</table>

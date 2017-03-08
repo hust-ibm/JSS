@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hust.jss.entity.Admin;
+import com.hust.jss.entity.Result;
 import com.hust.jss.service.TestService;
 
 @Controller
@@ -21,9 +21,9 @@ public class TestController {
 	public ModelAndView adminlist(){
 		ModelAndView mv = new ModelAndView();
 		
-		List<Admin> adminList = testService.findAll();
+		List<Result> resultList = testService.findAllByTaskId(1);
 		
-		mv.addObject("adminList",adminList);
+		mv.addObject("resultList",resultList);
 		mv.setViewName("index");
 		
 		return mv;

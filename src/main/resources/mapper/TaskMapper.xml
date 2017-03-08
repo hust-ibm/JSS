@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hust.jss.dao.TaskDao">
+  <resultMap id="TaskMap" type="com.hust.jss.entity.Task">
+    <id column="task_id" jdbcType="INTEGER" property="taskId" />
+    <result column="task_name" jdbcType="VARCHAR" property="taskName" />
+    <result column="task_path" jdbcType="VARCHAR" property="taskPath" />
+    <result column="task_rule" jdbcType="VARCHAR" property="taskRule" />
+    <result column="task_expiry" jdbcType="TIMESTAMP" property="taskExpiry" />
+    <result column="task_minsize" jdbcType="INTEGER" property="taskMinsize" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    task_id, task_name, task_path, task_rule, task_expiry, task_minsize
+  </sql>
+  
+  <select id="selectByTaskId" parameterType="java.lang.Integer" resultMap="TaskMap">
+    select 
+    <include refid="Base_Column_List" />
+    from task
+    where task_id = #{taskId}
+  </select>
+  <select id="selectAllTask" resultMap="TaskMap">
+    select 
+    <include refid="Base_Column_List" />
+    from task
+  </select>
+  
+  <delete id="deleteByTaskId" parameterType="java.lang.Integer">
+    delete from task
+    where task_id = #{taskId}
+  </delete>
+  
+  <insert id="insert" parameterType="com.hust.jss.entity.Task">
+    insert into task (task_id, task_name, task_path, 
+      task_rule, task_expiry, task_minsize
+      )
+    values (#{taskId,jdbcType=INTEGER}, #{taskName,jdbcType=VARCHAR}, #{taskPath,jdbcType=VARCHAR}, 
+      #{taskRule,jdbcType=VARCHAR}, #{taskExpiry,jdbcType=TIMESTAMP}, #{taskMinsize,jdbcType=INTEGER}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.hust.jss.entity.Task">
+    insert into task
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        task_id,
+      </if>
+      <if test="taskName != null">
+        task_name,
+      </if>
+      <if test="taskPath != null">
+        task_path,
+      </if>
+      <if test="taskRule != null">
+        task_rule,
+      </if>
+      <if test="taskExpiry != null">
+        task_expiry,
+      </if>
+      <if test="taskMinsize != null">
+        task_minsize,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="taskId != null">
+        #{taskId},
+      </if>
+      <if test="taskName != null">
+        #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskPath != null">
+        #{taskPath,jdbcType=VARCHAR},
+      </if>
+      <if test="taskRule != null">
+        #{taskRule,jdbcType=VARCHAR},
+      </if>
+      <if test="taskExpiry != null">
+        #{taskExpiry,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskMinsize != null">
+        #{taskMinsize,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByTaskIdSelective" parameterType="com.hust.jss.entity.Task">
+    update task
+    <set>
+      <if test="taskName != null">
+        task_name = #{taskName,jdbcType=VARCHAR},
+      </if>
+      <if test="taskPath != null">
+        task_path = #{taskPath,jdbcType=VARCHAR},
+      </if>
+      <if test="taskRule != null">
+        task_rule = #{taskRule,jdbcType=VARCHAR},
+      </if>
+      <if test="taskExpiry != null">
+        task_expiry = #{taskExpiry,jdbcType=TIMESTAMP},
+      </if>
+      <if test="taskMinsize != null">
+        task_minsize = #{taskMinsize,jdbcType=INTEGER},
+      </if>
+    </set>
+    where task_id = #{taskId,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByTaskId" parameterType="com.hust.jss.entity.Task">
+    update task
+    set task_name = #{taskName},
+      task_path = #{taskPath},
+      task_rule = #{taskRule},
+      task_expiry = #{taskExpiry},
+      task_minsize = #{taskMinsize}
+    where task_id = #{taskId}
+  </update>
+</mapper>

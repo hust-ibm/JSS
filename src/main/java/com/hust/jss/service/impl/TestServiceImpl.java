@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hust.jss.dao.AdminDao;
-import com.hust.jss.entity.Admin;
+import com.hust.jss.dao.ResultDao;
+
+import com.hust.jss.entity.Result;
 import com.hust.jss.service.TestService;
 
 @Service("testService")
@@ -15,13 +16,11 @@ import com.hust.jss.service.TestService;
 public class TestServiceImpl implements TestService {
 
 	@Autowired
-	private AdminDao adminDao;
+	private ResultDao resultDao;
 	
-	/* (non-Javadoc)
-	 * @see com.hust.jss.service.impl.TestService#findAll()
-	 */
-	public List<Admin> findAll(){
+	
+	public List<Result> findAllByTaskId(Integer taskId){
 		
-		return adminDao.findAll();
+		return resultDao.selectByTaskId(taskId);
 	}
 }

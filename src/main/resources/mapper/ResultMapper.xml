@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hust.jss.dao.ResultDao">
+  <resultMap id="ResultMap" type="com.hust.jss.entity.Result">
+    <id column="stu_id" property="stuId" />
+    <id column="task_id" property="taskId" />
+    <result column="submit" property="submit" />
+    <result column="score" property="score" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    stu_id, task_id, submit, score
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.hust.jss.entity.Result" resultMap="ResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from result
+    where stu_id = #{stuId}
+      and task_id = #{taskId}
+  </select>
+  
+  <select id="selectByStuId" parameterType="Integer" resultMap="ResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from result
+    where stu_id = #{stuId}
+  </select>
+  
+  <select id="selectByTaskId" parameterType="Integer" resultMap="ResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from result
+    where task_id = #{taskId}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="com.hust.jss.entity.Result">
+    delete from result
+    where stu_id = #{stuId}
+      and task_id = #{taskId}
+  </delete>
+    <delete id="deleteByStuId" parameterType="Integer">
+    delete from result
+    where stu_id = #{stuId}
+  </delete>
+    <delete id="deleteByTaskId" parameterType="Integer">
+    delete from result
+    where task_id = #{taskId}
+  </delete>
+  
+  <insert id="insert" parameterType="com.hust.jss.entity.Result">
+    insert into result (stu_id, task_id, submit, score
+      )
+    values (#{stuId}, #{taskId}, #{submit}, #{score}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hust.jss.entity.Result">
+    insert into result
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stuId != null">
+        stu_id,
+      </if>
+      <if test="taskId != null">
+        task_id,
+      </if>
+      <if test="submit != null">
+        submit,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stuId != null">
+        #{stuId},
+      </if>
+      <if test="taskId != null">
+        #{taskId},
+      </if>
+      <if test="submit != null">
+        #{submit},
+      </if>
+      <if test="score != null">
+        #{score},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hust.jss.entity.Result">
+    update result
+    <set>
+      <if test="submit != null">
+        submit = #{submit},
+      </if>
+      <if test="score != null">
+        score = #{score},
+      </if>
+    </set>
+    where stu_id = #{stuId}
+      and task_id = #{taskId}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hust.jss.entity.Result">
+    update result
+    set submit = #{submit},
+      score = #{score}
+    where stu_id = #{stuId}
+      and task_id = #{taskId}
+  </update>
+</mapper>
