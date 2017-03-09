@@ -18,7 +18,7 @@
       and task_id = #{taskId}
   </select>
   
-  <select id="selectByStuId" parameterType="Integer" resultMap="ResultMap">
+  <select id="selectByStuId" parameterType="String" resultMap="ResultMap">
     select 
     <include refid="Base_Column_List" />
     from result
@@ -32,12 +32,19 @@
     where task_id = #{taskId}
   </select>
   
+  <select id="selectAll" resultMap="ResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from result
+  </select>
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="com.hust.jss.entity.Result">
     delete from result
     where stu_id = #{stuId}
       and task_id = #{taskId}
   </delete>
-    <delete id="deleteByStuId" parameterType="Integer">
+    <delete id="deleteByStuId" parameterType="String">
     delete from result
     where stu_id = #{stuId}
   </delete>

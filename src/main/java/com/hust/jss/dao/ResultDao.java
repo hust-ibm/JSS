@@ -35,7 +35,7 @@ public interface ResultDao {
      * @param stuId
      * @return
      */
-	int deleteByStuId(Integer stuId);
+	int deleteByStuId(String stuId);
     
 	/**
 	 * 通过taskId删除成绩
@@ -56,7 +56,7 @@ public interface ResultDao {
      * @param stuId
      * @return
      */
-    List<Result> selectByStuId(Integer stuId);
+    List<Result> selectByStuId(String stuId);
    
     /**
      * 通过主键taskId查找成绩
@@ -64,6 +64,11 @@ public interface ResultDao {
      * @return
      */
     List<Result> selectByTaskId(Integer taskId);
+    /**
+     * 查询所有人的所有成绩
+     * @return
+     */
+    List<Result> selectAll();
     
     /**
      * 通过主键（stuId，taskId）更新成绩
