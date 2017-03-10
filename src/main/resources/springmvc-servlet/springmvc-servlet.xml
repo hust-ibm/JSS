@@ -15,8 +15,10 @@
 	<bean id="handlerAdapter" class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/> -->
 	<mvc:annotation-driven/>
 	<!-- 静态资源 -->
-	<mvc:resources location="/img/" mapping="/img/**"/>
+	<mvc:resources location="/images/" mapping="/images/**"/>
 	<mvc:resources location="/js/" mapping="/js/**"/>
+	<mvc:resources location="/css/" mapping="/css/**"/>
+	<mvc:resources location="/page/" mapping="/page/**"/>
 	<!-- 拦截器 -->
 	<!-- <mvc:interceptors></mvc:interceptors> -->
 	
@@ -26,7 +28,7 @@
 	<!--视图解析器： 定义视图的前缀后缀 -->
 	<bean id="resourceView" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-		<property name="prefix" value="/"/>
+		<property name="prefix" value="/WEB-INF/page/"/>
 		<property name="suffix" value=".jsp"/>
 	</bean>
 	
