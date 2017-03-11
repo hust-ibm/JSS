@@ -3,12 +3,16 @@ package com.hust.jss.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hust.jss.dao.StudentDao;
 import com.hust.jss.entity.Student;
 import com.hust.jss.service.StudentService;
 import com.hust.jss.utils.StudentUtils;
 
+@Service("studentService")
+@Transactional
 public class StudentServiceImpl implements StudentService {
 	@Autowired
 	private StudentDao studentDao;
@@ -58,7 +62,7 @@ public class StudentServiceImpl implements StudentService {
 		return studentDao.updateByStuId(stu);
 	}
 
-	public String findStudentPwdByStuId(String stuId) {
+	public String findStudentPwdByStuId(String stuId) throws Exception{
 		// TODO Auto-generated method stub
 		return studentDao.selectByStuId(stuId).getStuPwd();
 	}
@@ -73,12 +77,17 @@ public class StudentServiceImpl implements StudentService {
 		return studentDao.selectAllStu();
 	}
 
-	public int login(String stuId, String pwd) {
+	public int login(String stuId, String pwd)  {
 		// TODO Auto-generated method stub
-		if (pwd == findStudentPwdByStuId(stuId))
-			return 1;
-		else
-			return 0;
+		try {
+			if (pwd.equals(findStudentPwdByStuId(stuId)))
+				return 1;
+			else
+				return 0;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return -1;
+		}
 	}
 
 }

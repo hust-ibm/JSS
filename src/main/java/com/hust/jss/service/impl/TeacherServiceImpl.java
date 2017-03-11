@@ -3,12 +3,16 @@ package com.hust.jss.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hust.jss.dao.TeacherDao;
 import com.hust.jss.entity.Teacher;
 import com.hust.jss.service.TeacherService;
 import com.hust.jss.utils.TeacherUtils;
 
+@Service("teacherService")
+@Transactional
 public class TeacherServiceImpl implements TeacherService {
 	@Autowired
 	private TeacherDao teacherDao;
@@ -39,7 +43,7 @@ public class TeacherServiceImpl implements TeacherService {
 		return teacherDao.updateByTeaIdSelective(teacher);
 	}
 
-	public int updatePasswordByTeaId(String teaId, String pwd) {
+	public int updatePasswordByTeaId(String teaId, String pwd){
 		// TODO Auto-generated method stub
 		Teacher teacher = new Teacher();
 		teacher.setTeaId(teaId);
@@ -47,7 +51,7 @@ public class TeacherServiceImpl implements TeacherService {
 		return teacherDao.updateByTeaIdSelective(teacher);
 	}
 
-	public Teacher findTeacherByTeaId(String teaId) {
+	public Teacher findTeacherByTeaId(String teaId) throws Exception{
 		// TODO Auto-generated method stub
 		return teacherDao.selectByTeaId(teaId);
 	}
@@ -59,13 +63,18 @@ public class TeacherServiceImpl implements TeacherService {
 
 	public int login(String teaId, String pwd) {
 		// TODO Auto-generated method stub
-		if (pwd == findPwdByTeaId(teaId))
-			return 1;
-		else
-			return 0;
+		try {
+			if (pwd == findPwdByTeaId(teaId))
+				return 1;
+			else
+				return 0;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return -1;
+		}
 	}
 
-	public String findPwdByTeaId(String teaId) {
+	public String findPwdByTeaId(String teaId) throws Exception{
 		// TODO Auto-generated method stub
 		return teacherDao.selectByTeaId(teaId).getTeaPwd();
 	}

@@ -4,11 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hust.jss.dao.ResultDao;
 import com.hust.jss.entity.Result;
 import com.hust.jss.service.ResultService;
 
+@Service("resultService")
+@Transactional
 public class ResultServiceImpl implements ResultService {
 	@Autowired
 	private ResultDao resultDao;

@@ -4,11 +4,15 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hust.jss.dao.TaskDao;
 import com.hust.jss.entity.Task;
 import com.hust.jss.service.TaskService;
 
+@Service("taskService")
+@Transactional
 public class TaskServiceImpl implements TaskService {
 	@Autowired
 	private TaskDao taskDao;
@@ -22,7 +26,8 @@ public class TaskServiceImpl implements TaskService {
 		// TODO Auto-generated method stub
 		return taskDao.deleteByTaskId(taskId);
 	}
-	//暂未实现
+
+	// 暂未实现
 	public int deleteAll() {
 		// TODO Auto-generated method stub
 		return 0;
