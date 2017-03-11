@@ -64,7 +64,7 @@ public class TeacherServiceImpl implements TeacherService {
 	public int login(String teaId, String pwd) {
 		// TODO Auto-generated method stub
 		try {
-			if (pwd == findPwdByTeaId(teaId))
+			if (pwd.equals(findPwdByTeaId(teaId)))
 				return 1;
 			else
 				return 0;
