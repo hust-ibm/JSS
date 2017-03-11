@@ -27,7 +27,7 @@ public class TaskServiceImpl implements TaskService {
 		return taskDao.deleteByTaskId(taskId);
 	}
 
-	// ÔÝÎ´ÊµÏÖ
+	// æš‚æœªå®žçŽ° 
 	public int deleteAll() {
 		// TODO Auto-generated method stub
 		return 0;

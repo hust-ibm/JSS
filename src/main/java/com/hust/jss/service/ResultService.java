@@ -10,54 +10,54 @@ import com.hust.jss.entity.Result;
 
 public interface ResultService {
 	/**
-	 * ²åÈë³É¼¨
+	 * æ’å…¥æˆç»©
 	 * @param result
 	 * @return
 	 */
 	public int addResult(Result result) throws Exception;
 	/**
-	 * ¸ù¾İÑ§ÉúidÉ¾³ı¸ÃÑ§ÉúËùÓĞ³É¼¨
+	 * æ ¹æ®å­¦ç”Ÿidåˆ é™¤è¯¥å­¦ç”Ÿæ‰€æœ‰æˆç»©
 	 * @param stuId
 	 * @return
 	 */
 	public int deleteResultByStuId(String stuId) throws Exception;
 	/**
-	 * ¸ù¾İ×÷ÒµidÉ¾³ı¸Ã×÷ÒµËùÓĞÈËµÄ³É¼¨
+	 * æ ¹æ®ä½œä¸šidåˆ é™¤è¯¥ä½œä¸šæ‰€æœ‰äººçš„æˆç»©
 	 * @param taskId
 	 * @return
 	 */
 	public int deleteResultByTaskId(Integer taskId) throws Exception;
 	/**
-	 * ¸ù¾İResult¶ÔÏóÉ¾³ı¸Ã×÷Òµ³É¼¨¼ÇÂ¼
-	 * @param result ±ØĞë°üº¬stuId,taskId
+	 * æ ¹æ®Resultå¯¹è±¡åˆ é™¤è¯¥ä½œä¸šæˆç»©è®°å½•
+	 * @param result å¿…é¡»åŒ…å«stuId,taskId
 	 * @return
 	 */
 	public int deleteResultByResult(Result result) throws Exception;
 	/**
-	 * ¸ù¾İResultĞŞ¸Ä¸Ã×÷Òµ³É¼¨
-	 * @param result ±ØĞë°üº¬stuId£¬taskId£¬ÒÔ¼°ĞŞ¸ÄºóµÄÆäËûĞÅÏ¢
+	 * æ ¹æ®Resultä¿®æ”¹è¯¥ä½œä¸šæˆç»©
+	 * @param result å¿…é¡»åŒ…å«stuIdï¼ŒtaskIdï¼Œä»¥åŠä¿®æ”¹åçš„å…¶ä»–ä¿¡æ¯
 	 * @return
 	 */
 	public int updateResult(Result result) throws Exception;
 	/**
-	 * ²éÑ¯ËùÓĞÈËµÄËùÓĞ×÷Òµ³É¼¨
+	 * æŸ¥è¯¢æ‰€æœ‰äººçš„æ‰€æœ‰ä½œä¸šæˆç»©
 	 * @return
 	 */
 	public List<Result> findAllResult() throws Exception;
 	/**
-	 * ¸ù¾İÑ§ÉúÑ§ºÅ²éÑ¯¸ÃÑ§ÉúµÄËùÓĞ×÷Òµ³É¼¨
+	 * æ ¹æ®å­¦ç”Ÿå­¦å·æŸ¥è¯¢è¯¥å­¦ç”Ÿçš„æ‰€æœ‰ä½œä¸šæˆç»© 
 	 * @param stuId
 	 * @return
 	 */
 	public List<Result> findResultByStuId(String stuId) throws Exception;
 	/**
-	 * ¸ù¾İ×÷ÒµºÅ²éÑ¯¸Ã×÷ÒµËùÓĞÑ§ÉúµÄ³É¼¨
+	 * æ ¹æ®ä½œä¸šå·æŸ¥è¯¢è¯¥ä½œä¸šæ‰€æœ‰å­¦ç”Ÿçš„æˆç»©
 	 * @param taskId
 	 * @return
 	 */
 	public List<Result> findResultByTaskId(Integer taskId) throws Exception;
 	/**
-	 * ¸ù¾İÑ§ÉúÑ§ºÅºÍ×÷ÒµºÅ²éÑ¯¸ÃÑ§Éú¸Ã×÷ÒµµÄ³É¼¨
+	 * æ ¹æ®å­¦ç”Ÿå­¦å·å’Œä½œä¸šå·æŸ¥è¯¢è¯¥å­¦ç”Ÿè¯¥ä½œä¸šçš„æˆç»©
 	 * @param stuId
 	 * @param taskId
 	 * @return

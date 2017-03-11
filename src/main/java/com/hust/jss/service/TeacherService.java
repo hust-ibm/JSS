@@ -69,7 +69,7 @@ public interface TeacherService {
 	public List<Teacher> findAll() throws Exception;
 
 	/**
-	 * 根据id查密码
+	 * 根据id查密码 
 	 * 
 	 * @param teaId
 	 * @return

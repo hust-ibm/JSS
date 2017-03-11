@@ -1,11 +1,11 @@
 package com.hust.jss.entity;
 
 public class Student {
-	//学生ID
+	//瀛︾敓ID
     private String stuId;
-    //学生姓名
+    //瀛︾敓濮撳悕
     private String stuName;
-    //学生密码
+    //瀛︾敓瀵嗙爜 
     private String stuPwd;
 
     public String getStuId() {

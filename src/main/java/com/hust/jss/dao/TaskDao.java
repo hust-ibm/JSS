@@ -10,50 +10,50 @@ import com.hust.jss.entity.Task;
 public interface TaskDao {
 	
 	/**
-	 * ²åÈëÒ»Ìõ×÷Òµ¼ÇÂ¼
+	 * æ’å…¥ä¸€æ¡ä½œä¸šè®°å½•
 	 * @param task
-	 * @return ³É¹¦²åÈë½á¹ûÊı
+	 * @return æˆåŠŸæ’å…¥ç»“æœæ•°
 	 */
 	int insert(Task task);
 
 	/**
-	 * ²åÈëÒ»Ìõ×÷Òµ¼ÇÂ¼
-	 * ²åÈëÊ±ÅĞ¶ÏÊôĞÔÖµÊÇ·ñÎª¿Õ
+	 * æ’å…¥ä¸€æ¡ä½œä¸šè®°å½•
+	 * æ’å…¥æ—¶åˆ¤æ–­å±æ€§å€¼æ˜¯å¦ä¸ºç©º
 	 * @param task
 	 * @return
 	 */
 	int insertSelective(Task task);
 
 	/**
-	 * Í¨¹ıtaskIdÉ¾³ı×÷Òµ¼ÇÂ¼
+	 * é€šè¿‡taskIdåˆ é™¤ä½œä¸šè®°å½•
 	 * @param taskId
 	 * @return
 	 */
 	int deleteByTaskId(Integer taskId);
 
 	/**
-	 * Í¨¹ıtaskId²éÑ¯×÷Òµ
+	 * é€šè¿‡taskIdæŸ¥è¯¢ä½œä¸š
 	 * @param taskId
 	 * @return
 	 */
 	Task selectByTaskId(Integer taskId);
 
 	/**
-	 * ²éÑ¯ËùÓĞ×÷Òµ
+	 * æŸ¥è¯¢æ‰€æœ‰ä½œä¸š 
 	 * @return
 	 */
 	List<Task> selectAllTask();
 	
 	/**
-	 * ¸üĞÂ×÷Òµ
-	 * ¸üĞÂÊ±¼ì²éÊôĞÔÖµ·Ç¿Õ
+	 * æ›´æ–°ä½œä¸š
+	 * æ›´æ–°æ—¶æ£€æŸ¥å±æ€§å€¼éç©º
 	 * @param task
 	 * @return
 	 */
 	int updateByTaskIdSelective(Task task);
 
 	/**
-	 * ¸üĞÂ×÷Òµ
+	 * æ›´æ–°ä½œä¸š
 	 * @param task
 	 * @return
 	 */

@@ -10,76 +10,76 @@ import com.hust.jss.entity.Result;
 public interface ResultDao {
 	
 	/**
-	 * Ïò³É¼¨±í²åÈëÊı¾İ
+	 * å‘æˆç»©è¡¨æ’å…¥æ•°æ®
 	 * @param result
 	 * @return
 	 */
     int insert(Result result);
 
     /**
-     * ÓĞÑ¡Ôñ²åÈë³É¼¨±í
+     * æœ‰é€‰æ‹©æ’å…¥æˆç»©è¡¨
      * @param result
      * @return
      */
     int insertSelective(Result result);
    
     /**
-     * Í¨¹ıÖ÷¼ü£¨stuId,taskId£©É¾³ı³É¼¨
+     * é€šè¿‡ä¸»é”®ï¼ˆstuId,taskIdï¼‰åˆ é™¤æˆç»©
      * @param result
      * @return
      */
     int deleteByPrimaryKey(Result result);
 	
     /**
-     * Í¨¹ıstuIdÉ¾³ı³É¼¨
+     * é€šè¿‡stuIdåˆ é™¤æˆç»©
      * @param stuId
      * @return
      */
 	int deleteByStuId(String stuId);
     
 	/**
-	 * Í¨¹ıtaskIdÉ¾³ı³É¼¨
+	 * é€šè¿‡taskIdåˆ é™¤æˆç»©
 	 * @param taskId
 	 * @return
 	 */
     int deleteByTaskId(Integer taskId);
     
     /**
-     * Í¨¹ıÖ÷¼ü£¨stuId£¬taskId£©²éÕÒ³É¼¨
+     * é€šè¿‡ä¸»é”®ï¼ˆstuIdï¼ŒtaskIdï¼‰æŸ¥æ‰¾æˆç»©
      * @param result
      * @return
      */
     Result selectByPrimaryKey(Result result);
 
     /**
-     * Í¨¹ıstuId²éÕÒ³É¼¨
+     * é€šè¿‡stuIdæŸ¥æ‰¾æˆç»©
      * @param stuId
      * @return
      */
     List<Result> selectByStuId(String stuId);
    
     /**
-     * Í¨¹ıÖ÷¼ütaskId²éÕÒ³É¼¨
+     * é€šè¿‡ä¸»é”®taskIdæŸ¥æ‰¾æˆç»©
      * @param taskId
      * @return
      */
     List<Result> selectByTaskId(Integer taskId);
     /**
-     * ²éÑ¯ËùÓĞÈËµÄËùÓĞ³É¼¨
+     * æŸ¥è¯¢æ‰€æœ‰äººçš„æ‰€æœ‰æˆç»© 
      * @return
      */
     List<Result> selectAll();
     
     /**
-     * Í¨¹ıÖ÷¼ü£¨stuId£¬taskId£©¸üĞÂ³É¼¨
-     * ÊôĞÔÎª¿ÕÔò²»¸üĞÂ
+     * é€šè¿‡ä¸»é”®ï¼ˆstuIdï¼ŒtaskIdï¼‰æ›´æ–°æˆç»©
+     * å±æ€§ä¸ºç©ºåˆ™ä¸æ›´æ–°
      * @param result
      * @return
      */
     int updateByPrimaryKeySelective(Result result);
 
     /**
-     * Í¨¹ıÖ÷¼ü£¨stuId£¬taskId£©¸üĞÂ³É¼¨
+     * é€šè¿‡ä¸»é”®ï¼ˆstuIdï¼ŒtaskIdï¼‰æ›´æ–°æˆç»©
      * @param result
      * @return
      */

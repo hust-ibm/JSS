@@ -29,7 +29,7 @@ public class TeacherServiceImpl implements TeacherService {
 		return teacherDao.deleteByTeaId(teaId);
 	}
 
-	// δʵ��
+	// 未实现 
 	public int deleteAll() {
 		// TODO Auto-generated method stub
 		return 0;

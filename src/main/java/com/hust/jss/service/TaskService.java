@@ -12,51 +12,51 @@ import com.hust.jss.entity.Task;
 
 public interface TaskService {
 	/**
-	 * Ìí¼Ó×÷Òµ
+	 * æ·»åŠ ä½œä¸š
 	 * @param task
 	 * @return
 	 */
 	public int addTask(Task task) throws Exception;
 	/**
-	 * ¸ù¾İ×÷ÒµidÉ¾³ı×÷Òµ
+	 * æ ¹æ®ä½œä¸šidåˆ é™¤ä½œä¸š
 	 * @param taskId
 	 * @return
 	 */
 	public int deleteTaskByTaskId(Integer taskId) throws Exception;
 	/**
-	 * É¾³ıËùÓĞ×÷Òµ
+	 * åˆ é™¤æ‰€æœ‰ä½œä¸š
 	 * @return
 	 */
 	public int deleteAll() throws Exception;
 	/**
-	 * ¸ù¾İ×÷Òµid¸üĞÂ×÷Òµ¹æÔòÂ·¾¶ĞÅÏ¢
+	 * æ ¹æ®ä½œä¸šidæ›´æ–°ä½œä¸šè§„åˆ™è·¯å¾„ä¿¡æ¯
 	 * @param taskId
 	 * @param taskRule
 	 * @return
 	 */
 	public int updateTaskRuleByTaskId(Integer taskId, String taskRule) throws Exception;
 	/**
-	 * ¸ù¾İ×÷Òµid¸üĞÂ×÷Òµ½ØÖ¹Ê±¼ä
+	 * æ ¹æ®ä½œä¸šidæ›´æ–°ä½œä¸šæˆªæ­¢æ—¶é—´
 	 * @param taskId
 	 * @param taskExpiry
 	 * @return
 	 */
 	public int updatetaskExpiryByTaskId(Integer taskId, Date taskExpiry) throws Exception;
 	/**
-	 * ¸ù¾İ×÷Òµid¸üĞÂ×÷Òµ×îĞ¡´óĞ¡
+	 * æ ¹æ®ä½œä¸šidæ›´æ–°ä½œä¸šæœ€å°å¤§å° 
 	 * @param taskId
 	 * @param minsize
 	 * @return
 	 */
 	public int updateMinsizeByTaskId(Integer taskId, Integer minsize) throws Exception;
 	/**
-	 * ¸ù¾İ×÷Òµid²éÕÒ×÷Òµ
+	 * æ ¹æ®ä½œä¸šidæŸ¥æ‰¾ä½œä¸š
 	 * @param taskId
 	 * @return
 	 */
 	public Task findTaskByTaskId(Integer taskId) throws Exception;
 	/**
-	 * ²éÕÒËùÓĞ×÷Òµ
+	 * æŸ¥æ‰¾æ‰€æœ‰ä½œä¸š
 	 * @return
 	 */
 	public List<Task> findAllTasks() throws Exception;

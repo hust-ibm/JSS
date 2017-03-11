@@ -10,50 +10,50 @@ import com.hust.jss.entity.Teacher;
 public interface TeacherDao {
 
 	/**
-	 * ²åÈëÒ»Ìõ½ÌÊ¦¼ÇÂ¼
+	 * æ’å…¥ä¸€æ¡æ•™å¸ˆè®°å½•
 	 * @param teacher
 	 * @return
 	 */
     int insert(Teacher teacher);
 
     /**
-     * ²åÈëÒ»Ìõ½ÌÊ¦¼ÇÂ¼
-     * ²åÈëÊ±ÅĞ¶ÏÊÇ·ñÊôĞÔÖµÎª¿Õ
+     * æ’å…¥ä¸€æ¡æ•™å¸ˆè®°å½•
+     * æ’å…¥æ—¶åˆ¤æ–­æ˜¯å¦å±æ€§å€¼ä¸ºç©º
      * @param teacher
      * @return
      */
     int insertSelective(Teacher teacher);
 
 	/**
-	 * Í¨¹ıteaIdÉ¾³ı½ÌÊ¦
+	 * é€šè¿‡teaIdåˆ é™¤æ•™å¸ˆ
 	 * @param teaId
 	 * @return
 	 */
     int deleteByTeaId(String teaId);
 
     /**
-     * Í¨¹ıteaId²éÑ¯½ÌÊ¦
+     * é€šè¿‡teaIdæŸ¥è¯¢æ•™å¸ˆ
      * @param teaId
      * @return
      */
     Teacher selectByTeaId(String teaId);
 
     /**
-     * ²éÑ¯ËùÓĞ½ÌÊ¦¼ÇÂ¼
+     * æŸ¥è¯¢æ‰€æœ‰æ•™å¸ˆè®°å½• 
      * @return
      */
     List<Teacher> selectAllTeacher();
     
     /**
-     * ¸üĞÂ½ÌÊ¦ĞÅÏ¢
-     * ÅĞ¶Ï·Ç¿Õ
+     * æ›´æ–°æ•™å¸ˆä¿¡æ¯
+     * åˆ¤æ–­éç©º
      * @param teacher
      * @return
      */
     int updateByTeaIdSelective(Teacher teacher);
 
     /**
-     * ¸üĞÂ½ÌÊ¦ĞÅÏ¢ 
+     * æ›´æ–°æ•™å¸ˆä¿¡æ¯ 
      * @param teacher
      * @return
      */

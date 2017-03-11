@@ -11,68 +11,68 @@ import com.hust.jss.entity.Student;
 
 public interface StudentService {
 	/**
-	 * ÅúÁ¿²åÈëÑ§ÉúĞÅÏ¢£¨×îºÃÊÇÍêÕûµÄÑ§ÉúĞÅÏ¢£©
+	 * æ‰¹é‡æ’å…¥å­¦ç”Ÿä¿¡æ¯ï¼ˆæœ€å¥½æ˜¯å®Œæ•´çš„å­¦ç”Ÿä¿¡æ¯ï¼‰
 	 * @param list
 	 * @return
 	 */
 	public int addStuList(List<Student> list) throws Exception;
 	/**
-	 * ²åÈëµ¥¸öÑ§ÉúĞÅÏ¢
+	 * æ’å…¥å•ä¸ªå­¦ç”Ÿä¿¡æ¯
 	 * @param stu
 	 * @return
 	 */
 	public int addStu(Student stu) throws Exception;
 	/**
-	 * ¸ù¾İÑ§ÉúidÉ¾³ıÑ§ÉúĞÅÏ¢
+	 * æ ¹æ®å­¦ç”Ÿidåˆ é™¤å­¦ç”Ÿä¿¡æ¯
 	 * @param stuId
 	 * @return
 	 */
 	public int deleteStuByStuId(String stuId) throws Exception;
 	/**
-	 * ¸ù¾İidÉ¾³ılistÖĞËùÓĞÑ§ÉúĞÅÏ¢
+	 * æ ¹æ®idåˆ é™¤listä¸­æ‰€æœ‰å­¦ç”Ÿä¿¡æ¯
 	 * @return
 	 */
 	public int deleteAll(List<String> list) throws Exception;
 	/**
-	 * ¸ù¾İÑ§ÉúÑ§ºÅĞŞ¸ÄÃÜÂë
+	 * æ ¹æ®å­¦ç”Ÿå­¦å·ä¿®æ”¹å¯†ç 
 	 * @param stuId
 	 * @param password
 	 * @return
 	 */
 	public int updatePasswordByStuId(String stuId ,String password) throws Exception;
 	/**
-	 * ¸ù¾İÑ§ÉúÑ§ºÅĞŞ¸ÄÃû×Ö
+	 * æ ¹æ®å­¦ç”Ÿå­¦å·ä¿®æ”¹åå­—
 	 * @param stuId
 	 * @param name
 	 * @return
 	 */
 	public int updateStuNameByStuId(String stuId,String name) throws Exception;
 	/**
-	 * ¸ù¾İÑ§Éú¶ÔÏóĞŞ¸ÄÑ§ÉúĞÅÏ¢
-	 * @param stu ±ØĞë°üº¬Ñ§ÉúÑ§ºÅ
+	 * æ ¹æ®å­¦ç”Ÿå¯¹è±¡ä¿®æ”¹å­¦ç”Ÿä¿¡æ¯
+	 * @param stu å¿…é¡»åŒ…å«å­¦ç”Ÿå­¦å·
 	 * @return
 	 */
 	public int updateStudentInfo(Student stu) throws Exception;
 	/**
-	 * ¸ù¾İÑ§ºÅ»ñÈ¡Ñ§ÉúÃÜÂë
+	 * æ ¹æ®å­¦å·è·å–å­¦ç”Ÿå¯†ç 
 	 * @param stuId
 	 * @return
 	 * @throws Exception 
 	 */
 	public String findStudentPwdByStuId(String stuId) throws Exception;
 	/**
-	 * ¸ù¾İÑ§ºÅ»ñÈ¡Ñ§ÉúĞÅÏ¢
+	 * æ ¹æ®å­¦å·è·å–å­¦ç”Ÿä¿¡æ¯
 	 * @param stuId
 	 * @return
 	 */
 	public Student findStudentInfoByStuId(String stuId) throws Exception;
 	/**
-	 * »ñÈ¡ËùÓĞÑ§ÉúĞÅÏ¢
+	 * è·å–æ‰€æœ‰å­¦ç”Ÿä¿¡æ¯ 
 	 * @return
 	 */
 	public List<Student> findAllStudent() throws Exception;
 	/**
-	 * ÅĞ¶ÏµÇÂ¼ÊÇ·ñ³É¹¦£¬³É¹¦·µ»Ø1£¬·ñÔò·µ»Ø0,id²»´æÔÚ·µ»Ø-1
+	 * åˆ¤æ–­ç™»å½•æ˜¯å¦æˆåŠŸï¼ŒæˆåŠŸè¿”å›1ï¼Œå¦åˆ™è¿”å›0,idä¸å­˜åœ¨è¿”å›-1
 	 * @param stuId
 	 * @param pwd
 	 * @return

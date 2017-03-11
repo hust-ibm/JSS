@@ -9,64 +9,64 @@ import com.hust.jss.entity.Student;
 @Repository("studentDao")
 public interface StudentDao {
 	/**
-	 * ÏòÑ§Éú±í²åÈëÒ»Ìõ¼ÇÂ¼
+	 * å‘å­¦ç”Ÿè¡¨æ’å…¥ä¸€æ¡è®°å½•
 	 * @param student
 	 * @return
 	 */
 	int insert(Student student);	
 
 	/**
-	 * ÏòÑ§Éú±í²åÈëÑ§Éú¼ÇÂ¼
-	 * ÊôĞÔ·Ç¿Õ²Å²åÈë¸ÃÊôĞÔ
+	 * å‘å­¦ç”Ÿè¡¨æ’å…¥å­¦ç”Ÿè®°å½•
+	 * å±æ€§éç©ºæ‰æ’å…¥è¯¥å±æ€§
 	 * @param student
 	 * @return
 	 */
 	int insertSelective(Student student);
 	
 	/**
-	 * ÅúÁ¿²åÈëÑ§Éú¼ÇÂ¼
+	 * æ‰¹é‡æ’å…¥å­¦ç”Ÿè®°å½•
 	 * @param stuList
 	 * @return
 	 */
 	int insertBatch(List<Student> stuList);
 
 	/**
-	 * Í¨¹ıstuIdÉ¾³ıÑ§Éú¼ÇÂ¼
+	 * é€šè¿‡stuIdåˆ é™¤å­¦ç”Ÿè®°å½•
 	 * @param stuId
 	 * @return
 	 */
     int deleteByStuId(String stuId);
 
     /**
-     * Í¨¹ıstuIdÅúÁ¿É¾³ıÑ§Éú¼ÇÂ¼
+     * é€šè¿‡stuIdæ‰¹é‡åˆ é™¤å­¦ç”Ÿè®°å½•
      * @param stuIdList
      * @return
      */
     int deleteBatch(List<String> stuIdList);
     
     /**
-     * Í¨¹ıstuId²éÑ¯Ñ§Éú¼ÇÂ¼
+     * é€šè¿‡stuIdæŸ¥è¯¢å­¦ç”Ÿè®°å½•
      * @param stuId
      * @return
      */
     Student selectByStuId(String stuId);
 
     /**
-     * ²éÑ¯ËùÓĞÑ§ÉúĞÅÏ¢
+     * æŸ¥è¯¢æ‰€æœ‰å­¦ç”Ÿä¿¡æ¯ 
      * @return
      */
     List<Student> selectAllStu();
     
     /**
-     * ĞŞ¸ÄÑ§ÉúĞÅÏ¢
-     * ¼ì²éÊôĞÔ·Ç¿Õ
+     * ä¿®æ”¹å­¦ç”Ÿä¿¡æ¯
+     * æ£€æŸ¥å±æ€§éç©º
      * @param student
      * @return
      */
     int updateByStuIdSelective(Student student);
 
     /**
-     * ĞŞ¸ÄÑ§ÉúĞÅÏ¢
+     * ä¿®æ”¹å­¦ç”Ÿä¿¡æ¯
      * @param student
      * @return
      */

@@ -1,13 +1,13 @@
 package com.hust.jss.entity;
 
 public class Result {
-	//Ñ§ÉúID
+	//å­¦ç”ŸID
 	private String stuId;
-	//×÷ÒµID
+	//ä½œä¸šID
     private Integer taskId;
-	//×÷ÒµÌá½»×´Ì¬ 
+	//ä½œä¸šæäº¤çŠ¶æ€  
     private Boolean submit;
-    //×÷Òµ·ÖÊı
+    //ä½œä¸šåˆ†æ•°
     private Integer score;
 
     public String getStuId() {

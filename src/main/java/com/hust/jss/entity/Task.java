@@ -7,7 +7,7 @@ public class Task {
 	//作业ID
     private Integer taskId;
     
-    //作业名称
+    //作业名称 
     private String taskName;
     
     //作业路径
