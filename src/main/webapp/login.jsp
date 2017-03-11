@@ -33,7 +33,7 @@
 							<div class="C">
 								<div class="field field-icon-right" style="margin-bottom: 30px;">
 									<input type="text" class="input input-big" name="stuId"
-										placeholder="登录账号" /> <span
+										placeholder="登录账号" value="${id}" /> <span
 										class="icon icon-user margin-small"></span>
 								</div>
 							</div>

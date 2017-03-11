@@ -27,7 +27,7 @@
   <div class="leftnav-title"><strong><span class="icon-list"></span>菜单列表</strong></div>
   <h2><span class="icon-user"></span>基本设置</h2>
   <ul style="display:block">
-    <li><a href="pass.jsp" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
+    <li><a href="pass" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
 
   </ul>   
   <h2><span class="icon-pencil-square-o"></span>栏目管理</h2>
@@ -51,12 +51,11 @@ $(function(){
 });
 </script>
 <ul class="bread">
-  <li><a href="pass.jsp" target="right" class="icon-home"> 首页</a></li>
-   <li><a href="##" id="a_leader_txt"></a></li>
- 
+  <li><a href="pass" target="right" class="icon-home"> 首页</a></li>
+   <li><a href="javascript:;" id="a_leader_txt"></a></li> 
 </ul>
 <div class="admin">
-  <iframe scrolling="auto" rameborder="0" src="" name="right" width="100%" height="100%"></iframe>
+  <iframe scrolling="auto" rameborder="0" src="pass" name="right" width="100%" height="100%"></iframe>
 </div>
 <div style="text-align:center;">
 

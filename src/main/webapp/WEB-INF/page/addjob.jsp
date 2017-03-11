@@ -15,44 +15,49 @@
 </head>
 <body>
 <div class="panel admin-panel">
-  <div class="panel-head"><strong><span class="icon-key"></span> 修改会员密码</strong></div>
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>增加作业</strong></div>
   <div class="body-content">
-    <form method="post" class="form-x" action="">
-       
+    <form method="post" class="form-x" action="managejob.html">  
       <div class="form-group">
         <div class="label">
-          <label for="sitename">原始密码：</label>
+          <label>作业名：</label>
         </div>
         <div class="field">
-          <input type="password" class="input w50" id="mpass" name="mpass" size="50" placeholder="请输入原始密码" data-validate="required:请输入原始密码" />       
-        </div>
-      </div>      
-      <div class="form-group">
-        <div class="label">
-          <label for="sitename">新密码：</label>
-        </div>
-        <div class="field">
-          <input type="password" class="input w50" name="newpass" size="50" placeholder="请输入新密码" data-validate="required:请输入新密码,length#>=5:新密码不能小于5位" />         
+          <input type="text" class="input w50" value=""  data-validate="required:请输入作业名" />
+          <div class="tips"></div>
         </div>
       </div>
       <div class="form-group">
         <div class="label">
-          <label for="sitename">确认新密码：</label>
+          <label>题目内容：</label>
         </div>
         <div class="field">
-          <input type="password" class="input w50" name="renewpass" size="50" placeholder="请再次输入新密码" data-validate="required:请再次输入新密码,repeat#newpass:两次输入的密码不一致" />          
+          <input type="file"  class="input w50" data-validate="required:请选择文件" >
         </div>
-      </div>
+      </div>     
       
+     
+      <div class="form-group">
+        <div class="label">
+          <label>截止时间：</label>
+        </div>
+        <div class="field"> 
+          <script src="js/laydate/laydate.js"></script>
+          <input type="text" class="laydate-icon input w50" name="datetime" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" value=""  data-validate="required:日期不能为空" style="padding:10px!important; height:auto!important;border:1px solid #ddd!important;" />
+          <div class="tips"></div>
+        </div>
+      </div>
+     
       <div class="form-group">
         <div class="label">
           <label></label>
         </div>
         <div class="field">
-          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>   
+          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
         </div>
-      </div>      
+      </div>
     </form>
   </div>
 </div>
+
 </body></html>
