@@ -24,13 +24,13 @@
   <h2><span class="icon-user"></span>基本设置</h2>
   <ul style="display:block">
   
-    <li><a href="pass.html" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
+    <li><a href="tum/pass" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
    
   </ul>   
   <h2><span class="icon-pencil-square-o"></span>栏目管理</h2>
   <ul>
-    <li><a href="joblist.html" target="right"><span class="icon-caret-right"></span>作业列表</a></li>
-    <li><a href="personResult.html" target="right"><span class="icon-caret-right"></span>查看成绩</a></li>        
+    <li><a href="tum/joblist" target="right"><span class="icon-caret-right"></span>作业列表</a></li>
+    <li><a href="tum/personResult" target="right"><span class="icon-caret-right"></span>查看成绩</a></li>        
   </ul>  
 </div>
 <script type="text/javascript">
@@ -48,7 +48,7 @@ $(function(){
 </script>
 <ul class="bread">
   <li><a href="" target="right" class="icon-home"> 首页</a></li>
-   <li><a href="##" id="a_leader_txt"></a></li>
+   <li><a href="javascript:;" id="a_leader_txt"></a></li>
  
 </ul>
 <div class="admin">

@@ -27,14 +27,14 @@
   <div class="leftnav-title"><strong><span class="icon-list"></span>菜单列表</strong></div>
   <h2><span class="icon-user"></span>基本设置</h2>
   <ul style="display:block">
-    <li><a href="pass" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
+    <li><a href="tum/pass" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
 
   </ul>   
   <h2><span class="icon-pencil-square-o"></span>栏目管理</h2>
   <ul>
-    <li><a href="addStudent.html" target="right"><span class="icon-caret-right"></span>导入学生名单</a></li>
-    <li><a href="managejob.html" target="right"><span class="icon-caret-right"></span>作业列表</a></li>     
-    <li><a href="exportResult.html" target="right"><span class="icon-caret-right"></span>导出</a></li>        
+    <li><a href="tum/addStudent" target="right"><span class="icon-caret-right"></span>导入学生名单</a></li>
+    <li><a href="tum/managejob" target="right"><span class="icon-caret-right"></span>作业列表</a></li>     
+    <li><a href="tum/exportResult" target="right"><span class="icon-caret-right"></span>导出</a></li>        
   </ul>  
 </div>
 <script type="text/javascript">
@@ -51,11 +51,11 @@ $(function(){
 });
 </script>
 <ul class="bread">
-  <li><a href="pass" target="right" class="icon-home"> 首页</a></li>
+  <li><a href="tum/pass" target="right" class="icon-home"> 首页</a></li>
    <li><a href="javascript:;" id="a_leader_txt"></a></li> 
 </ul>
 <div class="admin">
-  <iframe scrolling="auto" rameborder="0" src="pass" name="right" width="100%" height="100%"></iframe>
+  <iframe scrolling="auto" rameborder="0" src="" name="right" width="100%" height="100%"></iframe>
 </div>
 <div style="text-align:center;">
 

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="ctx" value="${pageContext.request.contextPath }"></c:set>
 <!DOCTYPE html>
 <html lang="zh-cn">
 <head>
@@ -8,14 +10,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
     <title></title>  
-    <link rel="stylesheet" href="./css/pintuer.css">
-    <link rel="stylesheet" href="./css/admin.css">
+    <link rel="stylesheet" href="${ctx}/css/pintuer.css">
+    <link rel="stylesheet" href="${ctx}/css/admin.css">
      <!-- font-awesome图标 -->
-    <link rel="stylesheet" href="./font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="${ctx}/font-awesome/css/font-awesome.min.css">
 
 
-    <script src="./js/jquery.js"></script>
-    <script src="./js/pintuer.js"></script>  
+    <script src="${ctx}/js/jquery.js"></script>
+    <script src="${ctx}/js/pintuer.js"></script>  
 </head>
 <body>
 <form method="post" action="">
