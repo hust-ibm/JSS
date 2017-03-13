@@ -27,7 +27,7 @@
       <ul class="search">
         <li>
           <a class="button border-main icon-plus-square-o" href="addjob.html"> 添加作业</a>
-          <button type="button"  class="button border-green" id="checkall"><span class="icon-check"></span> 全选</button>
+          <button type="button"  	 id="checkall"><span class="icon-check"></span> 全选</button>
           <button type="submit" class="button border-red"><span class="icon-trash-o"></span> 批量删除</button>
         </li>
  
@@ -50,7 +50,7 @@
           <td>2017-03-15</td>  
           <td>
             <div class="button-group"> 
-              <a class="button border-main" href="addjob.html"><span class="icon-edit"></span> 修改</a>
+              <a class="button border-main" href="tum/addjob"><span class="icon-edit"></span> 修改</a>
               <a class="button border-red" href="javascript:void(0)" onclick="return del(1)"><span class="icon-trash-o"></span> 删除</a>
             </div>
           </td>
