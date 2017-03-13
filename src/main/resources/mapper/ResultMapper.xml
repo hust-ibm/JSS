@@ -38,6 +38,14 @@
     from result
   </select>
   
+  <select id="selectTaskByPage" resultMap="ResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from result where taskId=#{taskId}
+    limit #{begin},#{size}
+    
+  </select>
+  
   
   <delete id="deleteByPrimaryKey" parameterType="com.hust.jss.entity.Result">
     delete from result

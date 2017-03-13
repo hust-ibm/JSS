@@ -2,6 +2,7 @@ package com.hust.jss.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.hust.jss.entity.Result;
@@ -64,6 +65,15 @@ public interface ResultDao {
      * @return
      */
     List<Result> selectByTaskId(Integer taskId);
+    /**
+     * 分页查询作业成绩
+     * @param taskId 作业号 
+     * @param begin 开始
+     * @param size 每页个数
+     * @return
+     */
+    List<Result> selectTaskByPage(@Param("taskId")Integer taskId,@Param("begin")Integer begin,@Param("size")Integer size);
+    
     /**
      * 查询所有人的所有成绩 
      * @return

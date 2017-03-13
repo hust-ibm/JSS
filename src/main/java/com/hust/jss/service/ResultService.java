@@ -55,7 +55,7 @@ public interface ResultService {
 	 * @param taskId
 	 * @return
 	 */
-	public List<Result> findResultByTaskId(Integer taskId) throws Exception;
+	public List<Result> findResultByTaskId(Integer taskId,Integer ... pageInfo) throws Exception;
 	/**
 	 * 根据学生学号和作业号查询该学生该作业的成绩
 	 * @param stuId

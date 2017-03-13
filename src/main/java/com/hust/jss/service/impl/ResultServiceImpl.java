@@ -19,7 +19,7 @@ public class ResultServiceImpl implements ResultService {
 
 	public int addResult(Result result) {
 		// TODO Auto-generated method stub
-		
+
 		return resultDao.insertSelective(result);
 	}
 
@@ -35,14 +35,14 @@ public class ResultServiceImpl implements ResultService {
 
 	public int deleteResultByResult(Result result) {
 		// TODO Auto-generated method stub
-		if(result.getStuId() ==null || result.getTaskId()==null)
+		if (result.getStuId() == null || result.getTaskId() == null)
 			return 0;
 		return resultDao.deleteByPrimaryKey(result);
 	}
 
 	public int updateResult(Result result) {
 		// TODO Auto-generated method stub
-		if(result.getStuId() ==null || result.getTaskId()==null)
+		if (result.getStuId() == null || result.getTaskId() == null)
 			return 0;
 		return resultDao.updateByPrimaryKeySelective(result);
 	}
@@ -61,10 +61,15 @@ public class ResultServiceImpl implements ResultService {
 		return list;
 	}
 
-	public List<Result> findResultByTaskId(Integer taskId) {
+	public List<Result> findResultByTaskId(Integer taskId, Integer... pageInfo) {
 		// TODO Auto-generated method stub
 		List<Result> list = new ArrayList<Result>();
-		list = resultDao.selectByTaskId(taskId);
+		int begin = pageInfo[0];
+		int size = pageInfo[1];
+		if (begin != 0 ||size != 0) {
+			list = resultDao.selectTaskByPage(taskId, begin, size);
+		} else
+			list = resultDao.selectByTaskId(taskId);
 		return list;
 	}
 
