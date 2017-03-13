@@ -64,10 +64,12 @@ public class ResultServiceImpl implements ResultService {
 	public List<Result> findResultByTaskId(Integer taskId, Integer... pageInfo) {
 		// TODO Auto-generated method stub
 		List<Result> list = new ArrayList<Result>();
-		int begin = pageInfo[0];
-		int size = pageInfo[1];
-		if (begin != 0 ||size != 0) {
-			list = resultDao.selectTaskByPage(taskId, begin, size);
+		if (pageInfo.length >= 2 ) {
+			int begin = pageInfo[0];
+			int size = pageInfo[1];
+			if (begin != 0 || size != 0) {
+				list = resultDao.selectTaskByPage(taskId, begin, size);
+			}
 		} else
 			list = resultDao.selectByTaskId(taskId);
 		return list;
