@@ -41,7 +41,7 @@
   <select id="selectTaskByPage" resultMap="ResultMap">
     select 
     <include refid="Base_Column_List" />
-    from result where taskId=#{taskId}
+    from result where task_id=#{taskId}
     limit #{begin},#{size}
     
   </select>
