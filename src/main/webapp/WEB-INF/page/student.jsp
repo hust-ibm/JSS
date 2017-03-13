@@ -17,20 +17,20 @@
   <div class="logo margin-big-left fadein-top">
     <h1><img src="./img/logo.png" class="rotate-hover" height="50" alt="" />作业提交系统</h1>
   </div>
-  <div class="head-l" style="float:right"><span style="color: white; font-size:16px">亲爱的：${name}同学</span> &nbsp;&nbsp;<a class="button button-little bg-red" href="login.jsp"><span class="icon-power-off"></span> 退出登录</a> </div>
+  <div class="head-l" style="float:right"><span style="color: white; font-size:16px">亲爱的：${name}同学</span> &nbsp;&nbsp;<a class="button button-little bg-red" href="logout"><span class="icon-power-off"></span> 退出登录</a> </div>
 </div>
 <div class="leftnav">
   <div class="leftnav-title"><strong><span class="icon-list"></span>菜单列表</strong></div>
   <h2><span class="icon-user"></span>基本设置</h2>
   <ul style="display:block">
   
-    <li><a href="tum/pass" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
+    <li><a href="pass" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
    
   </ul>   
   <h2><span class="icon-pencil-square-o"></span>栏目管理</h2>
   <ul>
-    <li><a href="tum/joblist" target="right"><span class="icon-caret-right"></span>作业列表</a></li>
-    <li><a href="tum/personResult" target="right"><span class="icon-caret-right"></span>查看成绩</a></li>        
+    <li><a href="joblist" target="right"><span class="icon-caret-right"></span>作业列表</a></li>
+    <li><a href="personResult" target="right"><span class="icon-caret-right"></span>查看成绩</a></li>        
   </ul>  
 </div>
 <script type="text/javascript">

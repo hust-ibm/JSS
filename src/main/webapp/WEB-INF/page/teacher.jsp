@@ -21,20 +21,21 @@
   <div class="logo margin-big-left fadein-top">
     <h1><img src="./img/logo.png" class="rotate-hover" height="50" alt="" />作业提交系统</h1>
   </div>
-  <div class="head-l" style="float:right"><span style="color: white; font-size:16px">尊敬的：${name}老师</span>&nbsp;&nbsp;<a class="button button-little bg-red" href="login.jsp"><span class="icon-power-off"></span> 退出登录</a> </div>
+  <div class="head-l" style="float:right"><span style="color: white; font-size:16px">尊敬的：${name}老师</span>&nbsp;&nbsp;<a class="button button-little bg-red" href="logout"><span class="icon-power-off"></span> 退出登录</a> </div>
 </div>
 <div class="leftnav">
   <div class="leftnav-title"><strong><span class="icon-list"></span>菜单列表</strong></div>
   <h2><span class="icon-user"></span>基本设置</h2>
   <ul style="display:block">
-    <li><a href="tum/pass" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
+    <li><a href="pass" target="right"><span class="icon-caret-right"></span>修改密码</a></li>
 
   </ul>   
   <h2><span class="icon-pencil-square-o"></span>栏目管理</h2>
   <ul>
-    <li><a href="tum/addStudent" target="right"><span class="icon-caret-right"></span>导入学生名单</a></li>
-    <li><a href="tum/managejob" target="right"><span class="icon-caret-right"></span>作业列表</a></li>     
-    <li><a href="tum/exportResult" target="right"><span class="icon-caret-right"></span>导出</a></li>        
+    <li><a href="addStudent" target="right"><span class="icon-caret-right"></span>导入学生名单</a></li>
+    <li><a href="managejob" target="right"><span class="icon-caret-right"></span>作业列表</a></li> 
+    <li><a href="queryResult" target="right"><span class="icon-caret-right"></span>成绩查看</a></li>      
+    <li><a href="exportResult" target="right"><span class="icon-caret-right"></span>导出</a></li>        
   </ul>  
 </div>
 <script type="text/javascript">
@@ -51,7 +52,7 @@ $(function(){
 });
 </script>
 <ul class="bread">
-  <li><a href="tum/pass" target="right" class="icon-home"> 首页</a></li>
+  <li><a href="pass" target="right" class="icon-home"> 首页</a></li>
    <li><a href="javascript:;" id="a_leader_txt"></a></li> 
 </ul>
 <div class="admin">

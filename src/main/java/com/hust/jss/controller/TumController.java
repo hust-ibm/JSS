@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/tum")
 public class TumController {
 	@RequestMapping("/addjob")
 	public String tumAddjob() {
@@ -35,5 +34,10 @@ public class TumController {
 	public String tumpersonResult(){
 		return "/personResult";
 	}	
+	
+	@RequestMapping("/queryResult")
+	public String tumQueryResult(){
+		return "/queryResult";
+	}
 	
 }

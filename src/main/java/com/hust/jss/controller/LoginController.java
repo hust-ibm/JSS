@@ -43,6 +43,16 @@ public class LoginController {
 		return "/student";
 	}
 
+	@RequestMapping(value = "/student", method = RequestMethod.GET)
+	public String studentLoginGet(HttpServletRequest request) {
+
+		String name = (String) request.getSession().getAttribute("name");
+		if (name != null)
+			return "/student";
+		else
+			return "redirect:/";
+	}
+
 	@RequestMapping(value = "/teacher", method = RequestMethod.POST)
 	public String teacherLogin(Student stu, HttpServletRequest request) {
 		Teacher teacher = new Teacher();
@@ -57,14 +67,23 @@ public class LoginController {
 		request.getSession().setAttribute("name", teacher.getTeaName());
 		return "/teacher";
 	}
+	
+	@RequestMapping(value = "/teacher", method = RequestMethod.GET)
+	public String teacherLoginGet(HttpServletRequest request) {
+
+		String name = (String) request.getSession().getAttribute("name");
+		if (name != null)
+			return "/teacher";
+		else
+			return "redirect:/";
+	}
 
 	@RequestMapping(value = "/checkpwd", method = RequestMethod.POST, params = "type=student")
-	public void checkStuPwd(@RequestBody JSONObject json, HttpServletResponse response) {
+	public void checkStuPwd(@RequestBody JSONObject json, HttpServletRequest request, HttpServletResponse response) {
 		JSONObject reJson = new JSONObject();
 		String id = json.getString("id");
 		String pwd = json.getString("pwd");
 		int flag = studentService.login(id, pwd);
-		System.out.println("flag" + flag);
 		try {
 			reJson.put("flag", flag);
 			response.getWriter().print(reJson);
@@ -88,6 +107,14 @@ public class LoginController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	@RequestMapping("logout")
+	public String logout(HttpServletRequest request){
+		request.getSession().removeAttribute("name");
+		//若去除id login界面就帐号栏就没有当前用户帐号
+	//	request.getSession().removeAttribute("id");
+		return "redirect:/";
 	}
 
 }
