@@ -13,14 +13,14 @@
     <link rel="stylesheet" href="${ctx}/css/pintuer.css">
     <link rel="stylesheet" href="${ctx}/css/admin.css">
      <!-- font-awesome图标 -->
-    <link rel="stylesheet" href="${ctx}/font-awesome/css/font-awesome.min.css">
+<!--    <link rel="stylesheet" href="${ctx}/font-awesome/css/font-awesome.min.css"> -->
 
 
     <script src="${ctx}/js/jquery.js"></script>
     <script src="${ctx}/js/pintuer.js"></script>  
 </head>
 <body>
-<form method="post" action="">
+<form method="post" action="upload" enctype="multipart/form-data">
   <div class="panel admin-panel">
     <div class="panel-head"><strong class="icon-reorder"> 作业列表</strong></div>
    
@@ -30,31 +30,26 @@
         <th>作业名</th>       
         <th>题目内容</th>
         <th>截至时间</th>
-        <th>上交作业</th>        
+        <th>作业状态</th> 
+        <th>上交作业</th> 
+        <th>操作</th>        
       </tr>  
 	  
-        <tr>
-          <td>1</td>
-          <td>作业一</td>
-          <td><button type="button">下载</button></td>
-          <td>2017-03-10</td>  
-          <td>
-            <input type="file"> 
-
-		  </td>         
-         
-        </tr>
 		
 		<tr>
           <td>1</td>
-          <td>作业二</td>
+          <td style="display:none"><input type="text"  name="taskid" value="1" /></td>
+          <td><input type="text" style="cursor: text;background-color:white;border:none;text-align:center" name="taskName" value="作业二" readonly="readonly" /></td>
           <td><button type="button">下载</button></td>
-          <td>2017-03-10</td>  
+          <td>2017-03-10</td>
+          <td><input type="text" style=" background-color:white;border:none;text-align:center;width:100px;" name="submit" value="已提交" disabled="disabled" /></td>   
           <td align="center">
-          
-			<input type="file" style="width:150" > 
-
-		  </td>         
+			<input type="file" style="text-align:center;width:200px;" multiple="multiple" name="uploadfile"> 
+		  </td>   
+		  <td>
+			<input type="submit"  value="上传">
+		  </td>       
+               
          
         </tr>
        
