@@ -46,7 +46,7 @@
 						<td><input type="text"
 							style="cursor: text; background-color: white; border: none; text-align: center"
 							name="taskname" value="${task.taskName}" readonly="readonly" /></td>
-						<td><button class="button border-main"><span class="icon-download">下载</span></button></td>
+						<td><a href="download/task/${task.taskId}" class="button border-main"><span class="icon-download">下载</span></a></td>
 						<td>${task.taskExpiry}</td>
 						<c:if test="${resultList[status.count-1].submit}">
 						<td><input type="text"

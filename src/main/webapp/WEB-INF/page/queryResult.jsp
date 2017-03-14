@@ -83,7 +83,7 @@
 							<td>是</td>
 							<td>
 								<div class="button-group">
-									<a class="button border-yellow" href="${ctx}/download/result/${taskId}/${result.stuId}"><span
+									<a class="button border-yellow" href="download/result/${taskId}/${result.stuId}"><span
 										class="icon-download"></span>下载作业</a>
 								</div>
 							</td>

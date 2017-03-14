@@ -30,9 +30,9 @@
 						<button type="button" class="button border-green" id="checkall">
 							<span class="icon-check"></span> 全选
 						</button>&nbsp;&nbsp;&nbsp;&nbsp;
-						<button type="button" class="button border-yellow" id="checkall">
+						<a href="javascript:;" class="button border-yellow" id="export">
 							<span class="icon-reply">导出</span>
-						</button>
+						</a>
 
 					</li>
 
@@ -76,6 +76,26 @@
 				
 				$("input[name='id[]']").prop('checked',true);
 			}
+		})
+		
+		$("#export").click(function(){
+			var idsStr = "";
+			$("input[name='id[]']").each(function(){
+				if (this.checked) {
+					 idsStr += this.value+",";
+				}
+					 
+			 });
+			idsStr = idsStr.substr(0,idsStr.lastIndexOf(","));
+			window.location.href="download/results/"+idsStr;
+			/* $.ajax({
+				type:"get",
+				url:"download/results/"+idsStr,
+				success:function(){},
+				error:function(str1,str2,str3){
+					alert("Sorry,下载出错！"+str1+str2);
+				}
+			}); */
 		})
 	</script>
 

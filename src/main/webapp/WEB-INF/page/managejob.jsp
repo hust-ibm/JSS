@@ -46,7 +46,7 @@
           <td><input type="checkbox" name="id[]" value="${task.taskId}" />
             ${status.count}</td>
           <td>${task.taskName}</td>
-          <td><button type="button" class="button border-main" ><span class="icon-download">下载</span></button></td>
+          <td><a href="download/task/${task.taskId}" class="button border-main" ><span class="icon-download">下载</span></a></td>
           <td>${task.taskExpiry}</td>  
           <td>
             <div class="button-group"> 
