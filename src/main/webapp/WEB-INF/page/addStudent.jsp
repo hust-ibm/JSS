@@ -19,14 +19,14 @@
 <div class="panel admin-panel">
   <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>导入学生名单</strong></div>
   <div class="body-content">
-    <form method="post" class="form-x" action="">  
+    <form method="post" class="form-x" action="importStudent" enctype="multipart/form-data">  
       
      <div class="form-group">
         <div class="label">
           <label>请选择学生名单：</label>
         </div>
         <div class="field">
-          <input type="file" class="input w50"  />
+          <input type="file" class="input w50" name="uploadfile" multiple="multiple"/>
           
         </div>
       </div>
