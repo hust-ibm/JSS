@@ -52,7 +52,7 @@ public class DownLoadServiceImpl implements DownLoadService {
         String filePath = task.getTaskPath();
         
         //作业的文件存放路径
-        String basePath = Config.task; // "E:\\jss\\task\\";
+        String basePath = Config.title; // "E:\\jss\\task\\";
         
         //所有作业的压缩文件的临时存放路径
         String zipPath = Config.tmpDir;//"E:\\jss\\tmp\\";
@@ -81,7 +81,7 @@ public class DownLoadServiceImpl implements DownLoadService {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		 //作业的文件存放路径
-        String basePath = Config.result; //"E:\\jss\\result\\";
+        String basePath = Config.task; //"E:\\jss\\result\\";
      
         //所有作业的压缩文件的临时存放路径
         String zipPath = Config.tmpDir;//"E:\\jss\\tmp\\";
@@ -134,7 +134,7 @@ public class DownLoadServiceImpl implements DownLoadService {
 			stuScoreMap.put(s, scoreList);
 		}
 		
-		String excelPath = "F:\\upload\\tmp\\";
+		String excelPath = Config.tmpDir;//"F:\\upload\\tmp\\";
 		String excelName = "学生成绩.xlsx";
 		
 		//创建成绩excel表
