@@ -48,7 +48,7 @@ public class TumController {
 		String stuId = "";
 		//验证当前用户是否还在线
 		if(stuName == null)
-			return "";
+			return "redirect:/";
 		else
 			stuId =  (String) request.getSession().getAttribute("id");
 		List<Task> taskList = new ArrayList<Task>();
@@ -92,7 +92,7 @@ public class TumController {
 		String stuId = "";
 		//验证当前用户是否还在线
 		if(stuName == null)
-			return "";
+			return "redirect:/";
 		else
 			stuId =  (String) request.getSession().getAttribute("id");
 		List<Task> taskList = new ArrayList<Task>();
