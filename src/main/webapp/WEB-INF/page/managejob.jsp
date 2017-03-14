@@ -25,11 +25,11 @@
     <div class="padding border-bottom">
       <ul class="search">
         <li>
-          <a class="button border-main icon-plus-square-o" href="addjob.html"> 添加作业</a>
+          <a class="button border-main icon-plus-square-o" href="addjob"> 添加作业</a>
           <button type="button" class="button border-green" id="checkall"><span class="icon-check"></span> 全选</button>
           <button type="submit" class="button border-red"><span class="icon-trash-o"></span> 批量删除</button>
         </li>
- 
+  
       </ul>
     </div>
     <table class="table table-hover text-center">
