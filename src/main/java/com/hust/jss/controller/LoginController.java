@@ -30,6 +30,7 @@ public class LoginController {
 	@RequestMapping(value = "/student", method = RequestMethod.POST)
 	public String studentLogin(Student stu, HttpServletRequest request) {
 		Student student = new Student();
+		request.getAttribute("id");
 		try {
 			student = studentService.findStudentInfoByStuId(stu.getStuId());
 		} catch (Exception e) {
@@ -37,16 +38,15 @@ public class LoginController {
 			e.printStackTrace();
 		}
 		request.getSession().setAttribute("id", student.getStuId());
-		request.getSession().setAttribute("name", student.getStuName());
-		String name = (String) request.getSession().getAttribute("name");
-		System.out.println(name);
+		request.getSession().setAttribute("stuName", student.getStuName());
+		request.getSession().removeAttribute("teaName");
 		return "/student";
 	}
 
 	@RequestMapping(value = "/student", method = RequestMethod.GET)
 	public String studentLoginGet(HttpServletRequest request) {
 
-		String name = (String) request.getSession().getAttribute("name");
+		String name = (String) request.getSession().getAttribute("stuName");
 		if (name != null)
 			return "/student";
 		else
@@ -64,14 +64,15 @@ public class LoginController {
 			e.printStackTrace();
 		}
 		request.getSession().setAttribute("id", teacher.getTeaId());
-		request.getSession().setAttribute("name", teacher.getTeaName());
+		request.getSession().setAttribute("teaName", teacher.getTeaName());
+		request.getSession().removeAttribute("stuName");
 		return "/teacher";
 	}
 	
 	@RequestMapping(value = "/teacher", method = RequestMethod.GET)
 	public String teacherLoginGet(HttpServletRequest request) {
 
-		String name = (String) request.getSession().getAttribute("name");
+		String name = (String) request.getSession().getAttribute("teaName");
 		if (name != null)
 			return "/teacher";
 		else

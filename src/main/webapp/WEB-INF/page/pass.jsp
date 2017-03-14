@@ -26,6 +26,7 @@
           <label for="sitename">原始密码：</label>
         </div>
         <div class="field">
+        <input id="info" type="text" style="display:none" data-stuname="${stuName}" data-teaname="${teaName}" name="id" value="${id}">
           <input type="password" class="input w50" id="mpass" name="mpass" size="50" placeholder="请输入原始密码" data-validate="required:请输入原始密码" />       
         </div>
       </div>      
@@ -57,4 +58,20 @@
     </form>
   </div>
 </div>
+<script type="text/javascript">
+	$("#mpass").blur(function(){
+		var stuName = $("#info").attr("data-stuname");
+		var teaName = $("#info").attr("data-teaname");
+		if(stuName != ""){
+			$(".form-x").attr("action","");
+		}else if(teaName != ""){
+			$(".form-x").attr("action","");
+		}else{
+			window.load("/");
+		}	
+	})
+	
+
+</script>
+
 </body></html>

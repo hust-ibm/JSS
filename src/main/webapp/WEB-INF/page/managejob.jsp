@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="${ctx}/css/pintuer.css">
     <link rel="stylesheet" href="${ctx}/css/admin.css">
      <!-- font-awesome图标 -->
-    <link rel="stylesheet" href="${ctx}/font-awesome/css/font-awesome.min.css">
 
 
     <script src="${ctx}/js/jquery.js"></script>
@@ -27,7 +26,7 @@
       <ul class="search">
         <li>
           <a class="button border-main icon-plus-square-o" href="addjob.html"> 添加作业</a>
-          <button type="button"  	 id="checkall"><span class="icon-check"></span> 全选</button>
+          <button type="button" class="button border-green" id="checkall"><span class="icon-check"></span> 全选</button>
           <button type="submit" class="button border-red"><span class="icon-trash-o"></span> 批量删除</button>
         </li>
  
@@ -41,13 +40,14 @@
         <th>截止时间</th>
         <th>操作</th>
            
-      </tr>      
+      </tr>  
+      <c:forEach items="${taskList}" varStatus="status" var="task">
         <tr>
-          <td><input type="checkbox" name="id[]" value="1" />
-            1</td>
-          <td>作业一</td>
-          <td><button type="button">下载</td>
-          <td>2017-03-15</td>  
+          <td><input type="checkbox" name="id[]" value="${task.taskId}" />
+            ${status.count}</td>
+          <td>${task.taskName}</td>
+          <td><button type="button" class="button border-main" ><span class="icon-download">下载</span></button></td>
+          <td>${task.taskExpiry}</td>  
           <td>
             <div class="button-group"> 
               <a class="button border-main" href="tum/addjob"><span class="icon-edit"></span> 修改</a>
@@ -55,23 +55,10 @@
             </div>
           </td>
         </tr>
-       <tr>
-          <td><input type="checkbox" name="id[]" value="1" />
-            2</td>
-          <td>作业二</td>
-          <td><button type="button">下载</td>
-          <td>2017-03-15</td>  
-          <td>
-            <div class="button-group"> 
-              <a class="button border-main" href="addjob.html"><span class="icon-edit"></span> 修改</a>
-              <a class="button border-red" href="javascript:void(0)" onclick="return del(1)"><span class="icon-trash-o"></span> 删除</a>
-            </div>
-          </td>
-        </tr>
-          
-      <tr>
+        </c:forEach>          
+      <!-- <tr>
         <td colspan="8"><div class="pagelist"> <a href="">上一页</a> <span class="current">1</span><a href="">2</a><a href="">3</a><a href="">下一页</a><a href="">尾页</a> </div></td>
-      </tr>
+      </tr> -->
     </table>
   </div>
 </form>
@@ -83,7 +70,7 @@ function del(id){
 	}
 }
 
-$("#checkall").click(function(){ 
+/* $("#checkall").click(function(){ 
   $("input[name='id[]']").each(function(){
 	  if (this.checked) {
 		  this.checked = false;
@@ -92,8 +79,16 @@ $("#checkall").click(function(){
 		  this.checked = true;
 	  }
   });
-})
-
+}) */
+$("#checkall").click(function() {
+			if ($("input[name='id[]']").is(":checked")) {
+				
+				$("input[name='id[]']").prop('checked',false);
+			} else {
+				
+				$("input[name='id[]']").prop('checked',true);
+			}
+		})
 function DelSelect(){
 	var Checkbox=false;
 	 $("input[name='id[]']").each(function(){
