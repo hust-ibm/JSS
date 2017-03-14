@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hust.jss.entity.Result;
 import com.hust.jss.entity.Task;
 import com.hust.jss.service.ResultService;
@@ -126,6 +128,16 @@ public class TumController {
 		}
 		model.addAttribute("taskList", list);
 		return "/queryResult";
+	}
+	@RequestMapping("/updatejob")
+	public String tumUpdateTask(HttpServletRequest request,Model model){
+		String taskId = (String) request.getParameter("taskId");
+		String taskName = (String) request.getParameter("taskName");
+		String taskExpiry = (String) request.getParameter("taskExpiry");
+		model.addAttribute("taskId", taskId);
+		model.addAttribute("taskName", taskName);
+		model.addAttribute("taskExpiry", taskExpiry);
+		return "/updatejob";
 	}
 	
 }

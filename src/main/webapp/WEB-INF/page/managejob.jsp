@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+        <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="ctx" value="${pageContext.request.contextPath }"></c:set>
 <!DOCTYPE html>
 <html lang="zh-cn">
@@ -47,10 +48,10 @@
             ${status.count}</td>
           <td>${task.taskName}</td>
           <td><a href="download/task/${task.taskId}" class="button border-main" ><span class="icon-download">下载</span></a></td>
-          <td>${task.taskExpiry}</td>  
+          <td><fmt:formatDate value="${task.taskExpiry}" pattern="yyyy-MM-dd HH:mm:ss" /></td>  
           <td>
             <div class="button-group"> 
-              <a class="button border-main" href="tum/addjob"><span class="icon-edit"></span> 修改</a>
+              <a name="edit" class="button border-main" href="javascript:;"><span class="icon-edit"></span> 修改</a>
               <a class="button border-red" href="javascript:void(0)" onclick="return del(1)"><span class="icon-trash-o"></span> 删除</a>
             </div>
           </td>
@@ -105,6 +106,15 @@ function DelSelect(){
 		return false;
 	}
 }
+
+$("a[name='edit']").click(function(){
+	var td= $(this).parent().parent().prevAll().eq(-1);
+	var taskId = td.children("input").val();
+	var taskName = td.next().text();
+	var taskExpiry = td.next().next().next().text();
+	var url="updatejob?taskId="+taskId+"&taskName="+taskName+"&taskExpiry="+taskExpiry;
+	window.location.href = url;
+})
 
 </script>
 </body></html>
