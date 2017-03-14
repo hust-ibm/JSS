@@ -1,6 +1,8 @@
 package com.hust.jss.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +59,27 @@ public class DownLoadController {
 		System.out.println("stuId: "+stuId);
         try {
             downLoadService.downloadResult(taskId,stuId,request,response);
+        }catch (ServletException e){
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+	
+	
+	@RequestMapping(value="/results/{taskIds}", method=RequestMethod.GET)
+	public void downloadAllResults(@PathVariable("taskIds") String taskIds,
+			HttpServletRequest request,HttpServletResponse response){
+		System.out.println("taskId: "+taskIds);
+		//将传来的id拼接成的字符串拆分为List<Integer>
+		List<Integer> ids = new ArrayList<Integer>();
+		String[] idStrs =taskIds.split(",");
+		for(String s : idStrs){
+			ids.add(Integer.valueOf(s));
+		}
+		
+        try {
+            downLoadService.downloadAllResults(ids,request,response);
         }catch (ServletException e){
             e.printStackTrace();
         }catch (IOException e){

@@ -1,6 +1,7 @@
 package com.hust.jss.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +26,16 @@ public interface DownLoadService {
 	 */
 	void downloadResult(int taskId,String stuId,  HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 
-	void downloadAllResult(int taskId, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
+	/**
+	 * 老师选择作业导出所有学生作业成绩
+	 * 导出格式：成绩.xlsx
+	 * @param taskId	作业ID
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	void downloadAllResults(List<Integer> taskIdList, HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException;
 
 	/**
 	 * 学生下载老师布置的作业（可能包含多个文件，打包下载）
