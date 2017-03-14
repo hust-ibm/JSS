@@ -12,20 +12,30 @@
 <title></title>
 <link rel="stylesheet" href="${ctx}/css/pintuer.css">
 <link rel="stylesheet" href="${ctx}/css/admin.css">
+
+<link rel="stylesheet" href="${ctx}/css/bootstrap.css">
+<link rel="stylesheet" href="${ctx}/css/bootstrap-datetimepicker.min.css">
+
 <script src="${ctx}/js/jquery.js"></script>
 <script src="${ctx}/js/pintuer.js"></script>
+
+<script src="${ctx}/js/jquery-1.8.3.min.js"></script>
+<script src="${ctx}/js/bootstrap.js"></script>
+<script src="${ctx}/js/bootstrap-datetimepicker.js"></script>
+<script src="${ctx}/js/bootstrap-datetimepicker.zh-CN.js"></script>
+
 </head>
 <body>
 <div class="panel admin-panel">
   <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>增加作业</strong></div>
   <div class="body-content">
-    <form method="post" class="form-x" action="managejob.html">  
+    <form method="post" class="form-x" action="uploadtask" enctype="multipart/form-data">  
       <div class="form-group">
         <div class="label">
           <label>作业名：</label>
         </div>
         <div class="field">
-          <input type="text" class="input w50" value=""  data-validate="required:请输入作业名" />
+          <input type="text" name="taskname" class="input w50" value=""  data-validate="required:请输入作业名" />
           <div class="tips"></div>
         </div>
       </div>
@@ -34,7 +44,7 @@
           <label>题目内容：</label>
         </div>
         <div class="field">
-          <input type="file"  class="input w50" data-validate="required:请选择文件" >
+          <input type="file"  class="input w50" data-validate="required:请选择文件" multiple="multiple" name="uploadfile">
         </div>
       </div>     
       
@@ -43,13 +53,12 @@
         <div class="label">
           <label>截止时间：</label>
         </div>
-        <div class="field"> 
-          <script src="js/laydate/laydate.js"></script>
-          <input type="text" class="laydate-icon input w50" name="datetime" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" value=""  data-validate="required:日期不能为空" style="padding:10px!important; height:auto!important;border:1px solid #ddd!important;" />
-          <div class="tips"></div>
+        <div class="input-append date form_datetime">
+          <input class="input w50" type="text" style="cursor: text;background-color:white;text-align:center" name="datetime">
+          <span class="add-on"><i class="icon-th"></i></span>
         </div>
       </div>
-     
+         
       <div class="form-group">
         <div class="label">
           <label></label>
@@ -62,4 +71,15 @@
   </div>
 </div>
 
+
+<script type="text/javascript">
+    $(".form_datetime").datetimepicker({
+      format: "yyyy-mm-dd hh:ii",
+      autoclose: true,
+      todayBtn: true,
+      language:'zh-CN',
+      pickerPosition:"bottom-left"
+    });
+    
+  </script>
 </body></html>

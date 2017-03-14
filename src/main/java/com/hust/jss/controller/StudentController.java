@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.hust.jss.entity.Result;
 import com.hust.jss.service.ResultService;
 import com.hust.jss.service.StudentService;
+import com.hust.jss.utils.Config;
 import com.hust.jss.utils.UploadUtils;
 
 @Controller
@@ -23,16 +24,18 @@ public class StudentController {
 	//学生上交作业
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public String upload(HttpServletRequest request,
-			@RequestParam(value="taskName") String taskName,
+			@RequestParam(value="taskname") String taskName,
 			@RequestParam(value="taskid") int taskid,
 			@RequestParam(value = "uploadfile", required = false) MultipartFile[] uploadfile)
 	{
-		
+		String currentID=(String) request.getSession().getAttribute("id");
+		String road=Config.task+taskName+"/"+currentID;
 		UploadUtils up = new UploadUtils();
-		if(up.uploadUtils(uploadfile, taskName))
+		if(up.uploadUtils(uploadfile, road))
 		{
 			//获得当前用户id
-			String currentID=(String) request.getSession().getAttribute("id");
+			System.out.println("$$$$$"+taskName);
+			System.out.println("$$$$$"+taskid);
 			//根据作业ID，和用户ID。修改result表中的submit状态
 			Result result = new Result();
 			result.setStuId(currentID);
@@ -46,7 +49,7 @@ public class StudentController {
 				e.printStackTrace();
 			}	
 		}
-		return"/joblist";  //返回作业列表
+		return"redirect:/joblist";  //返回作业列表
 		
 	}
 	

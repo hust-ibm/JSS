@@ -7,29 +7,27 @@ import org.springframework.web.multipart.MultipartFile;
 public class UploadUtils {
 	
 	//上传
-		public boolean uploadUtils(MultipartFile[] uploadfile,String taskname)
+		public boolean uploadUtils(MultipartFile[] uploadfile,String road)
 		{
 			if(uploadfile!=null && uploadfile.length > 0) 
 			{
 				for(MultipartFile file:uploadfile)
 				{
+					
 					//设置上传文件位置
 	        		String uploadpath = file.getOriginalFilename();  //获取文件名
 	        		System.out.println("hahahah"+uploadpath);  
-	        	    String path=Config.task+taskname;  //路径
-	        	    System.out.println("***********"+path); 
 	                //创建文件夹
-	        	    File uploadtargetFile = new File(path,uploadpath);
+	        	    File uploadtargetFile = new File(road,uploadpath);
 					//判断文件是否存在
 	        	    isExists(uploadtargetFile);
 					//保存文件
-					if (saveFile(file, uploadtargetFile)) {
-						
-						return true;
+					if (saveFile(file, uploadtargetFile)) {	
 						
 					}
 				    
 				}
+				return true;
 			}
 			
 			return false;
@@ -62,6 +60,6 @@ public class UploadUtils {
 	            }  
 	        }  
 	        return false;  
-	    }  
+	    }
 
 }
