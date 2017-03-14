@@ -15,7 +15,7 @@
 <body style="background-color:#f2f9fd;">
 <div class="header bg-main">
   <div class="logo margin-big-left fadein-top">
-    <h1><img src="./img/logo.png" class="rotate-hover" height="50" alt="" />作业提交系统</h1>
+    <h1><img src="./images/logo.png" class="rotate-hover" height="50" alt="" />作业提交系统</h1>
   </div>
   <div class="head-l" style="float:right"><span style="color: white; font-size:16px">亲爱的：${stuName}同学</span> &nbsp;&nbsp;<a class="button button-little bg-red" href="logout"><span class="icon-power-off"></span> 退出登录</a> </div>
 </div>
