@@ -21,7 +21,7 @@
 <script src="${ctx}/js/pintuer.js"></script>
 </head>
 <body>
-	<form method="post" action="upload" enctype="multipart/form-data">
+	
 		<div class="panel admin-panel">
 			<div class="panel-head">
 				<strong class="icon-reorder"> 作业列表</strong>
@@ -37,8 +37,10 @@
 					<th>上交作业</th>
 					<th>操作</th>
 				</tr>
-
+</table>
 				<c:forEach items="${taskList}" var="task" varStatus="status">
+				<form method="post" action="upload" enctype="multipart/form-data">
+				<table class="table table-hover text-center">
 					<tr>
 						<td>${status.count}</td>
 						<td style="display: none"><input type="text" name="taskid"
@@ -46,7 +48,7 @@
 						<td><input type="text"
 							style="cursor: text; background-color: white; border: none; text-align: center"
 							name="taskname" value="${task.taskName}" readonly="readonly" /></td>
-						<td><button class="button border-main"><span class="icon-download">下载</span></button></td>
+						<td><a href="download/task/${task.taskId}" class="button border-main"><span class="icon-download">下载</span></a></td>
 						<td>${task.taskExpiry}</td>
 						<c:if test="${resultList[status.count-1].submit}">
 						<td><input type="text"
@@ -69,6 +71,8 @@
 						</c:if>
 						
 					</tr>
+					</table>
+					</form>
 				</c:forEach>
 
 <!-- 
@@ -78,9 +82,13 @@
 								href="">3</a><a href="">下一页</a><a href="">尾页</a>
 						</div></td>
 				</tr> -->
-			</table>
+			
 		</div>
-	</form>
-
+	
+<script type="text/javascript">
+		$(":submit.border-red").click(function() {
+			alert("答案已存在是否覆盖？");
+		})
+	</script>
 </body>
 </html>
