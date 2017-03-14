@@ -7,4 +7,7 @@ public class Config {
 	//存放学生提交的作业，格式为E://upload//task//作业名
 	public static String task = "F:\\upload\\task\\";
 
+	public static String result = "F:\\upload\\result\\";
+
+	public static String tmpDir = "F:\\upload\\tmp\\";
 }
