@@ -55,6 +55,14 @@ public interface TaskService {
 	 * @return
 	 */
 	public Task findTaskByTaskId(Integer taskId) throws Exception;
+	
+	/**
+	 * 根据作业name查找作业
+	 * @param taskName
+	 * @return
+	 */
+	public Task findTaskByTaskName(String taskName) throws Exception;
+	
 	/**
 	 * 查找所有作业
 	 * @return

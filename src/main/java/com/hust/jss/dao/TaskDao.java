@@ -39,6 +39,13 @@ public interface TaskDao {
 	Task selectByTaskId(Integer taskId);
 
 	/**
+	 * 通过taskName查询作业
+	 * @param taskName
+	 * @return
+	 */
+	Task selectByTaskName(String taskName);
+
+	/**
 	 * 查询所有作业 
 	 * @return
 	 */

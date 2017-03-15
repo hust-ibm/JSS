@@ -3,15 +3,13 @@ package com.hust.jss.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestMethod;
 import com.alibaba.fastjson.JSONObject;
 import com.hust.jss.entity.Result;
 import com.hust.jss.entity.Student;
@@ -77,7 +75,7 @@ public class teacherController {
 		model.addAttribute("taskId", taskId);
 		return "/queryResult";
 	}
-	@RequestMapping("/updateResult")
+	@RequestMapping(value ="/updateResult",method = RequestMethod.POST)
 	public void updateResult(@RequestBody JSONObject json,HttpServletResponse response){
 		String stuId = json.getString("stuId");
 		Integer taskId = json.getInteger("taskId");
@@ -102,4 +100,7 @@ public class teacherController {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
 }

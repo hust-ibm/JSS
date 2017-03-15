@@ -66,4 +66,10 @@ public class TaskServiceImpl implements TaskService {
 		return taskDao.selectAllTask();
 	}
 
+	@Override
+	public Task findTaskByTaskName(String taskName) throws Exception {
+		// TODO Auto-generated method stub
+		return taskDao.selectByTaskName(taskName);
+	}
+
 }

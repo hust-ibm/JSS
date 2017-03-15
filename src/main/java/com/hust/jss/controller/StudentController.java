@@ -24,24 +24,21 @@ public class StudentController {
 	//学生上交作业
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
 	public String upload(HttpServletRequest request,
-			@RequestParam(value="taskname") String taskName,
 			@RequestParam(value="taskid") int taskid,
 			@RequestParam(value = "uploadfile", required = false) MultipartFile[] uploadfile)
 	{
 		String currentID=(String) request.getSession().getAttribute("id");
-		String road=Config.task+taskName+"/"+currentID;
+		String road=Config.task+taskid+"/"+currentID;
 		UploadUtils up = new UploadUtils();
 		if(up.uploadUtils(uploadfile, road))
 		{
 			//获得当前用户id
-			System.out.println("$$$$$"+taskName);
 			System.out.println("$$$$$"+taskid);
 			//根据作业ID，和用户ID。修改result表中的submit状态
 			Result result = new Result();
 			result.setStuId(currentID);
 			result.setTaskId(taskid);
 			result.setSubmit(true);
-			result.setScore(9);
 			try {
 				resultService.updateResult(result);
 			} catch (Exception e) {

@@ -19,6 +19,14 @@
     from task
     where task_id = #{taskId}
   </select>
+  
+  <select id="selectByTaskName" parameterType="String" resultMap="TaskMap">
+    select 
+    <include refid="Base_Column_List" />
+    from task
+    where task_name = #{taskName}
+  </select>
+  
   <select id="selectAllTask" resultMap="TaskMap">
     select 
     <include refid="Base_Column_List" />
