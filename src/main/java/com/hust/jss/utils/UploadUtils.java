@@ -1,6 +1,8 @@
 package com.hust.jss.utils;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -62,4 +64,33 @@ public class UploadUtils {
 	        return false;  
 	    }
 
+		//以数组的形式返回上传文件的文件名，包括后缀
+		public List<String> upload(MultipartFile[] uploadfile,String road)
+		{
+			List<String> result=new ArrayList<String>();
+			if(uploadfile!=null && uploadfile.length > 0) 
+			{
+				for(MultipartFile file:uploadfile)
+				{
+					
+					//设置上传文件位置
+	        		String uploadpath = file.getOriginalFilename();  //获取文件名
+	        		System.out.println("hahahah"+uploadpath);  
+	        		System.out.println("&&&&"+uploadpath);  
+	                //创建文件夹
+	        	    File uploadtargetFile = new File(road,uploadpath);
+					//判断文件是否存在
+	        	    isExists(uploadtargetFile);
+					//保存文件
+					if (saveFile(file, uploadtargetFile)) {	
+						
+						result.add(uploadpath);
+					}
+				    
+				}
+				
+			}
+			
+			return result;
+		}
 }
