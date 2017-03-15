@@ -35,7 +35,7 @@
           <label>作业名：</label>
         </div>
         <div class="field">
-          <input type="text" name="taskname" class="input w50" value=""  data-validate="required:请输入作业名" />
+          <input type="text" name="taskname" class="input w50" value=""  data-validate="required:请输入作业名,ajax#taskIsExist?taskname=:作业名已存在" />
           <div class="tips"></div>
         </div>
       </div>
@@ -44,7 +44,7 @@
           <label>题目内容：</label>
         </div>
         <div class="field">
-          <input type="file"  class="input w50" data-validate="required:请选择文件" multiple="multiple" name="uploadfile">
+          <input type="file" accept="application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.pdf"  class="input w50" data-validate="required:请选择文件" multiple="multiple" name="uploadfile">
         </div>
       </div>     
       

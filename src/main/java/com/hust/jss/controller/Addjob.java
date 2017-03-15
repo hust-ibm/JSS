@@ -1,5 +1,6 @@
 package com.hust.jss.controller;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hust.jss.entity.Result;
 import com.hust.jss.entity.Student;
 import com.hust.jss.entity.Task;
@@ -106,9 +109,10 @@ public class Addjob {
 			return "redirect:/managejob"; 
 	
 	}
-	
-	private boolean taskIsExist(String taskname)
+	@RequestMapping("/taskIsExist")
+	public void taskIsExist(String taskname,HttpServletResponse response)
 	{
+		String flag = "true";
 	    List<Task> tasks = new ArrayList<Task>();
 	    //存放所有的作业
 	    try {
@@ -120,10 +124,17 @@ public class Addjob {
 	    for (Task task : tasks) {
 			if(task.getTaskName().equals(taskname))
 			{
-				return false;
+				flag =  "false";
 			}
-		}	    
-	    return true;
+		}	
+	    JSONObject json = new JSONObject();
+	    json.put("getdata", flag);
+	    try {
+			response.getWriter().print(json);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 

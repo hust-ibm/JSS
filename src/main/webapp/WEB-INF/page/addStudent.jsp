@@ -26,7 +26,7 @@
           <label>请选择学生名单：</label>
         </div>
         <div class="field">
-          <input type="file" class="input w50" name="uploadfile" multiple="multiple"/>
+          <input type="file" class="input w50" accept="application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" name="uploadfile" multiple="multiple"/>
           
         </div>
       </div>
