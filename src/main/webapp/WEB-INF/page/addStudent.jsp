@@ -37,11 +37,20 @@
           <label></label>
         </div>
         <div class="field">
-          <button class="button bg-main icon-check-square-o" type="submit"> 提交</button>
+          <button disabled="disabled" class="button bg-main icon-check-square-o" type="submit"> 提交</button>
         </div>
       </div>
     </form>
   </div>
 </div>
-
+<script type="text/javascript">
+$(":file").change(function(){
+	var button = $(":submit");
+	if($(this).val()!=""){
+		button.removeAttr("disabled");
+	}else{
+		button.attr("disabled","disabled");
+	}		
+})
+</script>
 </body></html>

@@ -68,6 +68,9 @@
 		 }
 		 });
 		 })  */
+		 
+		 
+		 
 		$("#checkall").click(function() {
 			if ($("input[name='id[]']").is(":checked")) {
 				

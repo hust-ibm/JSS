@@ -20,7 +20,7 @@
     <script src="${ctx}/js/pintuer.js"></script>  
 </head>
 <body>
-<form method="post" action="">
+<form method="post" onsubmit="return false;">
   <div class="panel admin-panel">
     <div class="panel-head"><strong class="icon-reorder"> 作业列表</strong></div>
     <div class="padding border-bottom">
@@ -28,7 +28,7 @@
         <li>
           <a class="button border-main icon-plus-square-o" href="addjob"> 添加作业</a>
           <button type="button" class="button border-green" id="checkall"><span class="icon-check"></span> 全选</button>
-          <button type="submit" class="button border-red"><span class="icon-trash-o"></span> 批量删除</button>
+          <button class="button border-red"><span class="icon-trash-o"></span> 批量删除</button>
         </li>
   
       </ul>
@@ -52,7 +52,7 @@
           <td>
             <div class="button-group"> 
               <a name="edit" class="button border-main" href="javascript:;"><span class="icon-edit"></span> 修改</a>
-              <a class="button border-red" href="javascript:void(0)" onclick="return del(1)"><span class="icon-trash-o"></span> 删除</a>
+              <a class="button border-red" href="javascript:void(0)" ><span class="icon-trash-o"></span> 删除</a>
             </div>
           </td>
         </tr>
@@ -70,6 +70,10 @@ function del(id){
 		
 	}
 }
+
+$(".border-red").click(function(){
+	alert("该功能未开放，如有需求请选择修改操作！")
+})
 
 /* $("#checkall").click(function(){ 
   $("input[name='id[]']").each(function(){
