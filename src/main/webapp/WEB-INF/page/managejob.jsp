@@ -20,6 +20,7 @@
     <script src="${ctx}/js/pintuer.js"></script>  
 </head>
 <body>
+<i id="i_info" data-info="${teaName}" style="display: none;"></i>
 <form method="post" onsubmit="return false;">
   <div class="panel admin-panel">
     <div class="panel-head"><strong class="icon-reorder"> 作业列表</strong></div>
@@ -64,6 +65,16 @@
   </div>
 </form>
 <script type="text/javascript">
+
+//验证session是否有效
+{
+
+	var name = $("#i_info").attr("data-info");
+	if(name==""){
+		top.location="./";
+	}
+	
+}
 
 function del(id){
 	if(confirm("您确定要删除吗?")){

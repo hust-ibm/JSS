@@ -22,7 +22,7 @@
 <script src="${ctx}/js/pintuer.js"></script>
 </head>
 <body>
-	
+	<i id="i_info" data-info="${stuName}" style="display: none;"></i>
 		<div class="panel admin-panel">
 			<div class="panel-head">
 				<strong class="icon-reorder"> 作业列表</strong>
@@ -87,6 +87,16 @@
 		</div>
 	
 <script type="text/javascript">
+//验证session是否有效
+{
+
+	var name = $("#i_info").attr("data-info");
+	if(name==""){
+		top.location="./";
+	}
+	
+}
+
 		function upload(){
 			return confirm("作业已存在，是否覆盖？");
 		}

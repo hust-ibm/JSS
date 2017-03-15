@@ -72,4 +72,10 @@ public class TaskServiceImpl implements TaskService {
 		return taskDao.selectByTaskName(taskName);
 	}
 
+	@Override
+	public int updateTask(Task task) throws Exception {
+		// TODO Auto-generated method stub
+		return taskDao.updateByTaskIdSelective(task);
+	}
+
 }

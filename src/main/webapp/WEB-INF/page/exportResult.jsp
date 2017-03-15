@@ -19,6 +19,9 @@
 <script src="${ctx}/js/pintuer.js"></script>
 </head>
 <body>
+
+<i id="i_info" data-info="${teaName}" style="display: none;"></i>
+
 	<form method="post" action="">
 		<div class="panel admin-panel">
 			<div class="panel-head">
@@ -68,7 +71,15 @@
 		 }
 		 });
 		 })  */
-		 
+		//验证session是否有效
+		 {
+
+		 	var name = $("#i_info").attr("data-info");
+		 	if(name==""){
+		 		top.location="./";
+		 	}
+		 	
+		 }
 		 
 		 
 		$("#checkall").click(function() {

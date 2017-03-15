@@ -1,8 +1,11 @@
 package com.hust.jss.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
 import com.alibaba.fastjson.JSONObject;
 import com.hust.jss.entity.Result;
 import com.hust.jss.entity.Student;
@@ -17,9 +23,12 @@ import com.hust.jss.entity.Task;
 import com.hust.jss.service.ResultService;
 import com.hust.jss.service.StudentService;
 import com.hust.jss.service.TaskService;
+import com.hust.jss.utils.Config;
+import com.hust.jss.utils.FileUtils;
+import com.hust.jss.utils.UploadUtils;
 
 @Controller
-public class teacherController {
+public class TeacherController {
 	@Autowired
 	private ResultService resultService;
 	@Autowired
@@ -101,6 +110,40 @@ public class teacherController {
 		}
 	}
 	
+	
+	@RequestMapping("/updatetask")
+	public String updateTask(HttpServletRequest request,
+			@RequestParam(value="taskid") Integer taskId,
+			@RequestParam(value="taskname") String taskName,
+			@RequestParam(value="datetime") String datetime,
+			@RequestParam(value = "uploadfile", required = false) MultipartFile[] uploadfile){
+		
+		Task task = new Task();
+		String oldUrl = "";
+		String newUrl = "";
+		boolean flag = false;
+		try {
+			task = taskService.findTaskByTaskId(taskId);
+			oldUrl = Config.title+task.getTaskName();
+			newUrl = Config.title+taskName;
+			taskService.updateTask(task);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		File oldDir = new File(oldUrl); 
+		if(uploadfile[0].getSize() == 0){//未选择上传文件,只修改文件夹名字
+			flag = oldDir.renameTo(new File(newUrl));
+			if(flag)
+				System.out.println("文件名修改成功");
+		}else{//选择上传文件，删除原来的文件，新建文件并写入上传的文件
+			FileUtils fu= new FileUtils();
+			fu.deleteFile(oldDir);
+			UploadUtils up = new UploadUtils();
+			up.uploadUtils(uploadfile, newUrl);
+		}
+		return "redirect:/managejob"; 
+	}
 	
 	
 }

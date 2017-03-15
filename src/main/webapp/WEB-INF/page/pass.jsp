@@ -67,7 +67,7 @@
 		}else if(teaName != ""){
 			$(".form-x").attr("action","modifyTeaPassword");
 		}else{
-			window.load("/");
+			top.location="./";
 		}	
 	})
 	

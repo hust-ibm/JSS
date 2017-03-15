@@ -26,6 +26,7 @@
 
 </head>
 <body>
+<i id="i_info" data-info="${teaName}" style="display: none;"></i>
 <div class="panel admin-panel">
   <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>增加作业</strong></div>
   <div class="body-content">
@@ -54,7 +55,7 @@
           <label>截止时间：</label>
         </div>
         <div class="input-append date form_datetime">
-          <input class="input w50" type="text" style="cursor: text;background-color:white;text-align:center" name="datetime">
+          <input class="input w50" type="text" data-validate="required:请选择时间" style="cursor: text;background-color:white;text-align:center" name="datetime">
           <span class="add-on"><i class="icon-th"></i></span>
         </div>
       </div>
@@ -73,13 +74,21 @@
 
 
 <script type="text/javascript">
+{
+
+	var name = $("#i_info").attr("data-info");
+	if(name==""){
+		top.location="./";
+	}
+	
+}
+
     $(".form_datetime").datetimepicker({
       format: "yyyy-mm-dd hh:ii",
       autoclose: true,
       todayBtn: true,
       language:'zh-CN',
       pickerPosition:"bottom-left"
-    });
-    
+    });    
   </script>
 </body></html>

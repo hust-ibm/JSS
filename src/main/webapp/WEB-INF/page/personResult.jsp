@@ -22,6 +22,8 @@
 <script src="${ctx}/js/pintuer.js"></script>
 </head>
 <body>
+<i id="i_info" data-info="${stuName}" style="display: none;"></i>
+
 	<form method="post" action="">
 		<div class="panel admin-panel">
 			<div class="panel-head">
@@ -51,6 +53,17 @@
 			</table>
 		</div>
 	</form>
+<script type="text/javascript">
+//验证session是否有效
+{
 
+	var name = $("#i_info").attr("data-info");
+	if(name==""){
+		top.location="./";
+	}
+	
+}
+
+</script>
 </body>
 </html>

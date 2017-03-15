@@ -36,6 +36,13 @@ public interface TaskService {
 	 */
 	public int updateTaskRuleByTaskId(Integer taskId, String taskRule) throws Exception;
 	/**
+	 * 根据所给对象选择更新task
+	 * @param task
+	 * @return
+	 * @throws Exception
+	 */
+	public int updateTask(Task task)throws Exception;
+	/**
 	 * 根据作业id更新作业截止时间
 	 * @param taskId
 	 * @param taskExpiry
