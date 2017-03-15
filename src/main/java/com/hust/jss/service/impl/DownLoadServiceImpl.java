@@ -89,6 +89,8 @@ public class DownLoadServiceImpl implements DownLoadService {
         File resultDir = new File(basePath+taskId+"\\"+stuId);
         if(!resultDir.exists()){
         	System.out.println("作业文件不存在");
+        	response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("<html><body><h2>Sorry!不存在该文件!</h2></body></html>");
         	return;
         }
         

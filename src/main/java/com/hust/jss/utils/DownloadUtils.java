@@ -103,7 +103,7 @@ public class DownloadUtils {
         if(!file.exists()){
             System.out.println("不存在该文件!");
             response.setCharacterEncoding("UTF-8");
-            response.getWriter().write("不存在该文件!");
+            response.getWriter().write("<html><body><h2>Sorry!不存在该文件!</h2></body></html>");
             return;//文件不存在就退出方法
         }
         System.out.println(fileName);
