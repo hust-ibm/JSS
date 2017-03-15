@@ -51,6 +51,9 @@ public class DownLoadServiceImpl implements DownLoadService {
 		//获取作业文件名（带扩展名）
         String filePath = task.getTaskPath();
         
+        String zipfileName = task.getTaskName() + ".zip";//
+        //"Task" + task.getTaskId()
+        
         //作业的文件存放路径
         String basePath = Config.title; // "E:\\jss\\task\\";
         
@@ -59,14 +62,20 @@ public class DownLoadServiceImpl implements DownLoadService {
         
         System.out.println(basePath+filePath);
         
-        String zipfileName = task.getTaskName() + ".zip";//
-        //"Task" + task.getTaskId()
+        File taskDir = new File(basePath+task.getTaskName());
+        if(!taskDir.exists()){
+        	System.out.println("作业文件不存在");
+        	response.setCharacterEncoding("UTF-8");
+            response.getWriter().write("<html><body><h2>Sorry!不存在该文件!</h2></body></html>");
+        	return;
+        }
+       
         
         File file = new File(zipPath+zipfileName);
         
         if(!file.exists()){
         	System.out.println(file.exists());
-        	DownloadUtils.fileToZip(basePath, zipPath, zipfileName);
+        	DownloadUtils.fileToZip(basePath+task.getTaskName(), zipPath, zipfileName);
         	
         }
         
@@ -94,7 +103,9 @@ public class DownLoadServiceImpl implements DownLoadService {
         	return;
         }
         
-        String zipfileName = "Task" + taskId + "_" + stuId + ".zip";
+        Task task = taskDao.selectByTaskId(taskId);
+        
+        String zipfileName = "Task" + taskId +task.getTaskName() + "_" + stuId + ".zip";
         File file = new File(zipPath+zipfileName);
         
         if(!file.exists()){
