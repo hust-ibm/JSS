@@ -118,14 +118,14 @@
 	
 	
 	//验证session是否有效
-	{
+/* 	{
 
 		var name = $("#i_info").attr("data-info");
 		if(name==""){
 			top.location="./";
 		}
 		
-	}
+	} */
 	
 	
 	var scoreFlag = false;

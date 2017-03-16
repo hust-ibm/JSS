@@ -74,14 +74,7 @@
 
 
 <script type="text/javascript">
-{
 
-	var name = $("#i_info").attr("data-info");
-	if(name==""){
-		top.location="./";
-	}
-	
-}
 
     $(".form_datetime").datetimepicker({
       format: "yyyy-mm-dd hh:ii",

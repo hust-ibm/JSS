@@ -67,14 +67,14 @@
 <script type="text/javascript">
 
 //验证session是否有效
-{
+/* {
 
 	var name = $("#i_info").attr("data-info");
 	if(name==""){
 		top.location="./";
 	}
 	
-}
+} */
 
 function del(id){
 	if(confirm("您确定要删除吗?")){

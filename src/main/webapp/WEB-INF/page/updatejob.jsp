@@ -80,14 +80,14 @@
 <script type="text/javascript">
 
 //验证session是否有效
-{
+/* {
 
 	var name = $("#i_info").attr("data-info");
 	if(name==""){
 		top.location="./";
 	}
 	
-}
+} */
 
 
     $(".form_datetime").datetimepicker({

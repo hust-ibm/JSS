@@ -72,7 +72,7 @@
 		 });
 		 })  */
 		//验证session是否有效
-		 {
+/* 		 {
 
 		 	var name = $("#i_info").attr("data-info");
 		 	if(name==""){
@@ -80,7 +80,7 @@
 		 	}
 		 	
 		 }
-		 
+		  */
 		 
 		$("#checkall").click(function() {
 			if ($("input[name='id[]']").is(":checked")) {

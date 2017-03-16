@@ -88,14 +88,14 @@
 	
 <script type="text/javascript">
 //验证session是否有效
-{
+/* {
 
 	var name = $("#i_info").attr("data-info");
 	if(name==""){
 		top.location="./";
 	}
 	
-}
+} */
 
 		function upload(){
 			return confirm("作业已存在，是否覆盖？");
