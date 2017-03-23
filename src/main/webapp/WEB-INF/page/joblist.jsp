@@ -105,7 +105,6 @@ var taskId;
 		$(":submit").click(function(){
 			var td = $(this).parent().prevAll("td[data-name='id']");
 			taskId = td.find(":text[name='taskid']").val();
-			alert(taskId);
 		})
 		function checkTime(){
 			var actionFlag = false;
