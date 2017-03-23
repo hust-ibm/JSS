@@ -136,8 +136,6 @@ var taskId;
 			if(actionFlag == false){
 				alert("已超过规定时间，无法完成作业提交！");
 			}
-			if(actionFlag == true)
-				alert("在规定时间范围内，以完成提交！");
 			return actionFlag;
 		}		
 		
