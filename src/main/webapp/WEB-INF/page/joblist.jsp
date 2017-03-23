@@ -25,7 +25,7 @@
 	<i id="i_info" data-info="${stuName}" style="display: none;"></i>
 		<div class="panel admin-panel">
 			<div class="panel-head">
-				<strong class="icon-reorder"> 作业列表</strong>
+				<strong class="icon-reorder">作业列表</strong>
 			</div>
 
 			<table class="table table-hover text-center">
@@ -40,17 +40,17 @@
 				</tr>
 <!-- </table> -->
 				<c:forEach items="${taskList}" var="task" varStatus="status">
-				<form method="post" action="upload" enctype="multipart/form-data">
+				<form method="post" action="upload" onsubmit="return checkTime();" enctype="multipart/form-data">
 	<!-- 			<table class="table table-hover text-center"> -->
 					<tr>
 						<td width="120" >${status.count}</td>
-						<td style="display: none"><input type="text" name="taskid"
+						<td data-name="id" style="display: none"><input type="text" name="taskid"
 							value="${task.taskId}" /></td>
 						<td><input type="text"
 							style="cursor: text; background-color: white; border: none; text-align: center"
 							name="taskname" value="${task.taskName}" readonly="readonly" /></td>
 						<td><a href="download/task/${task.taskId}" class="button border-main"><span class="icon-download">下载</span></a></td>
-						<td><fmt:formatDate value="${task.taskExpiry}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+						<td data-name="time"><fmt:formatDate value="${task.taskExpiry}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
 						<c:if test="${resultList[status.count-1].submit}">
 						<td><input type="text"
 							style="background-color: white; border: none; text-align: center; width: 100px;"
@@ -96,10 +96,51 @@
 	}
 	
 } */
+var taskId;
 
 		function upload(){
-			return confirm("作业已存在，是否覆盖？");
+			return confirm("作业已提交过，如存在同名文件，将会覆盖，是否继续？");
 		}
+ 	
+		$(":submit").click(function(){
+			var td = $(this).parent().prevAll("td[data-name='id']");
+			taskId = td.find(":text[name='taskid']").val();
+			alert(taskId);
+		})
+		function checkTime(){
+			var actionFlag = false;
+			$.ajax({
+				type : "POST",
+				url : "checkTime",
+				contentType : "application/json;charset=utf-8",
+				data : JSON
+						.stringify({
+							"taskId" : taskId
+						}),
+				async : false,
+				dataType : "json",
+				success : function(result, status) {
+					var flag = result.flag;
+					if (flag == -1) {						
+						actionFlag = false;
+					} else if (flag == 0) {						
+						actionFlag = true;
+					} else {
+						actionFlag = false;
+					}
+					/*  */
+				},
+				error : function(str1, str2, str3) {
+					alert("网络出现问题！")
+				}
+			});			
+			if(actionFlag == false){
+				alert("已超过规定时间，无法完成作业提交！");
+			}
+			if(actionFlag == true)
+				alert("在规定时间范围内，以完成提交！");
+			return actionFlag;
+		}		
 		
 		$(":file").change(function(){
 			var button = $(this).parent().next().children(":submit");
