@@ -119,7 +119,9 @@ public class DownLoadServiceImpl implements DownLoadService {
 			throws ServletException, IOException {
 		//所有学生的集合
 		List<Student> stuList = new ArrayList<Student>();
-				
+
+		//存放作业名的列表
+		List<String> tasknameList = new ArrayList<String>();
 		//学生-作业（多个）分数 Map
 		Map<Student,List<Integer>> stuScoreMap = new HashMap<>();
 			
@@ -134,6 +136,9 @@ public class DownLoadServiceImpl implements DownLoadService {
 				Result r = new Result();
 				r.setStuId(stuId);
 				r.setTaskId(taskId);
+				if(stuList.indexOf(s) == 0){
+					tasknameList.add(taskDao.selectByTaskId(taskId).getTaskName());
+				}
 				Integer score = 0;
 				if(resultDao.selectByPrimaryKey(r) != null){
 					score = resultDao.selectByPrimaryKey(r).getScore();
@@ -149,15 +154,15 @@ public class DownLoadServiceImpl implements DownLoadService {
 		String excelName = "学生成绩.xls";
 		
 		//创建成绩excel表
-		toExcel(taskIdList,stuScoreMap,excelPath+excelName);
+		toExcel(tasknameList,stuScoreMap,excelPath+excelName);
 		
 		//下载excel文件
 		DownloadUtils.download(excelPath, excelName, request, response);
 	}
 	
-	 public void toExcel(List<Integer> taskIdList ,Map<Student,List<Integer>> stuScoreMap , String path) {
+	 public void toExcel(List<String> tasknameList ,Map<Student,List<Integer>> stuScoreMap , String path) {
 	 	
-		int colSize = taskIdList.size();
+		int colSize = tasknameList.size();
         System.out.println("colSize:"+colSize);
 
         HSSFWorkbook wb = new HSSFWorkbook();
@@ -170,7 +175,7 @@ public class DownLoadServiceImpl implements DownLoadService {
         value[0][0] = "学号";
         value[0][1] = "姓名";
         for (int m = 2; m < colSize + 2; m++) {
-            value[0][m] = "作业"+taskIdList.get(m-2);
+            value[0][m] = tasknameList.get(m-2);
             System.out.println("表头："+value[0][m]);
         }
         
@@ -181,21 +186,21 @@ public class DownLoadServiceImpl implements DownLoadService {
 		     Entry entry = (Entry) iter.next();
 		     Student s = (Student) entry.getKey();
 		     List<Integer> scoreList = (List) entry.getValue();
-		     
+		     System.out.println(scoreList.size());
 		     value[i][0] = s.getStuId();
 		     value[i][1] = s.getStuName();
 		     
-		     for(int j = 0 ; j < taskIdList.size() ; j++){
+		     for(int j = 0 ; j < scoreList.size() ; j++){
 		    	 value[i][j+2] = scoreList.get(j);
 		    	 
 		     }
 		     //行数i自增
 		     i++;
 	    }
-        
+        //把数据写入到Excel
         ExcelUtil.writeArrayToExcel(wb, sheet, stuScoreMap.size() + 1, colSize+2, value);
 
         ExcelUtil.writeWorkbook(wb, path);
-
+//	     ExcelUtil.writeToExcel(path, stuScoreMap.size() + 1, colSize+2, value);
     }
 }

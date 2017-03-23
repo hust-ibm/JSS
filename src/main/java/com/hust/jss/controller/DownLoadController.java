@@ -36,10 +36,17 @@ public class DownLoadController {
 		System.out.println("taskId: "+taskId);
         try {
             downLoadService.downloadTask(taskId,request,response);
-        }catch (ServletException e){
+        }catch (Exception e){
             e.printStackTrace();
-        }catch (IOException e){
-            e.printStackTrace();
+            response.setHeader("Content-type", "text/html;charset=UTF-8");
+            response.setContentType("text/html;charset=utf-8");
+            response.setCharacterEncoding("UTF-8");
+            try {
+				response.getWriter().write("<html><body><h2>Sorry!出错啦!</h2></body></html>");
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         }
     }
 	
@@ -59,10 +66,17 @@ public class DownLoadController {
 		System.out.println("stuId: "+stuId);
         try {
             downLoadService.downloadResult(taskId,stuId,request,response);
-        }catch (ServletException e){
+        }catch (Exception e){
             e.printStackTrace();
-        }catch (IOException e){
-            e.printStackTrace();
+            response.setHeader("Content-type", "text/html;charset=UTF-8");
+            response.setContentType("text/html;charset=utf-8");
+            response.setCharacterEncoding("UTF-8");
+            try {
+				response.getWriter().write("<html><body><h2>Sorry!出错啦!</h2></body></html>");
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         }
     }
 	
@@ -80,10 +94,17 @@ public class DownLoadController {
 		
         try {
             downLoadService.downloadAllResults(ids,request,response);
-        }catch (ServletException e){
+        }catch (Exception e){
             e.printStackTrace();
-        }catch (IOException e){
-            e.printStackTrace();
+            response.setHeader("Content-type", "text/html;charset=UTF-8");
+            response.setContentType("text/html;charset=utf-8");
+            response.setCharacterEncoding("UTF-8");
+            try {
+				response.getWriter().write("<html><body><h2>Sorry!出错啦!</h2></body></html>");
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         }
     }
 }
