@@ -20,7 +20,7 @@
 </head>
 <body>
 
-<i id="i_info" data-info="${teaName}" style="display: none;"></i>
+	<i id="i_info" data-info="${teaName}" style="display: none;"></i>
 
 	<form method="post" action="">
 		<div class="panel admin-panel">
@@ -32,10 +32,10 @@
 					<li>
 						<button type="button" class="button border-green" id="checkall">
 							<span class="icon-check"></span> 全选
-						</button>&nbsp;&nbsp;&nbsp;&nbsp;
-						<a href="javascript:;" class="button border-yellow" id="export">
-							<span class="icon-reply">导出</span>
-						</a>
+						</button>&nbsp;&nbsp;&nbsp;&nbsp; <a href="javascript:;"
+						class="button border-yellow" id="export"> <span
+							class="icon-reply">导出</span>
+					</a>
 
 					</li>
 
@@ -100,8 +100,12 @@
 				}
 					 
 			 });
-			idsStr = idsStr.substr(0,idsStr.lastIndexOf(","));
-			window.location.href="download/results/"+idsStr;
+			if(idsStr==""){
+				alert("您还未选择作业，请选择作业后再导出！");
+			}else{
+				idsStr = idsStr.substr(0,idsStr.lastIndexOf(","));
+				window.location.href="download/results/"+idsStr;
+			}
 			/* $.ajax({
 				type:"get",
 				url:"download/results/"+idsStr,
