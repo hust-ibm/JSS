@@ -2,6 +2,7 @@ package com.hust.jss.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,10 +123,13 @@ public class TeacherController {
 		String oldUrl = "";
 		String newUrl = "";
 		boolean flag = false;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		try {
 			task = taskService.findTaskByTaskId(taskId);
 			oldUrl = Config.title+task.getTaskName();
 			newUrl = Config.title+taskName;
+			task.setTaskName(taskName);
+			task.setTaskExpiry(sdf.parse(datetime));
 			taskService.updateTask(task);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
