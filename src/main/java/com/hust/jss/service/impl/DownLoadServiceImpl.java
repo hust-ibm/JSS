@@ -146,7 +146,7 @@ public class DownLoadServiceImpl implements DownLoadService {
 		}
 		
 		String excelPath = Config.tmpDir;//"F:\\upload\\tmp\\";
-		String excelName = "学生成绩.xlsx";
+		String excelName = "学生成绩.xls";
 		
 		//创建成绩excel表
 		toExcel(taskIdList,stuScoreMap,excelPath+excelName);
