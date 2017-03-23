@@ -66,23 +66,19 @@ public class DownLoadServiceImpl implements DownLoadService {
         if(!taskDir.exists()){
         	System.out.println("作业文件不存在");
         	response.setCharacterEncoding("UTF-8");
-            response.getWriter().write("<html><body><h2>Sorry!不存在该文件!</h2></body></html>");
+            response.getWriter().write("<html><body><h2>Sorry!不存在该作业文件!</h2></body></html>");
         	return;
         }
        
         
         File file = new File(zipPath+zipfileName);
-        
-        if(!file.exists()){
-        	System.out.println(file.exists());
-        	DownloadUtils.fileToZip(basePath+task.getTaskName(), zipPath, zipfileName);
-        	
+        //判断临时目录有没有该作业，有的话删除
+        if(file.exists()){
+        	System.out.println("文件存在？"+file.exists());
+        	file.delete();
         }
-        
+        DownloadUtils.fileToZip(basePath+task.getTaskName(), zipPath, zipfileName);
         DownloadUtils.download(zipPath, zipfileName, request, response);
-        
-//        DownloadUtils.download(basePath, "实验四.docx", request, response);
-     
 	}
 
 	@Override
@@ -99,7 +95,7 @@ public class DownLoadServiceImpl implements DownLoadService {
         if(!resultDir.exists()){
         	System.out.println("作业文件不存在");
         	response.setCharacterEncoding("UTF-8");
-            response.getWriter().write("<html><body><h2>Sorry!不存在该文件!</h2></body></html>");
+            response.getWriter().write("<html><body><h2>Sorry!不存在该作业文件!</h2></body></html>");
         	return;
         }
         
@@ -107,13 +103,12 @@ public class DownLoadServiceImpl implements DownLoadService {
         
         String zipfileName = "Task" + taskId +task.getTaskName() + "_" + stuId + ".zip";
         File file = new File(zipPath+zipfileName);
-        
-        if(!file.exists()){
-        	System.out.println(file.exists());
-        	DownloadUtils.fileToZip(basePath+taskId+"\\"+stuId, zipPath, zipfileName);
-        	
+        //判断临时目录有没有该作业，有的话删除
+        if(file.exists()){
+        	System.out.println("文件存在？"+file.exists());
+        	file.delete();        	
         }
-        
+        DownloadUtils.fileToZip(basePath+taskId+"\\"+stuId, zipPath, zipfileName);
         DownloadUtils.download(zipPath, zipfileName, request, response);
 	}
 
@@ -122,26 +117,29 @@ public class DownLoadServiceImpl implements DownLoadService {
 	@Override
 	public void downloadAllResults(List<Integer> taskIdList, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		//根据作业ID查询的作业结果 
-		List<Result> resultList = new ArrayList<Result>();
+		//所有学生的集合
+		List<Student> stuList = new ArrayList<Student>();
 				
 		//学生-作业（多个）分数 Map
-		Map<Student,List> stuScoreMap = new HashMap<>();
+		Map<Student,List<Integer>> stuScoreMap = new HashMap<>();
 			
 		//取第一个ID查询作业结果为了获取学生ID
-		resultList = resultDao.selectByTaskId(taskIdList.get(0));
-		//遍历作业结果
-		for(Result r : resultList){
-			Student s = null;
-			String stuId = r.getStuId();
-			s = studentDao.selectByStuId(stuId);
+		stuList = studentDao.selectAllStu();
+		//遍历学生
+		for(Student s : stuList){
+			String stuId = s.getStuId();
 			//分数列表
 			List<Integer> scoreList = new ArrayList<Integer>();
 			for (int taskId : taskIdList) {
+				Result r = new Result();
+				r.setStuId(stuId);
 				r.setTaskId(taskId);
-				Integer score = resultDao.selectByPrimaryKey(r).getScore();
+				Integer score = 0;
+				if(resultDao.selectByPrimaryKey(r) != null){
+					score = resultDao.selectByPrimaryKey(r).getScore();
+				}
 				scoreList.add(Integer.valueOf(score));
-				System.out.println(score);
+//				System.out.println(score);
 			}
 			
 			stuScoreMap.put(s, scoreList);
@@ -157,7 +155,7 @@ public class DownLoadServiceImpl implements DownLoadService {
 		DownloadUtils.download(excelPath, excelName, request, response);
 	}
 	
-	 public void toExcel(List<Integer> taskIdList ,Map<Student,List> stuScoreMap , String path) {
+	 public void toExcel(List<Integer> taskIdList ,Map<Student,List<Integer>> stuScoreMap , String path) {
 	 	
 		int colSize = taskIdList.size();
         System.out.println("colSize:"+colSize);
@@ -165,8 +163,7 @@ public class DownLoadServiceImpl implements DownLoadService {
         HSSFWorkbook wb = new HSSFWorkbook();
         HSSFSheet sheet = wb.createSheet("学生成绩");
 
-//	    String[] n = { "编号", "姓名", "密码", "邮箱" };
-
+        //存放表格数据的二维数组
         Object[][] value = new Object[stuScoreMap.size() + 1][2+colSize];
         
         //表头数据存入value数组---表格第一行
