@@ -15,11 +15,15 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipInputStream;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.hust.algorithm.canopy.Canopy;
 import com.hust.algorithm.kmeans.KMeans;
 import com.hust.convertor.TFIDFConvertor;
 import com.hust.distance.CosDistance;
 import com.hust.jss.automaticrating.utils.zipUtils;
+import com.hust.jss.entity.Result;
+import com.hust.jss.service.ResultService;
 import com.hust.jss.utils.Config;
 import com.hust.segmentation.AnsjSegmentation;
 import com.hust.utils.ClusterUtil;
@@ -57,12 +61,16 @@ public class GetResultOfClusterExcel {
 	//助教KMeans聚类结果计算出来的参考DB值
 	private double stdDB = 0f;
 	
+	@Autowired
+	private ResultService resultService;
+	
 	public GetResultOfClusterExcel(String stuId, Integer taskId){
 		this.stuId = stuId;
 		this.taskId = taskId;
 		this.basePath = Config.task + taskId + "\\" + stuId;
 	}
 	public int getScore(){
+		getBasicScore();
 		
 		return kmeansScore;
 	}
@@ -151,6 +159,13 @@ public class GetResultOfClusterExcel {
 			}
 			//计算学生聚类结果的DB值
 			stuDB = calculateDB(clusterList);
+			if(stuDB >= stdDB/2){
+				kmeansScore += 20;
+			}else if(stuDB >= stdDB/10){
+				kmeansScore += 10;
+			}else{
+				kmeansScore += 5;
+			}
 		}
 		
 	}
@@ -201,13 +216,17 @@ public class GetResultOfClusterExcel {
 			CosDistance Ci = new CosDistance(vectors.get(i));
 			for(int j = i + 1 ; j < vectors.size() ; j++){
 				CosDistance Cj = new CosDistance(vectors.get(j));
-				double t = (Ci.getThreshold() + Cj.getThreshold()) / ();
+				double t = (Ci.getThreshold() + Cj.getThreshold()) / clusterDis(vectors.get(i),vectors.get(j));
+				if(t > maxdb){
+					maxdb = t;
+				}
 			}
+			db += maxdb;
 		}
-		
 		if(vectors == null || vectors.size() == 0){
 			return 0f;
 		}
+		db /= vectors.size();
 		return db;
 	}
 	
@@ -216,6 +235,30 @@ public class GetResultOfClusterExcel {
 		for(double[] d : a){
 			ai = VectorUtil.add(ai, d);
 		}
-		
+		for(double[] d : b){
+			bi = VectorUtil.add(bi, d);
+		}
+		for(double d : ai){
+			d /= ai.length;
+		}
+		for(double d : bi){
+			d /= bi.length;
+		}
+		CosDistance cd = new CosDistance(a);
+		return cd.caculate(ai, bi);
+	}
+	
+	private void saveScore(){
+		Result result = new Result();
+		result.setScore(basicScore + canopyScore + kmeansScore);
+		result.setStuId(stuId);
+		result.setTaskId(taskId);
+		try {
+			resultService.updateResult(result );
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("保存成绩出错");
+			e.printStackTrace();
+		}
 	}
 }
