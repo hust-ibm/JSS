@@ -243,6 +243,12 @@
 			<artifactId>poi</artifactId>
 			<version>3.15</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.ansj/ansj_seg -->
+		<dependency>
+			<groupId>org.ansj</groupId>
+			<artifactId>ansj_seg</artifactId>
+			<version>5.1.1</version>
+		</dependency>
 		
 	</dependencies>
 	<build>
