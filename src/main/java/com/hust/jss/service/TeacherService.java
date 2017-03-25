@@ -5,13 +5,12 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.hust.jss.entity.Teacher;
 
 
 public interface TeacherService {
 	/**
-	 * Ìí¼Ó½ÌÊ¦
+	 * æ·»åŠ æ•™å¸ˆ
 	 * 
 	 * @param teacher
 	 * @return
@@ -19,7 +18,7 @@ public interface TeacherService {
 	public int addTeacher(Teacher teacher) throws Exception;
 
 	/**
-	 * ¸ù¾İidÉ¾³ı½ÌÊ¦
+	 * æ ¹æ®idåˆ é™¤æ•™å¸ˆ
 	 * 
 	 * @param teaId
 	 * @return
@@ -27,14 +26,14 @@ public interface TeacherService {
 	public int deleteTeacherByTeaId(String teaId) throws Exception;
 
 	/**
-	 * É¾³ıËùÓĞ½ÌÊ¦
+	 * åˆ é™¤æ‰€æœ‰æ•™å¸ˆ
 	 * 
 	 * @return
 	 */
 	public int deleteAll() throws Exception;
 
 	/**
-	 * ¸ù¾İid¸üĞÂname
+	 * æ ¹æ®idæ›´æ–°name
 	 * 
 	 * @param teaId
 	 * @param name
@@ -43,7 +42,7 @@ public interface TeacherService {
 	public int updateTeacherNameByTeaId(String teaId, String name) throws Exception;
 
 	/**
-	 * ¸ù¾İid¸üĞÂÃÜÂë
+	 * æ ¹æ®idæ›´æ–°å¯†ç 
 	 * 
 	 * @param teaId
 	 * @param pwd
@@ -53,7 +52,7 @@ public interface TeacherService {
 	public int updatePasswordByTeaId(String teaId, String pwd) throws Exception;
 
 	/**
-	 * ¸ù¾İidÕÒ½ÌÊ¦
+	 * æ ¹æ®idæ‰¾æ•™å¸ˆ
 	 * 
 	 * @param teaId
 	 * @return
@@ -62,14 +61,14 @@ public interface TeacherService {
 	public Teacher findTeacherByTeaId(String teaId) throws Exception;
 
 	/**
-	 * ²éÑ¯ËùÓĞ½ÌÊ¦
+	 * æŸ¥è¯¢æ‰€æœ‰æ•™å¸ˆ
 	 * 
 	 * @return
 	 */
 	public List<Teacher> findAll() throws Exception;
 
 	/**
-	 * ¸ù¾İid²éÃÜÂë 
+	 * æ ¹æ®idæŸ¥å¯†ç  
 	 * 
 	 * @param teaId
 	 * @return
@@ -78,7 +77,7 @@ public interface TeacherService {
 	public String findPwdByTeaId(String teaId) throws Exception;
 
 	/**
-	 * ½ÌÊ¦µÇÂ¼£¬³É¹¦·µ»Ø1£¬·ñÔò·µ»Ø0
+	 * æ•™å¸ˆç™»å½•ï¼ŒæˆåŠŸè¿”å›1ï¼Œå¦åˆ™è¿”å›0
 	 * 
 	 * @param teaId
 	 * @param pwd

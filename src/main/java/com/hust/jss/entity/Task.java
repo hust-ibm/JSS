@@ -4,22 +4,22 @@ import java.util.Date;
 
 public class Task {
 	
-	//×÷ÒµID
+	//ä½œä¸šID
     private Integer taskId;
     
-    //×÷ÒµÃû³Æ 
+    //ä½œä¸šåç§° 
     private String taskName;
     
-    //×÷ÒµÂ·¾¶
+    //ä½œä¸šè·¯å¾„
     private String taskPath;
     
-    //×÷ÒµÆÀ·Ö¹æÔò´æ·ÅÂ·¾¶
+    //ä½œä¸šè¯„åˆ†è§„åˆ™å­˜æ”¾è·¯å¾„
     private String taskRule;
     
-    //×÷Òµ½ØÖ¹ÈÕÆÚ
+    //ä½œä¸šæˆªæ­¢æ—¥æœŸ
     private Date taskExpiry;
     
-    //×÷ÒµÎÄ¼ş´óĞ¡×îĞ¡Öµ
+    //ä½œä¸šæ–‡ä»¶å¤§å°æœ€å°å€¼
     private Integer taskMinsize;
 
     public Integer getTaskId() {
