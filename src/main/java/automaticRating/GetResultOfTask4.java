@@ -3,6 +3,7 @@ package automaticRating;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -10,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.hust.jss.automaticrating.utils.ExcelReader;
+import com.hust.segmentation.AnsjSegmentation;
+import com.hust.utils.ExcelWriter;
 
 /**
  * 对实验四(分类实验)进行自动评分
@@ -26,6 +29,11 @@ public class GetResultOfTask4 {
 	// 大数据与招聘的先验概率
 	final double priorPROfBigData = 0.5307470078415187;
 	final double priorPROfRecruit = 0.4692529921584812;
+	// 大数据与招聘的词数
+	final int totalWordsOfBigData = 1571696;
+	final int totalWordsOfRecruit = 227891;
+	// 词典大小
+	final int wordBook = 40002;
 	// 每个单词在某类下的条件概率
 	private static HashMap<String, double[]> conditionalPROfWord = new HashMap<String, double[]>();
 
@@ -51,17 +59,17 @@ public class GetResultOfTask4 {
 		}
 	}
 
-	public double judge(String filePath){
-		double part1=0.0,part2=0.0,part3=0.0;
-		if(checkPath(filePath)){
+	public double judge(String filePath) {
+		double part1 = 0.0, part2 = 0.0, part3 = 0.0;
+		if (checkPath(filePath)) {
 			part1 = judgePart1(filePath);
 			part2 = judgePart2(filePath);
 			part3 = judgePart3(filePath);
 		}
-		
-		return part1*weight1+part2*weight2+part3*weight3;
+
+		return part1 * weight1 + part2 * weight2 + part3 * weight3;
 	}
-	
+
 	private boolean checkPath(String filePath) {
 		File classifyDir = new File(filePath);
 
@@ -197,18 +205,14 @@ public class GetResultOfTask4 {
 		// 随机选取一个文件进行评分
 		int index = (int) (Math.random() * 2);
 		File file = dir.listFiles()[index];
-		List<List<String>> content = ExcelReader.read(file.getAbsolutePath());
+		List<String> content = ExcelReader.read(file.getAbsolutePath(),1);
 
 		// 将分类结果存储于result中,只存储个数
 		int[] result = new int[2];
-		/**
-		 * 利用bayes处理content，将结果存储于result中
-		 */
-		nativebayes(index, content, result);
-		Arrays.sort(result);
+		nativebayes(content, result);
 
-		if(Math.abs(result[0]+result[1]-content.size()) < 50){
-			int p = (int) Math.abs(result[1] - content.size());
+		if (Math.abs(result[0] + result[1] - content.size()) < 50) {
+			int p = (int) Math.abs(result[index] - content.size());
 			if (p <= 25) {
 				part3 = 95 + Math.random() * 5.0;
 			} else if (p <= 75) {
@@ -220,7 +224,7 @@ public class GetResultOfTask4 {
 			} else {
 				part3 = 60 + Math.random() * 5.0;
 			}
-		}else{
+		} else {
 			part3 = 0;
 		}
 
@@ -228,8 +232,36 @@ public class GetResultOfTask4 {
 	}
 
 	// 利用bayes处理content，将结果存储于result中
-	private void nativebayes(int index, List<List<String>> content, int[] result) {
-		
+	private void nativebayes(List<String> content, int[] result) {
+		// 对指定列进行分词
+		AnsjSegmentation seg = new AnsjSegmentation();
+		seg.setWordList(content);
+		seg.segment();
+		List<String[]> segList = seg.getSegList();
+		for (int i = 0; i < segList.size(); i++) {
+			// 对该条数据利用训练集进行分类，返回类的索引
+			result[classifyOneRow(segList.get(i))]++;
+		}
+	}
+
+	private int classifyOneRow(String[] cell) {
+		// 文档d属于类Ci的概率
+		double[] prOfDBelongsToCi = new double[2];
+		// 使用分词将该cell分词
+		for (String word : cell) {
+			double[] values = conditionalPROfWord.get(word);
+			if (values != null) {
+				prOfDBelongsToCi[0] += Math.log(values[0]);
+				prOfDBelongsToCi[1] += Math.log(values[1]);
+			} else {
+				prOfDBelongsToCi[0] += (double) 1 / (totalWordsOfBigData + wordBook);
+				prOfDBelongsToCi[1] += (double) 1 / (totalWordsOfRecruit + wordBook);
+			}
+		}
+		prOfDBelongsToCi[0] += Math.log(priorPROfBigData);
+		prOfDBelongsToCi[1] += Math.log(priorPROfRecruit);
+
+		return prOfDBelongsToCi[0] >= prOfDBelongsToCi[1] ? 0 : 1;
 	}
 
 	public static void main(String[] args) {
