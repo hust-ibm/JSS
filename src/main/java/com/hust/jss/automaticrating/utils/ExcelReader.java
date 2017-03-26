@@ -172,7 +172,7 @@ public class ExcelReader {
 			if(sheet ==null){
 				return -1;
 			}else{
-				return sheet.getLastRowNum();
+				return sheet.getLastRowNum()+1;
 			}
 		}catch(Exception e){
 			return -1;

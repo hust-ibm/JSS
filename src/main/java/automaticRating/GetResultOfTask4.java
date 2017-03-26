@@ -9,8 +9,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import com.hust.jss.automaticrating.utils.ExcelReader;
+import com.hust.jss.automaticrating.utils.zipUtils;
+import com.hust.jss.utils.Config;
 import com.hust.segmentation.AnsjSegmentation;
 import com.hust.utils.ExcelWriter;
 
@@ -59,14 +62,33 @@ public class GetResultOfTask4 {
 		}
 	}
 
-	public double judge(String filePath) {
+	// 自动判分
+	public int getTotalResult(Integer taskId, String stuId) {
+		String taskPath = Config.task + taskId + "\\" + stuId + "\\";
+		try {
+			zipUtils.unzip(new File(taskPath + "classify.zip"), taskPath);
+		} catch (Exception e) {
+			System.out.println("解压异常...");
+			return 0;
+		}
 		double part1 = 0.0, part2 = 0.0, part3 = 0.0;
+		String filePath = taskPath + "classify";
 		if (checkPath(filePath)) {
 			part1 = judgePart1(filePath);
 			part2 = judgePart2(filePath);
 			part3 = judgePart3(filePath);
 		}
 
+		return (int) (part1 * weight1 + part2 * weight2 + part3 * weight3);
+	}
+
+	private double judge(String filePath) {
+		double part1 = 0.0, part2 = 0.0, part3 = 0.0;
+		if (checkPath(filePath)) {
+			part1 = judgePart1(filePath);
+			part2 = judgePart2(filePath);
+			part3 = judgePart3(filePath);
+		}
 		return part1 * weight1 + part2 * weight2 + part3 * weight3;
 	}
 
@@ -128,10 +150,10 @@ public class GetResultOfTask4 {
 				part1 += 30;
 			} else if (row <= 850) {
 				part1 += 32.5;
-			} else if (row <= 1500) {
-				part1 += 50;
+			} else if (row <= 1000 || row>=2000) {
+				part1 += 45;
 			} else {
-				part1 = +42.5;
+				part1 += 50;
 			}
 		}
 
@@ -179,7 +201,7 @@ public class GetResultOfTask4 {
 		if (stuSumPriorPR <= 1.1 && stuSumPriorPR >= 0.9) {
 			double p = Math.abs(correctPriorPR[0] - stuPriorPR[0]);
 			if (p <= 1e-10) {
-				part2 = 95 + Math.random() * 5.0;
+				part2 = 98 + Math.random() * 2.0;
 			} else if (p <= 0.00005) {
 				part2 = 90 + Math.random() * 5.0;
 			} else if (p <= 0.0001) {
@@ -205,21 +227,21 @@ public class GetResultOfTask4 {
 		// 随机选取一个文件进行评分
 		int index = (int) (Math.random() * 2);
 		File file = dir.listFiles()[index];
-		List<String> content = ExcelReader.read(file.getAbsolutePath(),1);
+		List<String> content = ExcelReader.read(file.getAbsolutePath(), 1);
 
 		// 将分类结果存储于result中,只存储个数
 		int[] result = new int[2];
 		nativebayes(content, result);
 
-		if (Math.abs(result[0] + result[1] - content.size()) < 50) {
+		if (Math.abs(result[0] + result[1] - content.size()) < 10) {
 			int p = (int) Math.abs(result[index] - content.size());
-			if (p <= 25) {
+			if (p <= 5) {
 				part3 = 95 + Math.random() * 5.0;
-			} else if (p <= 75) {
+			} else if (p <= 25) {
 				part3 = 90 + Math.random() * 5.0;
-			} else if (p <= 150) {
+			} else if (p <= 50) {
 				part3 = 85 + Math.random() * 5.0;
-			} else if (p <= 300) {
+			} else if (p <= 100) {
 				part3 = 75 + Math.random() * 5.0;
 			} else {
 				part3 = 60 + Math.random() * 5.0;
@@ -268,6 +290,12 @@ public class GetResultOfTask4 {
 		// TODO Auto-generated method stub
 		GetResultOfTask4 g = new GetResultOfTask4();
 		System.out.println(g.judge("C:\\Users\\Chan\\Desktop/classify"));
+		try {
+			//zipUtils.unzip(new File("C:\\Users\\Chan\\Desktop/classify.zip"), "C:\\Users\\Chan\\Desktop/");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
