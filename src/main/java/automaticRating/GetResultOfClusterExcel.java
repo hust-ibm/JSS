@@ -1,19 +1,8 @@
 package automaticRating;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -29,7 +18,6 @@ import com.hust.segmentation.AnsjSegmentation;
 import com.hust.utils.ClusterUtil;
 import com.hust.utils.ExcelReader;
 import com.hust.utils.VectorUtil;
-import com.hust.utils.VectorUtils;
 
 /**
  * 获取聚类实验学生提交的文件，
@@ -64,6 +52,11 @@ public class GetResultOfClusterExcel {
 	@Autowired
 	private ResultService resultService;
 	
+	public static void main(String[] args) {
+		GetResultOfClusterExcel gr = new GetResultOfClusterExcel("M201676099", 3);
+		gr.getScore();
+	}
+	
 	public GetResultOfClusterExcel(String stuId, Integer taskId){
 		this.stuId = stuId;
 		this.taskId = taskId;
@@ -71,20 +64,20 @@ public class GetResultOfClusterExcel {
 	}
 	public int getScore(){
 		getBasicScore();
-		
-		return kmeansScore;
+		System.out.println("最后分数："+(basicScore + canopyScore + kmeansScore));
+		return basicScore + canopyScore + kmeansScore;
 	}
 	
 	private void getBasicScore(){
 		File dataExcel = new File(basePath + "\\" + "原始数据.xls");
 		File cdemoZip = new File(basePath + "\\" + "Canopy.zip");
 		File kdemoZip = new File(basePath + "\\" + "KMeans.zip");
-		File canopyresultZip = new File(basePath + "\\" + "canopysresult.zip");
+		File canopyresultZip = new File(basePath + "\\" + "canopyresult.zip");
 		File kmeansresultZip = new File(basePath + "\\" + "kmeansresult.zip");
 		//原始数据文件是否上传
 		if(dataExcel.exists()){
 			List<String> dataList = ExcelReader.read(basePath + "\\" + "原始数据.xls",0);
-			
+			System.out.println(dataList.size());
 //			ClusterUtil.showDatalist(dataList);
 			//分词
 			AnsjSegmentation ansj = new AnsjSegmentation();
@@ -110,36 +103,42 @@ public class GetResultOfClusterExcel {
 			kmeans.cluster();
 			//计算参考DB值
 			stdDB = calculateDB(ClusterUtil.getClusters(kmeans.getResultIndex(), dataList));
+			System.out.println("stdDB: "+stdDB);
 		}else{
 			basicScore--;
+			System.out.println("缺少原始数据文件，扣1分");
 		}
 		if(!cdemoZip.exists()){
 			basicScore--;
+			System.out.println("缺少Canopy源代码文件，扣1分");
 		}
 		if(!kdemoZip.exists()){
 			basicScore--;
+			System.out.println("缺少kmeans源代码文件，扣1分");
 		}
 		if(canopyresultZip.exists()){
 			try {
-				zipUtils.unzip(canopyresultZip,basePath + "\\" + "canopyresult");
-				getCanopyScore(basePath + "\\" + "canopyresult");
+				zipUtils.unzip(canopyresultZip,basePath);// + "\\" + "canopyresult"
+				getCanopyScore(basePath + "\\"+ "canopyresult" );//
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}else{
 			basicScore--;
+			System.out.println("缺少Canopy结果文件，扣1分");
 		}	
 		if(kmeansresultZip.exists()){
 			try {
-				zipUtils.unzip(kmeansresultZip,basePath + "\\" + "kmeansresult");
-				getKmeansScore(basePath + "\\" + "kmeansresult");
+				zipUtils.unzip(kmeansresultZip,basePath  );//+ "\\"+ "kmeansresult"
+				getKmeansScore(basePath + "\\" + "kmeansresult");//
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}else{
 			basicScore--;
+			System.out.println("缺少kmeans结果文件，扣1分");
 		}	
 		
 	}
@@ -154,17 +153,25 @@ public class GetResultOfClusterExcel {
 			File[] fList = kDir.listFiles();
 			List<List<String>> clusterList = new ArrayList<>();
 			for(File file : fList){
+				System.out.println(file.getAbsolutePath());
 				List<String> l = ExcelReader.read(file.getAbsolutePath(),0);
 				clusterList.add(l);
 			}
 			//计算学生聚类结果的DB值
 			stuDB = calculateDB(clusterList);
-			if(stuDB >= stdDB/2){
+			System.out.println("stuDB: "+stuDB);
+			if(stuDB >= stdDB/1.5){
 				kmeansScore += 20;
-			}else if(stuDB >= stdDB/10){
+				System.out.println("KMeans聚类得分，20分");
+			}else if(stuDB >= stdDB/2.5){
 				kmeansScore += 10;
+				System.out.println("KMeans聚类得分，10分");
+			}else if(stuDB >= stdDB/10){
+				kmeansScore += 8;
+				System.out.println("KMeans聚类得分，8分");
 			}else{
-				kmeansScore += 5;
+				kmeansScore += 4;
+				System.out.println("KMeans聚类得分，4分");
 			}
 		}
 		
@@ -180,14 +187,19 @@ public class GetResultOfClusterExcel {
 			int x = cDir.listFiles().length;
 			if(Math.abs(x - canopy.getCanopy()) <= canopy.getCanopy() / 10){
 				canopyScore += 20;
+				System.out.println("Canopy聚类得分，20分");
 			}else if(Math.abs(x - canopy.getCanopy()) <= canopy.getCanopy() / 5){
 				canopyScore += 10;
+				System.out.println("Canopy聚类得分，10分");
 			}else if(Math.abs(x - canopy.getCanopy()) <= canopy.getCanopy() / 2){
 				canopyScore += 5;
+				System.out.println("Canopy聚类得分，5分");
 			}else{
 				canopyScore += 2;
+				System.out.println("Canopy聚类得分，2分");
 			}
 		}
+		System.out.println("canopyScore: "+canopyScore);
 	}
 	
 	/**
