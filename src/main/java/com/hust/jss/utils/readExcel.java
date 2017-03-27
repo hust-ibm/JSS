@@ -1,6 +1,7 @@
 package com.hust.jss.utils;
 
 import java.io.FileInputStream;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -159,5 +160,94 @@ public class readExcel {
 		return content;
 	}
 
+	//按照华中科技大学的名单格式导入
+	public List<Map<String, String>> readStudent(String filepath) throws Exception
+	{
+		String fileType = filepath.substring(filepath.lastIndexOf(".") + 1, filepath.length());
+		InputStream is = null;
+		Workbook wb = null;
+		try {
+			is = new FileInputStream(filepath);
+			
+		    if (fileType.equals("xls")) {
+		    	wb = new HSSFWorkbook(is);
+		    } else if (fileType.equals("xlsx")) {
+		    	wb = new XSSFWorkbook(is);
+		    } else {
+		    	throw new Exception("读取的不是excel文件");
+		    }
+		    
+		        List<Map<String, String>> result = new ArrayList<Map<String,String>>();//对应excel文件
+		    	
+		    	List<String> titles = new ArrayList<String>();//放置所有的标题
+		    	Sheet sheet = wb.getSheetAt(0); //第一个sheet
+		    	int rowSize = sheet.getLastRowNum() + 1;
+		    	for (int j = 3; j < rowSize; j++)
+		    	{//遍历行
+		    		Row row = sheet.getRow(j);
+		    		if (row == null || j==4 ||j==5 || j==6) 
+		    		{//略过空行
+						continue;
+					}
+		    		int cellSize = row.getLastCellNum();//行中有多少个单元格，也就是有多少列
+		    		if (j == 3)
+		    		{//第三行是标题行
+		    			for (int k = 0; k < 4; k++) 
+		    			{
+			    			Cell cell = row.getCell(k);
+			    			titles.add(cell.toString());
+			    		}
+		    		} 
+		    		else 
+		    		{//其他行是数据行
+		    			Map<String, String> rowMap = new HashMap<String, String>();//对应一个数据行
+		    			for (int k = 0; k < titles.size(); k++)
+		    			{
+		    				Cell cell = row.getCell(k);
+		    				String key = titles.get(k);
+		    				String value = null;
+		    				if (cell != null) 
+		    				{
+								value = cell.toString();
+							}
+		    				rowMap.put(key, value);
+		    			}
+		    			result.add(rowMap);
+		    			
+		    		}
+		    		
+		    	}
+		    return result;
+		} catch (FileNotFoundException e) {
+			throw e;
+		} finally {
+			if (wb != null) {
+				wb.close();
+			}
+			if (is != null) {
+				is.close();
+			}
+		}
+	}
+	
+	public static void main(String args[])
+	{
+		readExcel test = new readExcel();
+		List<Map<String, String>> result = new ArrayList<Map<String,String>>();//对应excel文件
+		try {
+			result=test.readStudent("C://Users//Administrator//Desktop//华中科技大学报表大数据.xls");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		for (Map<String, String> map : result) {
+			System.out.print(map.get("姓名"));
+			System.out.print(map.get("学号"));
+			  System.out.println("");
+			
+		}
+	  
+		
+	}
 
 }

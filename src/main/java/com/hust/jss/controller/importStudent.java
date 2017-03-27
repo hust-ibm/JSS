@@ -35,32 +35,32 @@ public class importStudent {
 		List<String> filename = new ArrayList<String>();
 		filename = up.upload(uploadfile, road);
 		for (String string : filename) { //遍历filename中所有的文件，内容存到result中
-			List<List<Map<String, String>>> result = new ArrayList<List<Map<String,String>>>();//对应excel文件
+			List<Map<String, String>> result = new ArrayList<Map<String,String>>();//对应excel文件
 			try {
 				String s = road+"/"+string;
-				result = rExcel.readExcelWithTitle(road+string);
+			
+				result = rExcel.readStudent(road+string);
 				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-			for (List<Map<String, String>> list : result) {
-				for (Map<String, String> map : list) 
-				{
-					
-					Student student = new Student();
-					student.setStuId(map.get("学号"));
-					student.setStuPwd(map.get("学号"));
-					student.setStuName(map.get("姓名"));
-					try {
-						studentservice.addStu(student);
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}		
-				}
+			for (Map<String, String> map : result) 
+			{
+				
+				Student student = new Student();
+				student.setStuId(map.get("学号"));
+				student.setStuPwd(map.get("学号"));
+				student.setStuName(map.get("姓名"));
+				try {
+					studentservice.addStu(student);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}		
 			}
+			
 		}
 		return "redirect:/managejob";
 		
