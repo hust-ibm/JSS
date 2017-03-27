@@ -101,7 +101,7 @@ public class DownLoadServiceImpl implements DownLoadService {
         
         Task task = taskDao.selectByTaskId(taskId);
         
-        String zipfileName = "Task" + taskId +task.getTaskName() + "_" + stuId + ".zip";
+        String zipfileName = task.getTaskName() + "_" + stuId + ".zip";
         File file = new File(zipPath+zipfileName);
         //判断临时目录有没有该作业，有的话删除
         if(file.exists()){
