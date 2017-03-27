@@ -82,15 +82,15 @@ public class GetResultOfTask4 {
 		return (int) (part1 * weight1 + part2 * weight2 + part3 * weight3);
 	}
 
-	private double judge(String filePath) {
-		double part1 = 0.0, part2 = 0.0, part3 = 0.0;
-		if (checkPath(filePath)) {
-			part1 = judgePart1(filePath);
-			part2 = judgePart2(filePath);
-			part3 = judgePart3(filePath);
-		}
-		return part1 * weight1 + part2 * weight2 + part3 * weight3;
-	}
+//	private double judge(String filePath) {
+//		double part1 = 0.0, part2 = 0.0, part3 = 0.0;
+//		if (checkPath(filePath)) {
+//			part1 = judgePart1(filePath);
+//			part2 = judgePart2(filePath);
+//			part3 = judgePart3(filePath);
+//		}
+//		return part1 * weight1 + part2 * weight2 + part3 * weight3;
+//	}
 
 	private boolean checkPath(String filePath) {
 		File classifyDir = new File(filePath);
@@ -150,7 +150,7 @@ public class GetResultOfTask4 {
 				part1 += 30;
 			} else if (row <= 850) {
 				part1 += 32.5;
-			} else if (row <= 1000 || row>=2000) {
+			} else if (row <= 1000 || row >= 2000) {
 				part1 += 45;
 			} else {
 				part1 += 50;
@@ -192,29 +192,49 @@ public class GetResultOfTask4 {
 			}
 			br.close();
 			fr.close();
+			
+			Arrays.sort(stuPriorPR);
+			double stuSumPriorPR = stuPriorPR[0] + stuPriorPR[1];
+			if (stuSumPriorPR <= 1.1 && stuSumPriorPR >= 0.9) {
+				double p = Math.abs(correctPriorPR[0] - stuPriorPR[0]);
+				if (p <= 1e-10) {
+					part2 = 48 + Math.random() * 2.0;
+				} else if (p <= 0.00005) {
+					part2 = 45 + Math.random() * 5.0;
+				} else if (p <= 0.0001) {
+					part2 = 40 + Math.random() * 5.0;
+				} else if (p <= 0.0005) {
+					part2 = 35 + Math.random() * 5.0;
+				} else if (p <= 0.001) {
+					part2 = 30 + Math.random() * 5.0;
+				} else {
+					part2 = 25 + Math.random() * 10.0;
+				}
+			} else {
+				part2 = 15 + Math.random() * 5.0;
+			}
 		} catch (Exception e) {
+			part2 = 0;
 			System.out.println("读取训练集先验概率.txt出错。");
 		}
-		Arrays.sort(stuPriorPR);
 
-		double stuSumPriorPR = stuPriorPR[0] + stuPriorPR[1];
-		if (stuSumPriorPR <= 1.1 && stuSumPriorPR >= 0.9) {
-			double p = Math.abs(correctPriorPR[0] - stuPriorPR[0]);
-			if (p <= 1e-10) {
-				part2 = 98 + Math.random() * 2.0;
-			} else if (p <= 0.00005) {
-				part2 = 90 + Math.random() * 5.0;
-			} else if (p <= 0.0001) {
-				part2 = 85 + Math.random() * 5.0;
-			} else if (p <= 0.0005) {
-				part2 = 80 + Math.random() * 5.0;
-			} else if (p <= 0.001) {
-				part2 = 75 + Math.random() * 5.0;
+		try {
+			long conditionFile = new File(filePath + "/训练器输出/训练集条件概率.txt").length();
+			conditionFile /= 50;
+			if (conditionFile < 10000) {
+				part2 += 25 + Math.random() * 5.0;
+			} else if (conditionFile < 20000) {
+				part2 += 30 + Math.random() * 5.0;
+			} else if (conditionFile < 25000) {
+				part2 += 35 + Math.random() * 5.0;
+			} else if (conditionFile < 30000) {
+				part2 += 40 + Math.random() * 5.0;
 			} else {
-				part2 = 50 + Math.random() * 10.0;
+				part2 += 48 + +Math.random() * 2.0;
 			}
-		} else {
-			part2 = 30 + Math.random() * 5.0;
+		} catch (Exception e) {
+			part2 += 0;
+			System.out.println("读取训练集先验概率.txt出错。");
 		}
 
 		return part2;
@@ -286,16 +306,17 @@ public class GetResultOfTask4 {
 		return prOfDBelongsToCi[0] >= prOfDBelongsToCi[1] ? 0 : 1;
 	}
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		GetResultOfTask4 g = new GetResultOfTask4();
-		System.out.println(g.judge("C:\\Users\\Chan\\Desktop/classify"));
-		try {
-			//zipUtils.unzip(new File("C:\\Users\\Chan\\Desktop/classify.zip"), "C:\\Users\\Chan\\Desktop/");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+//	public static void main(String[] args) {
+//		// TODO Auto-generated method stub
+//		GetResultOfTask4 g = new GetResultOfTask4();
+//		System.out.println(g.judge("C:\\Users\\Chan\\Desktop/classify"));
+//		try {
+//			// zipUtils.unzip(new File("C:\\Users\\Chan\\Desktop/classify.zip"),
+//			// "C:\\Users\\Chan\\Desktop/");
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 
 }
