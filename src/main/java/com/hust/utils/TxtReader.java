@@ -19,7 +19,7 @@ public class TxtReader {
 	 * @param name 文件路径
 	 * @return 
 	 */
-	public List<String> getDataFromTxt(String name) {
+	public static List<String> getDataFromTxt(String name) {
 		List<String> list = new ArrayList<String>();
 		//获取指定路径的文件
 		File file = new File(name);
@@ -55,7 +55,7 @@ public class TxtReader {
 	 * @param filePath 文件路径
 	 * @return 写入成功返回1，写入失败返回0
 	 */
-	public int writeToTxt(String words, String filePath) {
+	public static int writeToTxt(String words, String filePath) {
 		File file = new File(filePath);
 		try {
 			if (file.exists()) {
@@ -86,7 +86,7 @@ public class TxtReader {
 	 * @param filePath 文件路径
 	 * @return 写入成功返回1，失败返回0
 	 */
-	public int write2Txt(String words, String filePath) {
+	public static int write2Txt(String words, String filePath) {
 		File file = new File(filePath);
 		try {
 			if (file.exists()) {

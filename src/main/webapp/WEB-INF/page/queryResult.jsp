@@ -100,7 +100,7 @@
 							<c:forEach begin="1" step="1" varStatus="status"
 								end="${totalPage}">
 								<c:if test="${curPage==status.count}">
-									<span class="current">1</span>
+									<span class="current">${curPage}</span>
 								</c:if>
 								<c:if test="${curPage!=status.count}">
 									<a href="query?taskId=${taskId}&curPage=${status.count}">${status.count}</a>
