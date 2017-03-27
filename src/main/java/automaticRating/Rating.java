@@ -78,7 +78,9 @@ public class Rating {
 		switch (taskName) {
 		case "爬虫":	
 		{
-			//实验一自动评分
+			GetResultOfAllStudent task1 = new GetResultOfAllStudent();
+			String filepath = Config.task+taskId;
+			task1.getFinalResult(filepath);
 		}
 			break;
 		case "数据预处理":	
@@ -103,6 +105,21 @@ public class Rating {
 		case "聚类":	
 		{
 			//实验三自动评分
+			for (String string : fileList) {
+				GetResultOfTask3 task3 = new GetResultOfTask3(string,taskId);
+				int result = task3.getScore();
+				Result rs = new Result();
+				rs.setTaskId(taskId);
+				rs.setStuId(string);
+				rs.setScore(result);
+				try {
+					resultService.updateResult(rs);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					System.out.println("评分失败！");
+					e.printStackTrace();
+				}
+			}
 		}
 			break;
 		case "朴素贝叶斯分类":	
