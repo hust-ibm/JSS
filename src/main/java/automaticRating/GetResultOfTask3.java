@@ -11,7 +11,6 @@ import com.hust.algorithm.kmeans.KMeans;
 import com.hust.convertor.TFIDFConvertor;
 import com.hust.distance.CosDistance;
 import com.hust.jss.automaticrating.utils.zipUtils;
-import com.hust.jss.entity.Result;
 import com.hust.jss.service.ResultService;
 import com.hust.jss.utils.Config;
 import com.hust.segmentation.AnsjSegmentation;
@@ -26,7 +25,7 @@ import com.hust.utils.VectorUtil;
  * @author tankai
  *
  */
-public class GetResultOfClusterExcel {
+public class GetResultOfTask3 {
 	//学生ID
 	private String stuId;
 	//作业ID
@@ -49,15 +48,12 @@ public class GetResultOfClusterExcel {
 	//助教KMeans聚类结果计算出来的参考DB值
 	private double stdDB = 0f;
 	
-	@Autowired
-	private ResultService resultService;
-	
 	public static void main(String[] args) {
-		GetResultOfClusterExcel gr = new GetResultOfClusterExcel("M201676099", 3);
+		GetResultOfTask3 gr = new GetResultOfTask3("M201676099", 3);
 		gr.getScore();
 	}
 	
-	public GetResultOfClusterExcel(String stuId, Integer taskId){
+	public GetResultOfTask3(String stuId, Integer taskId){
 		this.stuId = stuId;
 		this.taskId = taskId;
 		this.basePath = Config.task + taskId + "\\" + stuId;
@@ -258,19 +254,6 @@ public class GetResultOfClusterExcel {
 		}
 		CosDistance cd = new CosDistance(a);
 		return cd.caculate(ai, bi);
-	}
+	}	
 	
-	private void saveScore(){
-		Result result = new Result();
-		result.setScore(basicScore + canopyScore + kmeansScore);
-		result.setStuId(stuId);
-		result.setTaskId(taskId);
-		try {
-			resultService.updateResult(result );
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println("保存成绩出错");
-			e.printStackTrace();
-		}
-	}
 }
