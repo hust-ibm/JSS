@@ -24,6 +24,7 @@ import com.hust.jss.entity.Task;
 import com.hust.jss.service.ResultService;
 import com.hust.jss.service.StudentService;
 import com.hust.jss.service.TaskService;
+import com.hust.jss.utils.AutoCheckThread;
 import com.hust.jss.utils.Config;
 import com.hust.jss.utils.FileUtils;
 import com.hust.jss.utils.UploadUtils;
@@ -122,10 +123,12 @@ public class TeacherController {
 		Task task = new Task();
 		String oldUrl = "";
 		String newUrl = "";
+		String oldName = "";
 		boolean flag = false;
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		try {
 			task = taskService.findTaskByTaskId(taskId);
+			oldName = task.getTaskName();
 			oldUrl = Config.title+task.getTaskName();
 			newUrl = Config.title+taskName;
 			task.setTaskName(taskName);
@@ -145,7 +148,40 @@ public class TeacherController {
 			fu.deleteFile(oldDir);
 			UploadUtils up = new UploadUtils();
 			up.uploadUtils(uploadfile, newUrl);
+		}		
+		Task t = null;
+		while(t == null) {
+			try {
+				t = taskService.findTaskByTaskName(taskName);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				t = null;
+				e.printStackTrace();
+			}
 		}
+		
+		ThreadGroup group = Thread.currentThread().getThreadGroup();
+		Thread thread = null;
+		String threadName = oldName;
+		while(group != null) {
+            Thread[] threads = new Thread[(int)(group.activeCount() * 1.2)];
+            int count = group.enumerate(threads, true);
+            for(int i = 0; i < count; i++) {
+            	System.out.println("线程名字："+threads[i].getName());
+                if(threadName == threads[i].getName()) {
+                	thread = threads[i];
+                    break;
+                }
+            }
+            group = group.getParent();
+        }
+		if(thread != null){
+			thread.interrupt();
+		}else{
+			System.out.println("找不到线程！！！！");
+		}
+		new Thread(new AutoCheckThread(taskName)).start();
+		
 		return "redirect:/managejob"; 
 	}
 	
