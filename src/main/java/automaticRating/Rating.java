@@ -22,7 +22,7 @@ public class Rating {
 	private String taskName;
 	//存放作业id
 	private Integer taskId;
-	//存放学生文件路径
+	//存放学生学号
 	private List<String> fileList;
 	//TaskService
 	@Autowired
@@ -125,6 +125,21 @@ public class Rating {
 		case "朴素贝叶斯分类":	
 		{
 			//实验四自动评分
+			for (String string : fileList) {
+				GetResultOfTask4 task4 = new GetResultOfTask4();
+				int result = task4.getTotalResult(taskId,string);
+				Result rs = new Result();
+				rs.setTaskId(taskId);
+				rs.setStuId(string);
+				rs.setScore(result);
+				try {
+					resultService.updateResult(rs);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					System.out.println("评分失败！");
+					e.printStackTrace();
+				}
+			}
 		}
 			break;
 		default:
