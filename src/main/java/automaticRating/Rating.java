@@ -78,7 +78,9 @@ public class Rating {
 		switch (taskName) {
 		case "爬虫":	
 		{
-			//实验一自动评分
+			GetResultOfAllStudent task1 = new GetResultOfAllStudent();
+			String filepath = Config.task+taskId;
+			task1.getFinalResult(filepath);
 		}
 			break;
 		case "数据预处理":	
