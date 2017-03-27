@@ -184,6 +184,4 @@ public class TeacherController {
 		
 		return "redirect:/managejob"; 
 	}
-	
-	
 }
