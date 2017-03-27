@@ -40,7 +40,7 @@
 				<c:forEach items="${resultList}" var="result" varStatus="status">
 					<tr>
 						<td>${taskList[status.count-1].taskName}</td>
-						<td>${result.score}</td>
+						<td>0</td>
 					</tr>
 				</c:forEach>
 				
