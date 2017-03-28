@@ -27,8 +27,9 @@ public class zipUtils {
         for (Enumeration<? extends ZipEntry> entries = zip.entries(); entries.hasMoreElements();) {  
             ZipEntry entry = (ZipEntry) entries.nextElement();  
             String zipEntryName = entry.getName();
-            InputStream in = zip.getInputStream(entry);  
-            String outPath = (unzipPath +"/"+ zipEntryName).replaceAll("\\*", "/");  
+            InputStream in = zip.getInputStream(entry);
+            //文件解压后的输出路径
+            String outPath = (unzipPath +File.separator+ zipEntryName);//.replaceAll("\\*", "/");  
               
             // 判断路径是否存在,不存在则创建文件路径  
             File file = new File(outPath.substring(0, outPath.lastIndexOf('/')));  

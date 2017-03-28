@@ -3,19 +3,14 @@ package com.hust.jss.automaticrating;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 import com.hust.jss.automaticrating.utils.ExcelReader;
 import com.hust.jss.automaticrating.utils.zipUtils;
 import com.hust.jss.utils.Config;
 import com.hust.segmentation.AnsjSegmentation;
-import com.hust.utils.ExcelWriter;
 
 /**
  * 对实验四(分类实验)进行自动评分
@@ -64,7 +59,7 @@ public class GetResultOfTask4 {
 
 	// 自动判分
 	public int getTotalResult(Integer taskId, String stuId) {
-		String taskPath = Config.task + taskId + "\\" + stuId + "\\";
+		String taskPath = Config.task + taskId + "/" + stuId + "/";
 		try {
 			zipUtils.unzip(new File(taskPath + "classify.zip"), taskPath);
 		} catch (Exception e) {
@@ -82,15 +77,15 @@ public class GetResultOfTask4 {
 		return (int) (part1 * weight1 + part2 * weight2 + part3 * weight3);
 	}
 
-//	private double judge(String filePath) {
-//		double part1 = 0.0, part2 = 0.0, part3 = 0.0;
-//		if (checkPath(filePath)) {
-//			part1 = judgePart1(filePath);
-//			part2 = judgePart2(filePath);
-//			part3 = judgePart3(filePath);
-//		}
-//		return part1 * weight1 + part2 * weight2 + part3 * weight3;
-//	}
+	// private double judge(String filePath) {
+	// double part1 = 0.0, part2 = 0.0, part3 = 0.0;
+	// if (checkPath(filePath)) {
+	// part1 = judgePart1(filePath);
+	// part2 = judgePart2(filePath);
+	// part3 = judgePart3(filePath);
+	// }
+	// return part1 * weight1 + part2 * weight2 + part3 * weight3;
+	// }
 
 	private boolean checkPath(String filePath) {
 		File classifyDir = new File(filePath);
@@ -192,7 +187,7 @@ public class GetResultOfTask4 {
 			}
 			br.close();
 			fr.close();
-			
+
 			Arrays.sort(stuPriorPR);
 			double stuSumPriorPR = stuPriorPR[0] + stuPriorPR[1];
 			if (stuSumPriorPR <= 1.1 && stuSumPriorPR >= 0.9) {
@@ -306,17 +301,17 @@ public class GetResultOfTask4 {
 		return prOfDBelongsToCi[0] >= prOfDBelongsToCi[1] ? 0 : 1;
 	}
 
-//	public static void main(String[] args) {
-//		// TODO Auto-generated method stub
-//		GetResultOfTask4 g = new GetResultOfTask4();
-//		System.out.println(g.judge("C:\\Users\\Chan\\Desktop/classify"));
-//		try {
-//			// zipUtils.unzip(new File("C:\\Users\\Chan\\Desktop/classify.zip"),
-//			// "C:\\Users\\Chan\\Desktop/");
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
+	// public static void main(String[] args) {
+	// // TODO Auto-generated method stub
+	// GetResultOfTask4 g = new GetResultOfTask4();
+	// System.out.println(g.judge("C:/Users/Chan/Desktop/classify"));
+	// try {
+	// // zipUtils.unzip(new File("C:/Users/Chan/Desktop/classify.zip"),
+	// // "C:/Users/Chan/Desktop/");
+	// } catch (Exception e) {
+	// // TODO Auto-generated catch block
+	// e.printStackTrace();
+	// }
+	// }
 
 }

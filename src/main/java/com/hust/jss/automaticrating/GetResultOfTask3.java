@@ -56,7 +56,7 @@ public class GetResultOfTask3 {
 	public GetResultOfTask3(String stuId, Integer taskId){
 		this.stuId = stuId;
 		this.taskId = taskId;
-		this.basePath = Config.task + taskId + "\\" + stuId;
+		this.basePath = Config.task + taskId + File.separator + stuId;
 	}
 	public int getScore(){
 		getBasicScore();
@@ -65,14 +65,14 @@ public class GetResultOfTask3 {
 	}
 	
 	private void getBasicScore(){
-		File dataExcel = new File(basePath + "\\" + "原始数据.xls");
-		File cdemoZip = new File(basePath + "\\" + "Canopy.zip");
-		File kdemoZip = new File(basePath + "\\" + "KMeans.zip");
-		File canopyresultZip = new File(basePath + "\\" + "canopyresult.zip");
-		File kmeansresultZip = new File(basePath + "\\" + "kmeansresult.zip");
+		File dataExcel = new File(basePath + File.separator + "原始数据.xls");
+		File cdemoZip = new File(basePath + File.separator + "Canopy.zip");
+		File kdemoZip = new File(basePath + File.separator + "KMeans.zip");
+		File canopyresultZip = new File(basePath + File.separator + "canopyresult.zip");
+		File kmeansresultZip = new File(basePath + File.separator + "kmeansresult.zip");
 		//原始数据文件是否上传
 		if(dataExcel.exists()){
-			List<String> dataList = ExcelReader.read(basePath + "\\" + "原始数据.xls",0);
+			List<String> dataList = ExcelReader.read(basePath + File.separator + "原始数据.xls",0);
 			System.out.println(dataList.size());
 //			ClusterUtil.showDatalist(dataList);
 			//分词
@@ -115,7 +115,7 @@ public class GetResultOfTask3 {
 		if(canopyresultZip.exists()){
 			try {
 				zipUtils.unzip(canopyresultZip,basePath);// + "\\" + "canopyresult"
-				getCanopyScore(basePath + "\\"+ "canopyresult" );//
+				getCanopyScore(basePath + File.separator+ "canopyresult" );//
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -127,7 +127,7 @@ public class GetResultOfTask3 {
 		if(kmeansresultZip.exists()){
 			try {
 				zipUtils.unzip(kmeansresultZip,basePath  );//+ "\\"+ "kmeansresult"
-				getKmeansScore(basePath + "\\" + "kmeansresult");//
+				getKmeansScore(basePath + File.separator + "kmeansresult");//
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
