@@ -1,4 +1,4 @@
-package automaticRating;
+package com.hust.jss.automaticrating;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -9,11 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.hust.jss.entity.Result;
 import com.hust.jss.service.ResultService;
 
-public class GetResultOfAllStudent {
+public class GetResultOfAllStudent {	
 	
-	@Autowired
-	private ResultService resultService;
+	private List<Result> results;
 	
+	
+	public GetResultOfAllStudent() {
+		results = new ArrayList<Result>();
+	}
+
 	//获得filepath这个文件的所有子文件夹
 	private List<String> getALLFile(String filePath)
 	{
@@ -54,15 +58,20 @@ public class GetResultOfAllStudent {
 			result2.setScore(result);
 			result2.setStuId(studentid);
 			result2.setTaskId(idOfTask);
-			try {
+			results.add(result2);
+			/*try {
 				resultService.updateResult(result2); //更新数据库
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
+			}*/
 			System.out.println(studentid+"的分数是"+result);
 			System.out.println("********");
 		}
+	}
+	
+	public List<Result> getResults(){
+		return results;
 	}
 	
 }

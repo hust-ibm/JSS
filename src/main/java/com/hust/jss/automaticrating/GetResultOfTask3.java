@@ -1,4 +1,4 @@
-package automaticRating;
+package com.hust.jss.automaticrating;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -48,10 +48,10 @@ public class GetResultOfTask3 {
 	//助教KMeans聚类结果计算出来的参考DB值
 	private double stdDB = 0f;
 	
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		GetResultOfTask3 gr = new GetResultOfTask3("M201676099", 3);
 		gr.getScore();
-	}
+	}*/
 	
 	public GetResultOfTask3(String stuId, Integer taskId){
 		this.stuId = stuId;

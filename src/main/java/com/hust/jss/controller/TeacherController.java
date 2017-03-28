@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hust.jss.automaticrating.Rating;
 import com.hust.jss.entity.Result;
 import com.hust.jss.entity.Student;
 import com.hust.jss.entity.Task;
@@ -148,7 +149,8 @@ public class TeacherController {
 			fu.deleteFile(oldDir);
 			UploadUtils up = new UploadUtils();
 			up.uploadUtils(uploadfile, newUrl);
-		}		
+		}	
+		//获取修改成功后的作业信息
 		Task t = null;
 		while(t == null) {
 			try {
@@ -159,29 +161,35 @@ public class TeacherController {
 				e.printStackTrace();
 			}
 		}
-		
+		//获取评分类对象
+		Rating rate = new Rating(t.getTaskName(), t.getTaskId());
+		//获取当前活跃的线程信息，找到要修改的作业之前开启的线程并关闭
+		//获取当前活跃的线程组
 		ThreadGroup group = Thread.currentThread().getThreadGroup();
 		Thread thread = null;
 		String threadName = oldName;
+		//找到指定名字的线程，即获取要停止运行的线程
 		while(group != null) {
             Thread[] threads = new Thread[(int)(group.activeCount() * 1.2)];
             int count = group.enumerate(threads, true);
             for(int i = 0; i < count; i++) {
             	System.out.println("线程名字："+threads[i].getName());
-                if(threadName == threads[i].getName()) {
+                if(threadName.equals(threads[i].getName())) {
                 	thread = threads[i];
                     break;
                 }
             }
             group = group.getParent();
         }
+		//如果要停止运行的线程存在，即仍在运行，则打断线程
 		if(thread != null){
 			thread.interrupt();
+			System.out.println(oldName+"线程已被打断");
 		}else{
 			System.out.println("找不到线程！！！！");
 		}
-		new Thread(new AutoCheckThread(taskName)).start();
-		
+		//以新的作业信息开启新线程
+		new Thread(new AutoCheckThread(rate,t.getTaskExpiry(),resultService),t.getTaskName()).start();
 		return "redirect:/managejob"; 
 	}
 }

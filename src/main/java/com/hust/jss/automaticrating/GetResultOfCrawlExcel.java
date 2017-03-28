@@ -1,4 +1,4 @@
-package automaticRating;
+package com.hust.jss.automaticrating;
 
 import java.util.List;
 

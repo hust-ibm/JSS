@@ -47,7 +47,7 @@ $(function(){
 });
 </script>
 <ul class="bread">
-  <li><a href="" target="right" class="icon-home"> 首页</a></li>
+  <li><a href="pass" target="right" class="icon-home"> 首页</a></li>
    <li><a href="javascript:;" id="a_leader_txt"></a></li>
  
 </ul>

@@ -1,21 +1,33 @@
 package com.hust.jss.utils;
 
 import java.util.Date;
+import java.util.List;
 
-import automaticRating.Rating;
+import org.springframework.stereotype.Component;
+
+import com.hust.jss.automaticrating.Rating;
+import com.hust.jss.entity.Result;
+import com.hust.jss.service.ResultService;
+
 
 public class AutoCheckThread implements Runnable{
-	private String name;
 	
-	public AutoCheckThread(String name) {
+	private Date deadline;	//作业截至日期
+	private Rating rate;	//自动评分类对象
+	private ResultService resultService ; //更新数据库里面result表的serveice对象（从controller层获取避免为空）
+	//初始化对象
+	public AutoCheckThread(Rating rate,Date deadline,ResultService resultService) {
 		// TODO Auto-generated constructor stub
-		this.name = name;
+		this.rate = rate;
+		this.deadline = deadline;
+		this.resultService = resultService;
+		
 	}
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		Rating rate = new Rating(name);
-		Date deadline = rate.getDeadline();
+		System.out.println("线程名："+Thread.currentThread().getName()+"  线程ID:"+Thread.currentThread().getId());
+//		Date deadline = rate.getDeadline();
 		Long curTime = System.currentTimeMillis();
 		while(curTime < deadline.getTime()){
 			try {
@@ -26,7 +38,18 @@ public class AutoCheckThread implements Runnable{
 			}
 			curTime = System.currentTimeMillis();
 		}
+		//开始评分
 		rate.startRating();
+		//获取结果开始评分
+		List<Result> results = rate.getResults();
+		for (Result result : results) {
+			try {
+				resultService.updateResult(result);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

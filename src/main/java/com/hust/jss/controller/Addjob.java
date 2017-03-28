@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
+import com.hust.jss.automaticrating.Rating;
 import com.hust.jss.entity.Result;
 import com.hust.jss.entity.Student;
 import com.hust.jss.entity.Task;
@@ -106,6 +107,7 @@ public class Addjob {
 
 		}
 		// 开起线程到规定时间后开启自动评分
+		//获取添加成功后的作业信息
 		Task t = null;
 		while(t == null) {
 			try {
@@ -116,7 +118,11 @@ public class Addjob {
 				e.printStackTrace();
 			}
 		}
-		new Thread(new AutoCheckThread(taskName)).start();
+		//获取评分类对象
+		Rating rate = new Rating(t.getTaskName(), t.getTaskId());
+		//开启自动评分线程
+		new Thread(new AutoCheckThread(rate,t.getTaskExpiry(),resultService),t.getTaskName()).start();
+				
 		return "redirect:/managejob";
 
 	}

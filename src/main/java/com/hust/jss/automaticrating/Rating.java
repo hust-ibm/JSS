@@ -1,4 +1,4 @@
-package automaticRating;
+package com.hust.jss.automaticrating;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -6,11 +6,15 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
 
 import com.hust.jss.entity.Result;
 import com.hust.jss.entity.Task;
 import com.hust.jss.service.ResultService;
 import com.hust.jss.service.TaskService;
+import com.hust.jss.service.impl.TaskServiceImpl;
 import com.hust.jss.utils.Config;
 /**
  * 使用方法--用作业名去new对象，然后获取该作业的deadline,超过deadline的时间后，手动调用startRating开始评分
@@ -24,6 +28,8 @@ public class Rating {
 	private Integer taskId;
 	//存放学生学号
 	private List<String> fileList;
+	
+	private List<Result> results;
 	//TaskService
 	@Autowired
 	private TaskService taskService;
@@ -31,27 +37,25 @@ public class Rating {
 	@Autowired
 	private ResultService resultService;
 	
-	public Rating(String taskName){
+	public Rating(String taskName,Integer taskId){
 		this.taskName = taskName;		
-		List<String> fileList = new ArrayList<String>();
-		init();
+		this.taskId = taskId;
+		fileList = new ArrayList<String>();
+		results = new ArrayList<Result>();
+	//	init();
 	}
 	
 	private void init(){
-		Task task = new Task();
-		try {
-			task = taskService.findTaskByTaskName(taskName);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			task.setTaskId(1);
-		}
-		this.taskId = task.getTaskId();
+		System.out.println("11111taskId"+taskId);
 		String path = Config.task+taskId;
 		File taskFiles = new File(path);
 		if(taskFiles.isDirectory()){
 			File[] files = taskFiles.listFiles();
+			System.out.println("files长度:"+files.length);
 			for (File file : files) {
+				System.out.println(file.getName());
+				if(fileList==null)
+					System.out.println("1111");;
 				fileList.add(file.getName());
 			}
 		}else{
@@ -59,28 +63,31 @@ public class Rating {
 		}
 	}
 	
-	public Date getDeadline(){
-		Task task = new Task();
-		try {
-			task = taskService.findTaskByTaskName(taskName);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-		return task.getTaskExpiry();
-	}
+//	public Date getDeadline(){
+//		Task task = new Task();
+//		try {
+//			System.out.println("11111"+taskService);
+//			task = taskService.findTaskByTaskName(taskName);
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			return null;
+//		}
+//		return task.getTaskExpiry();
+//	}
 	/*
 	 * 已知作业id--taskId,
 	 * 学生学号集合--fileList(存放着该作业下所有以提交作业的学生的学号)
 	 */
 	public void startRating(){
+		init();
 		switch (taskName) {
 		case "爬虫":	
 		{
 			GetResultOfAllStudent task1 = new GetResultOfAllStudent();
 			String filepath = Config.task+taskId;
 			task1.getFinalResult(filepath);
+			results = task1.getResults();
 		}
 			break;
 		case "数据预处理":	
@@ -92,13 +99,14 @@ public class Rating {
 				rs.setTaskId(taskId);
 				rs.setStuId(string);
 				rs.setScore(result);
-				try {
+				results.add(rs);
+				/*try {
 					resultService.updateResult(rs);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					System.out.println("评分失败！");
 					e.printStackTrace();
-				}
+				}*/
 			}
 		}
 			break;
@@ -112,13 +120,14 @@ public class Rating {
 				rs.setTaskId(taskId);
 				rs.setStuId(string);
 				rs.setScore(result);
-				try {
+				results.add(rs);
+				/*try {
 					resultService.updateResult(rs);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					System.out.println("评分失败！");
 					e.printStackTrace();
-				}
+				}*/
 			}
 		}
 			break;
@@ -132,13 +141,14 @@ public class Rating {
 				rs.setTaskId(taskId);
 				rs.setStuId(string);
 				rs.setScore(result);
-				try {
+				results.add(rs);
+				/*try {
 					resultService.updateResult(rs);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					System.out.println("评分失败！");
 					e.printStackTrace();
-				}
+				}*/
 			}
 		}
 			break;
@@ -148,5 +158,8 @@ public class Rating {
 		}
 	}
 	
-	
+	//返回成绩集合
+	public List<Result> getResults(){
+		return results;
+	}
 }

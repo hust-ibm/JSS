@@ -91,7 +91,7 @@ public class DownLoadServiceImpl implements DownLoadService {
         //所有作业的压缩文件的临时存放路径
         String zipPath = Config.tmpDir;//"E:\\jss\\tmp\\";
                 
-        File resultDir = new File(basePath+taskId+"\\"+stuId);
+        File resultDir = new File(basePath+taskId+"/"+stuId);
         if(!resultDir.exists()){
         	System.out.println("作业文件不存在");
         	response.setCharacterEncoding("UTF-8");
@@ -108,7 +108,7 @@ public class DownLoadServiceImpl implements DownLoadService {
         	System.out.println("文件存在？"+file.exists());
         	file.delete();        	
         }
-        DownloadUtils.fileToZip(basePath+taskId+"\\"+stuId, zipPath, zipfileName);
+        DownloadUtils.fileToZip(basePath+taskId+"/"+stuId, zipPath, zipfileName);
         DownloadUtils.download(zipPath, zipfileName, request, response);
 	}
 
