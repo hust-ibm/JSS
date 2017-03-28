@@ -28,6 +28,7 @@ public class TxtReader {
 		List<String> list = new ArrayList<String>();
 		//获取指定路径的文件
 		File file = new File(name);
+		System.out.println(name);
 		try {
 			if (file.isFile() && file.exists()) {
 				//以UTF-8编码格式读取文件流

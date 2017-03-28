@@ -45,6 +45,7 @@ public class AnsjSegmentation {
 	public AnsjSegmentation() {
 		wordList = new ArrayList<String>();
 		segList = new ArrayList<String[]>();
+		System.out.println("stopwords:"+stopWordsPath);
 		List<String> list = TxtReader.getDataFromTxt(stopWordsPath);
 		filter = new StopRecognition();
 		filter.insertStopWords(list);

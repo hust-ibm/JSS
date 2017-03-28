@@ -93,8 +93,8 @@ public class GetResultOfTask2 {
 						// "src/main/java/dictionary/userwords.txt";
 						// com.hust.utils.Config.stopWordPath =
 						// "src/main/java/dictionary/stopwords.txt";
-						AnsjSegmentation seg = new AnsjSegmentation("dictionary/stopwords.txt",
-								"dictionary/userwords.txt");
+						AnsjSegmentation seg = new AnsjSegmentation(GetResultOfTask2.class.getResource("/dictionary/stopwords.txt").getPath(),
+								GetResultOfTask2.class.getResource("/dictionary/userwords.txt").getPath());
 						seg.setWordList(contentList);
 						seg.segment();
 						List<String[]> my_target_add = seg.getSegList();
