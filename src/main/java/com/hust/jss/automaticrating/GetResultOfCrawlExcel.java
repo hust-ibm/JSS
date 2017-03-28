@@ -37,7 +37,7 @@ public class GetResultOfCrawlExcel {
 	private int getExcelType(String filepath)
 	{
 		int result = 0;
-		String[] sourceStrArray = filepath.split("\\\\");
+		String[] sourceStrArray = filepath.split("/");
 		String type = sourceStrArray[sourceStrArray.length-1];
 		if(type.indexOf("51job")>=0|type.indexOf("lagou")>=0|type.indexOf("zhaopin")>=0|type.indexOf("liepin")>=0|type.indexOf("ganji")>=0)
 		{

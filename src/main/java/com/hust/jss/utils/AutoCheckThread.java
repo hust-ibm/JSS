@@ -26,7 +26,7 @@ public class AutoCheckThread implements Runnable{
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		System.out.println("线程名："+Thread.currentThread().getName()+"  线程ID:"+Thread.currentThread().getId());
+		System.out.println("线程名："+Thread.currentThread().getName()+"  线程ID:"+Thread.currentThread().getId()+" 已启动！");
 //		Date deadline = rate.getDeadline();
 		Long curTime = System.currentTimeMillis();
 		while(curTime < deadline.getTime()){
