@@ -20,8 +20,7 @@ public class AutoCheckThread implements Runnable{
 		// TODO Auto-generated constructor stub
 		this.rate = rate;
 		this.deadline = deadline;
-		this.resultService = resultService;
-		
+		this.resultService = resultService;		
 	}
 	@Override
 	public void run() {

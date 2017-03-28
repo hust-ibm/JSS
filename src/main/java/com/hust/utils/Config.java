@@ -2,11 +2,11 @@ package com.hust.utils;
 
 public class Config {
 	//项目跟路径
-	public static String bacePath = System.getProperty("user.dir");
+//	public static String bacePath = System.getProperty("user.dir");
 	//停用词文件路径
-	public static String stopWordPath = "src/main/java/properties/stopwords.txt";
+	public static String stopWordPath = "properties/stopwords.txt";
 	//用户词表的存放路径
-	public static String userWordsPath = "src/main/java/properties/userwords.txt";
+	public static String userWordsPath = "properties/userwords.txt";
 	//Canopy聚类结果文件路径
 	public static String CANOPY_RESULT_PATH = "result/cluster/canopy/";
 	//KMeans聚类结果文件路径

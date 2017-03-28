@@ -40,6 +40,7 @@ public class TxtReader {
 
 			} else {
 				System.out.println("文件不存在！请确认输入的文件路径是否正确！");
+				System.out.println(file.getAbsolutePath());
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
