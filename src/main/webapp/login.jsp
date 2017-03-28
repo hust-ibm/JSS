@@ -26,7 +26,7 @@
 				<form id="loginForm" action="student" method="post">
 					<div class="panel loginbox">
 						<div class="text-center margin-big padding-big-top">
-							<h1>作业提交系统</h1>
+							<h1>大数据教学平台</h1>
 						</div>
 						<div class="panel-body"
 							style="padding: 30px; padding-bottom: 10px; padding-top: 10px;">
