@@ -48,18 +48,18 @@ public class GetResultOfTask2 {
 		List<String> resultContent = new ArrayList<String>();
 		if (resultZip.exists()) {
 			try {
-				zipUtils.unzip(resultZip, taskPath + "ansj\\");
+				zipUtils.unzip(resultZip, taskPath + "ansj/");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			File dic = new File(taskPath + "ansj\\");
+			File dic = new File(taskPath + "ansj/");
 			if (dic.isDirectory()) {
 				// 判断该文件目录下是否存在规定的作业文件
 				// 判断ansj源文件是否存在，存在读取目标分词内容，不存在，得分60分
-				ansj_source = new File(taskPath + "ansj\\ansj_source.xls");
+				ansj_source = new File(taskPath + "ansj/ansj_source.xls");
 				if (!ansj_source.exists()) {
-					ansj_source = new File(taskPath + "ansj\\ansj_source.xlsx");
+					ansj_source = new File(taskPath + "ansj/ansj_source.xlsx");
 				}
 				if (ansj_source.exists()) {
 					// 读取ansj目标列及分词内容，用list存储
@@ -82,13 +82,13 @@ public class GetResultOfTask2 {
 						TxtReader.writeToTxt(resultPath, taskPath + "ansj该目录下java文件不全！\r\n");
 					}
 					// 判断学生附加结果文件是否存在
-					File ansj_target_add = new File(taskPath + "ansj\\ansj_target_add.xls");
+					File ansj_target_add = new File(taskPath + "ansj/ansj_target_add.xls");
 					if (!ansj_target_add.exists()) {
-						ansj_target_add = new File(taskPath + "ansj\\ansj_target_add.xlsx");
+						ansj_target_add = new File(taskPath + "ansj/ansj_target_add.xlsx");
 					}
 					if (ansj_target_add.exists()) {
 						// 获取附加结果文件的内容
-						List<String> target_add = ExcelReader.read(taskPath + "ansj\\ansj_target_add.xlsx", 0);
+						List<String> target_add = ExcelReader.read(taskPath + "ansj/ansj_target_add.xlsx", 0);
 						// 去掉停用词和用户自定义词典，得到分词结果
 						// com.hust.utils.Config.userWordsPath =
 						// "src/main/java/dictionary/userwords.txt";
@@ -109,8 +109,8 @@ public class GetResultOfTask2 {
 						}
 					}
 					// 获取停用词表和用户自定义词典
-					File userwords = new File(taskPath + "ansj\\userwords.txt");
-					File stopwords = new File(taskPath + "ansj\\stopwords.txt");
+					File userwords = new File(taskPath + "ansj/userwords.txt");
+					File stopwords = new File(taskPath + "ansj/stopwords.txt");
 					if (userwords.exists()) {
 						// 设置自定义文件目录
 						// com.hust.utils.Config.userWordsPath = taskPath +
@@ -132,16 +132,16 @@ public class GetResultOfTask2 {
 					}
 
 					// 判断学生提交的作业结果文件是否存在，存在获取结果集合用list存储
-					File ansj_target = new File(taskPath + "ansj\\ansj_target.xls");
+					File ansj_target = new File(taskPath + "ansj/ansj_target.xls");
 					if (!ansj_target.exists()) {
-						ansj_target = new File(taskPath + "ansj\\ansj_target.xlsx");
+						ansj_target = new File(taskPath + "ansj/ansj_target.xlsx");
 					}
 					if (ansj_target.exists()) {
 						resultContent = ExcelReader.read(ansj_target.getAbsolutePath(), 0);
 						// 根据学生提供的字典得到的结果集
 						System.out.println(com.hust.utils.Config.stopWordPath);
-						AnsjSegmentation seg = new AnsjSegmentation(taskPath + "ansj\\stopwords.txt",
-								taskPath + "ansj\\userwords.txt");
+						AnsjSegmentation seg = new AnsjSegmentation(taskPath + "ansj/stopwords.txt",
+								taskPath + "ansj/userwords.txt");
 						seg.setWordList(contentList);
 						seg.segment();
 						stuResultContent = seg.getSegList();
@@ -187,34 +187,34 @@ public class GetResultOfTask2 {
 		//存储学生上交的结果
 		List<String> stuResult = new ArrayList<String>();
 		//获取分词工具
-		AnsjSegmentation seg = new AnsjSegmentation(taskPath + "ansj\\stopwords.txt",
-				taskPath + "ansj\\userwords.txt");
+		AnsjSegmentation seg = new AnsjSegmentation(taskPath + "ansj/stopwords.txt",
+				taskPath + "ansj/userwords.txt");
 		if (resultZip.exists()) {
 			try {
-				zipUtils.unzip(resultZip, taskPath + "tfidf\\");
+				zipUtils.unzip(resultZip, taskPath + "tfidf/");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			File dic = new File(taskPath + "tfidf\\");
+			File dic = new File(taskPath + "tfidf/");
 			if (dic.isDirectory()) {
 				// 判断结果文件存在与否
-				File tfidf_target = new File(taskPath + "tfidf\\tfidf_target.txt");
+				File tfidf_target = new File(taskPath + "tfidf/tfidf_target.txt");
 				if (!tfidf_target.exists()) {
-					tfidf_target = new File(taskPath + "tfidf\\tfidf_target.xls");							
+					tfidf_target = new File(taskPath + "tfidf/tfidf_target.xls");							
 					if (!tfidf_target.exists())
-						tfidf_target = new File(taskPath + "tfidf\\tfidf_target.xlsx");
+						tfidf_target = new File(taskPath + "tfidf/tfidf_target.xlsx");
 					else{
-						stuResult = ExcelReader.read(taskPath + "tfidf\\tfidf_target.xls", 0);
+						stuResult = ExcelReader.read(taskPath + "tfidf/tfidf_target.xls", 0);
 					}
 					if (!tfidf_target.exists())
 						tfidfResult -= 5;
 					else{
-						stuResult = ExcelReader.read(taskPath + "tfidf\\tfidf_target.xlsx", 0);
+						stuResult = ExcelReader.read(taskPath + "tfidf/tfidf_target.xlsx", 0);
 					}
 				} else {
 					// txt
-					stuResult = new TxtReader().getDataFromTxt(taskPath + "tfidf\\tfidf_target.txt");
+					stuResult = new TxtReader().getDataFromTxt(taskPath + "tfidf/tfidf_target.txt");
 				}
 				// 判断提交的作业里面是否包含java文件，少于2个扣5分
 				String[] javaFiles = dic.list(new FileFilter("java"));
@@ -224,16 +224,16 @@ public class GetResultOfTask2 {
 					TxtReader.writeToTxt(resultPath, taskPath + "tfidf该目录下java文件不全！\r\n");
 				}
 				
-				File tfidf_source = new File(taskPath + "tfidf\\tfidf_source.xlsx");
+				File tfidf_source = new File(taskPath + "tfidf/tfidf_source.xlsx");
 				if(!tfidf_source.exists()){
-					tfidf_source = new File(taskPath + "tfidf\\tfidf_source.xls");
+					tfidf_source = new File(taskPath + "tfidf/tfidf_source.xls");
 				}else{
-					contentList = ExcelReader.read(taskPath + "tfidf\\tfidf_source.xlsx", 0);
+					contentList = ExcelReader.read(taskPath + "tfidf/tfidf_source.xlsx", 0);
 				}
 				if(!tfidf_source.exists()){
 					
 				}else{
-					contentList = ExcelReader.read(taskPath + "tfidf\\tfidf_source.xls", 0);
+					contentList = ExcelReader.read(taskPath + "tfidf/tfidf_source.xls", 0);
 				}
 				seg.setWordList(contentList);
 				seg.segment();
@@ -267,20 +267,20 @@ public class GetResultOfTask2 {
 		File resultZip = new File(taskPath + "distance.zip");
 		if (resultZip.exists()) {
 			try {
-				zipUtils.unzip(resultZip, taskPath + "distance\\");
+				zipUtils.unzip(resultZip, taskPath + "distance/");
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			File dic = new File(taskPath + "distance\\");
+			File dic = new File(taskPath + "distance/");
 			if (dic.isDirectory()) {
 				distanceResult = tfidfResult;
 				// 判断结果文件存在与否
-				File distance_target = new File(taskPath + "distance\\distance_target.txt");
+				File distance_target = new File(taskPath + "distance/distance_target.txt");
 				if (!distance_target.exists())
-					distance_target = new File(taskPath + "distance\\distance_target.xls");
+					distance_target = new File(taskPath + "distance/distance_target.xls");
 				if (!distance_target.exists())
-					distance_target = new File(taskPath + "distance\\distance_target.xlsx");
+					distance_target = new File(taskPath + "distance/distance_target.xlsx");
 				if (!distance_target.exists())
 					distanceResult -= 5;
 				// 判断提交的作业里面是否包含java文件，少于2个扣5分
@@ -311,7 +311,7 @@ public class GetResultOfTask2 {
 	 *            学生id
 	 */
 	public int getTotalResult(Integer taskId, String stuId) {
-		taskPath = taskPath + taskId + "\\" + stuId + "\\";
+		taskPath = taskPath + taskId + "/" + stuId + "/";
 		resultPath = taskPath+"result.txt";
 		checkAnsj();
 		checkTfidf();
@@ -340,7 +340,7 @@ public class GetResultOfTask2 {
 	
 	private List<String> double2String(List<double[]>vector,List<String[]> list){
 		List<String> result = new ArrayList<String>();
-		TxtReader reader = new TxtReader();
+	//	TxtReader reader = new TxtReader();
 		int i = 0;
 		for (double[] ds : vector) {
 			//		String text = "";
@@ -355,14 +355,14 @@ public class GetResultOfTask2 {
 					if(text.length()!=0)
 						text = text.deleteCharAt(text.length()-1);
 					result.add(text.toString());
-					reader.writeToTxt(text.toString()+"\r\n", "E:/cc.txt");
+			//		reader.writeToTxt(text.toString()+"\r\n", "E:/cc.txt");
 					for (double d : ds) {
 						vectorStr.append( d+",");
 					}
 					vectorStr=vectorStr.deleteCharAt(vectorStr.length()-1);
 					vectorStr.append("]");
 					result.add(vectorStr.toString());	
-					reader.writeToTxt(vectorStr.toString()+"\r\n", "E:/cc.txt");
+			//		reader.writeToTxt(vectorStr.toString()+"\r\n", "E:/cc.txt");
 				}
 		return result;
 	}
