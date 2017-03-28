@@ -32,7 +32,7 @@ public class zipUtils {
             String outPath = (unzipPath +File.separator+ zipEntryName);//.replaceAll("\\*", "/");  
               
             // 判断路径是否存在,不存在则创建文件路径  
-            File file = new File(outPath.substring(0, outPath.lastIndexOf('/')));  
+            File file = new File(outPath.substring(0, outPath.lastIndexOf(File.separator)));  
             if (!file.exists()) {  
                 file.mkdirs();  
             }  

@@ -44,7 +44,6 @@ public class GetResultOfTask2 {
 	// 自动判断Ansj小实验成绩
 	private void checkAnsj() {
 		File resultZip = new File(taskPath + "ansj.zip");
-		System.out.println("ansj初始成绩："+ansjResult);
 		// 存放学生作业结果集合
 		List<String> resultContent = new ArrayList<String>();
 		if (resultZip.exists()) {
@@ -56,7 +55,6 @@ public class GetResultOfTask2 {
 			}
 			File dic = new File(taskPath + "ansj"+File.separator+"");
 			if (dic.isDirectory()) {
-				System.out.println("ansj初始成绩："+ansjResult);
 				// 判断该文件目录下是否存在规定的作业文件
 				// 判断ansj源文件是否存在，存在读取目标分词内容，不存在，得分60分
 				ansj_source = new File(taskPath + "ansj"+File.separator+"ansj_source.xls");
@@ -80,7 +78,7 @@ public class GetResultOfTask2 {
 					if (javaFiles.length < 2) {
 						ansjResult -= 5;						
 						System.out.println(taskPath + "ansj该目录下java文件不全！");
-						TxtReader.writeToTxt(resultPath, taskPath + "ansj该目录下java文件不全！\r\n");
+						TxtReader.writeToTxt(taskPath + "ansj该目录下java文件不全！\r\n",resultPath);
 					}
 					// 判断学生附加结果文件是否存在
 					File ansj_target_add = new File(taskPath + "ansj"+File.separator+"ansj_target_add.xls");
@@ -95,8 +93,8 @@ public class GetResultOfTask2 {
 						// "src/main/java/dictionary/userwords.txt";
 						// com.hust.utils.Config.stopWordPath =
 						// "src/main/java/dictionary/stopwords.txt";
-						AnsjSegmentation seg = new AnsjSegmentation("src/main/java/dictionary/stopwords.txt",
-								"src/main/java/dictionary/userwords.txt");
+						AnsjSegmentation seg = new AnsjSegmentation(com.hust.utils.Config.bacePath+File.separator+"JSS"+File.separator+"properties"+File.separator+"stopwords.txt",
+						com.hust.utils.Config.bacePath+File.separator+"JSS"+File.separator+"properties"+File.separator+"userwords.txt");
 						seg.setWordList(contentList);
 						seg.segment();
 						List<String[]> my_target_add = seg.getSegList();
@@ -104,7 +102,7 @@ public class GetResultOfTask2 {
 						double result = ListCompareUtils.compareList(ListCompareUtils.changeList(my_target_add),
 								target_add);
 						System.out.println("附加结果文件相似度：" + result);
-						TxtReader.writeToTxt(resultPath, "附加结果文件相似度：" + result+"\r\n");
+						TxtReader.writeToTxt("附加结果文件相似度：" + result+"\r\n",resultPath);
 						if (result > 0.9) {
 							ansjResult += 10;
 						}
@@ -121,7 +119,7 @@ public class GetResultOfTask2 {
 						// 自定义不存在扣分
 						ansjResult -= 5;
 						System.out.println(taskPath + "ansj该目录下自定义词典不存在！");
-						TxtReader.writeToTxt(resultPath, taskPath + "ansj该目录下自定义词典不存在！\r\n");
+						TxtReader.writeToTxt(taskPath + "ansj该目录下自定义词典不存在！\r\n",resultPath);
 					}
 					if (stopwords.exists()) {
 						// 设置停用词目录
@@ -130,7 +128,7 @@ public class GetResultOfTask2 {
 					} else {
 						ansjResult -= 5;
 						System.out.println(taskPath + "ansj该目录下停用词词典不存在！");
-						TxtReader.writeToTxt(resultPath, taskPath + "ansj该目录下停用词词典不存在！\r\n");
+						TxtReader.writeToTxt(taskPath + "ansj该目录下停用词词典不存在！\r\n",resultPath);
 					}
 
 					// 判断学生提交的作业结果文件是否存在，存在获取结果集合用list存储
@@ -141,7 +139,6 @@ public class GetResultOfTask2 {
 					if (ansj_target.exists()) {
 						resultContent = ExcelReader.read(ansj_target.getAbsolutePath(), 0);
 						// 根据学生提供的字典得到的结果集
-						System.out.println(com.hust.utils.Config.stopWordPath);
 						AnsjSegmentation seg = new AnsjSegmentation(taskPath + "ansj"+File.separator+"stopwords.txt",
 								taskPath + "ansj"+File.separator+"userwords.txt");
 						seg.setWordList(contentList);
@@ -150,22 +147,22 @@ public class GetResultOfTask2 {
 						double preResult = ListCompareUtils.compareList(ListCompareUtils.changeList(stuResultContent),
 								resultContent);
 						System.out.println("学生文件对比相似度：" + preResult);
-						TxtReader.writeToTxt(resultPath,"学生文件对比相似度：" + preResult+"\r\n");
+						TxtReader.writeToTxt("学生文件对比相似度：" + preResult+"\r\n",resultPath);
 						if (preResult < 0.9) {
 							ansjResult -= 10;
 							System.out.println("ansj最终成绩：" + ansjResult);
-							TxtReader.writeToTxt(resultPath,"ansj最终成绩：" + ansjResult+"\r\n");
+							TxtReader.writeToTxt("ansj最终成绩：" + ansjResult+"\r\n",resultPath);
 							// return;
 						}
 						double result = ListCompareUtils.compareListByword(myResultContent, stuResultContent);
 						System.out.println("词语相对多少比较:" + result);
-						TxtReader.writeToTxt(resultPath, "词语相对多少比较:" + result+"\r\n");
+						TxtReader.writeToTxt("词语相对多少比较:" + result+"\r\n",resultPath);
 						if (result > 0.05)
 							ansjResult += 5;
 					} else {
 						ansjResult -= 5;
 						System.out.println(taskPath + "ansj该目录下没有结果文件！");
-						TxtReader.writeToTxt(resultPath, taskPath + "ansj该目录下没有结果文件！\r\n");
+						TxtReader.writeToTxt(taskPath + "ansj该目录下没有结果文件！\r\n",resultPath);
 						return;
 					}
 				} else {
@@ -180,7 +177,7 @@ public class GetResultOfTask2 {
 			System.out.println("该文件不存在");
 		}
 		System.out.println("ansj最终成绩：" + ansjResult);
-		TxtReader.writeToTxt(resultPath, "ansj最终成绩：" + ansjResult+"\r\n");
+		TxtReader.writeToTxt("ansj最终成绩：" + ansjResult+"\r\n",resultPath);
 	}
 
 	// 自动判断TfiDf小实验成绩
@@ -223,7 +220,7 @@ public class GetResultOfTask2 {
 				if (javaFiles.length < 2) {
 					tfidfResult -= 5;
 					System.out.println(taskPath + "tfidf该目录下java文件不全！");
-					TxtReader.writeToTxt(resultPath, taskPath + "tfidf该目录下java文件不全！\r\n");
+					TxtReader.writeToTxt(taskPath + "tfidf该目录下java文件不全！\r\n",resultPath);
 				}
 				
 				File tfidf_source = new File(taskPath + "tfidf"+File.separator+"tfidf_source.xlsx");
@@ -249,7 +246,7 @@ public class GetResultOfTask2 {
 				System.out.println(testResult.get(1).charAt(testResult.get(1).length()-1)+"testResult:"+testResult.size());
 				double distance = ListCompareUtils.compareList(testResult, stuResult);
 				System.out.println("tfidf结果文件相似度："+distance);
-				TxtReader.writeToTxt(resultPath, "tfidf结果文件相似度："+distance+"\r\n");
+				TxtReader.writeToTxt("tfidf结果文件相似度："+distance+"\r\n",resultPath);
 				tfidfResult += 10+10*distance;
 				
 			} else {
@@ -260,7 +257,7 @@ public class GetResultOfTask2 {
 			System.out.println("该文件不存在");
 		}
 		System.out.println("tfidf最终成绩：" + tfidfResult);
-		TxtReader.writeToTxt(resultPath, "tfidf最终成绩：" + tfidfResult+"\r\n");
+		TxtReader.writeToTxt("tfidf最终成绩：" + tfidfResult+"\r\n",resultPath);
 	}
 
 	// 自动判断相似度计算小实验成绩
@@ -290,7 +287,7 @@ public class GetResultOfTask2 {
 				if (javaFiles.length < 2) {
 					distanceResult -= 5;
 					System.out.println(taskPath + "distance该目录下java文件不全！");
-					TxtReader.writeToTxt(resultPath, taskPath + "distance该目录下java文件不全！\r\n");
+					TxtReader.writeToTxt(taskPath + "distance该目录下java文件不全！\r\n",resultPath);
 				}
 
 			} else {
@@ -301,7 +298,7 @@ public class GetResultOfTask2 {
 			System.out.println("该文件不存在");
 		}
 		System.out.println("distance最终成绩：" + distanceResult);
-		TxtReader.writeToTxt(resultPath, "distance最终成绩：" + distanceResult+"\r\n");
+		TxtReader.writeToTxt("distance最终成绩：" + distanceResult+"\r\n",resultPath);
 	}
 
 	/**
