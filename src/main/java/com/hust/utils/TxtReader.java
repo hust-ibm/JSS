@@ -12,6 +12,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
+
+
 public class TxtReader {
 	// 从txt文本中获取语句集合
 	/**
@@ -40,7 +45,10 @@ public class TxtReader {
 
 			} else {
 				System.out.println("文件不存在！请确认输入的文件路径是否正确！");
-				System.out.println(file.getAbsolutePath());
+				System.out.println(file.getAbsolutePath());	
+				Log log = LogFactory.getLog(TxtReader.class);
+				log.info("文件不存在！请确认输入的文件路径是否正确！");
+				log.info(file.getAbsolutePath());
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
