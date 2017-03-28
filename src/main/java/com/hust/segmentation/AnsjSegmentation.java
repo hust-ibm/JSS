@@ -45,12 +45,12 @@ public class AnsjSegmentation {
 	public AnsjSegmentation() {
 		wordList = new ArrayList<String>();
 		segList = new ArrayList<String[]>();
-		List<String> list = new TxtReader().getDataFromTxt(stopWordsPath);
+		List<String> list = TxtReader.getDataFromTxt(stopWordsPath);
 		filter = new StopRecognition();
 		filter.insertStopWords(list);
 		System.out.println("停用词加载成功！共计："+list.size());
 		System.out.println(stopWordsPath);
-		List<String> List = new TxtReader().getDataFromTxt(userWordsPath);
+		List<String> List = TxtReader.getDataFromTxt(userWordsPath);
 		for (String str : List) {
 			DicLibrary.insert(DicLibrary.DEFAULT, str);
 		}
@@ -60,12 +60,12 @@ public class AnsjSegmentation {
 	public AnsjSegmentation(String stopWordsPath,String userWordsPath) {
 		wordList = new ArrayList<String>();
 		segList = new ArrayList<String[]>();
-		List<String> list = new TxtReader().getDataFromTxt(stopWordsPath);
+		List<String> list = TxtReader.getDataFromTxt(stopWordsPath);
 		filter = new StopRecognition();
 		filter.insertStopWords(list);
 		System.out.println("停用词加载成功！共计："+list.size());
 		System.out.println(stopWordsPath);
-		List<String> List = new TxtReader().getDataFromTxt(userWordsPath);
+		List<String> List = TxtReader.getDataFromTxt(userWordsPath);
 		for (String str : List) {
 			DicLibrary.insert(DicLibrary.DEFAULT, str);
 		}

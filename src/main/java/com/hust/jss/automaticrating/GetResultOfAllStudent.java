@@ -48,9 +48,9 @@ public class GetResultOfAllStudent {
 				result +=getResultOfCrawlExcel.getResult(excelfilepath);
 			}
 			result = (int)(result/excellist.size());  //取平均成绩
-			String[] strings = string.split("/"); //以 /划分路径
+			String[] strings = string.split("[\\\\|/]"); //以 /划分路径
 			String studentid = strings[strings.length-1];  //学号
-			strings = filepath.split("/"); //以 /划分路径
+			strings = filepath.split("[\\\\|/]"); //以 /划分路径
 			String taskid = strings[strings.length-1];  //作业id
 			int idOfTask = Integer.parseInt(taskid); //把String转成int
 			Result result2 = new Result();
