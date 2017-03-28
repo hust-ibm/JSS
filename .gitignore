@@ -5,3 +5,4 @@
 /Workspaces/
 /page/
 *.html
+/src/main/resources/properties/jdbc.properties
