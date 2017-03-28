@@ -61,6 +61,9 @@ public class DownloadUtils {
                         zos = new ZipOutputStream(new BufferedOutputStream(fos));  
                         byte[] bufs = new byte[1024*10];
                         for(int i=0;i<sourceFiles.length;i++){  
+                        	if(sourceFiles[i].isDirectory()){
+                        		continue;
+                        	}
                             //创建ZIP实体，并添加进压缩包  
                             ZipEntry zipEntry = new ZipEntry(sourceFiles[i].getName());  
                             zos.putNextEntry(zipEntry);  
