@@ -3,15 +3,13 @@ package com.hust.jss.automaticrating;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Random;
 
 import com.hust.algorithm.canopy.Canopy;
 import com.hust.algorithm.kmeans.KMeans;
 import com.hust.convertor.TFIDFConvertor;
 import com.hust.distance.CosDistance;
 import com.hust.jss.automaticrating.utils.zipUtils;
-import com.hust.jss.service.ResultService;
 import com.hust.jss.utils.Config;
 import com.hust.segmentation.AnsjSegmentation;
 import com.hust.utils.ClusterUtil;
@@ -47,11 +45,6 @@ public class GetResultOfTask3 {
 	private double stuDB = 0f;
 	//助教KMeans聚类结果计算出来的参考DB值
 	private double stdDB = 0f;
-	
-	/*public static void main(String[] args) {
-		GetResultOfTask3 gr = new GetResultOfTask3("M201676099", 3);
-		gr.getScore();
-	}*/
 	
 	public GetResultOfTask3(String stuId, Integer taskId){
 		this.stuId = stuId;
@@ -114,7 +107,7 @@ public class GetResultOfTask3 {
 		}
 		if(canopyresultZip.exists()){
 			try {
-				zipUtils.unzip(canopyresultZip,basePath);// + "\\" + "canopyresult"
+				zipUtils.unzip(canopyresultZip,basePath+ File.separator+ "canopyresult");// + "\\" + "canopyresult"
 				getCanopyScore(basePath + File.separator+ "canopyresult" );//
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -126,7 +119,7 @@ public class GetResultOfTask3 {
 		}	
 		if(kmeansresultZip.exists()){
 			try {
-				zipUtils.unzip(kmeansresultZip,basePath  );//+ "\\"+ "kmeansresult"
+				zipUtils.unzip(kmeansresultZip,basePath+ File.separator+ "kmeansresult");//+ "\\"+ "kmeansresult"
 				getKmeansScore(basePath + File.separator + "kmeansresult");//
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -156,18 +149,20 @@ public class GetResultOfTask3 {
 			//计算学生聚类结果的DB值
 			stuDB = calculateDB(clusterList);
 			System.out.println("stuDB: "+stuDB);
+			Random ran = new Random();
+			int v = ran.nextInt(5);
 			if(stuDB >= stdDB/1.5){
-				kmeansScore += 20;
-				System.out.println("KMeans聚类得分，20分");
+				kmeansScore += 15 + v;
+				System.out.println("KMeans聚类得分，15-20分"+kmeansScore);
 			}else if(stuDB >= stdDB/2.5){
-				kmeansScore += 10;
-				System.out.println("KMeans聚类得分，10分");
+				kmeansScore += 10 + v;
+				System.out.println("KMeans聚类得分，10-15分"+kmeansScore);
 			}else if(stuDB >= stdDB/10){
-				kmeansScore += 8;
-				System.out.println("KMeans聚类得分，8分");
+				kmeansScore += 5 + v;
+				System.out.println("KMeans聚类得分，5-10分"+kmeansScore);
 			}else{
-				kmeansScore += 4;
-				System.out.println("KMeans聚类得分，4分");
+				kmeansScore += v;
+				System.out.println("KMeans聚类得分，0-5分"+kmeansScore);
 			}
 		}
 		
@@ -180,22 +175,27 @@ public class GetResultOfTask3 {
 		// 获取结果文件夹路径
 		File cDir = new File(path);
 		if(cDir != null && cDir.exists() && cDir.isDirectory()){
+			System.out.println(cDir.getAbsolutePath());
 			int x = cDir.listFiles().length;
+			Random ran = new Random();
+			int v = ran.nextInt(5);
 			if(Math.abs(x - canopy.getCanopy()) <= canopy.getCanopy() / 10){
-				canopyScore += 20;
-				System.out.println("Canopy聚类得分，20分");
+				canopyScore += 15 + v;
+				System.out.println("Canopy聚类得分，15-20分"+canopyScore);
 			}else if(Math.abs(x - canopy.getCanopy()) <= canopy.getCanopy() / 5){
-				canopyScore += 10;
-				System.out.println("Canopy聚类得分，10分");
+				canopyScore += 10 + v;
+				System.out.println("Canopy聚类得分，10-15分"+canopyScore);
 			}else if(Math.abs(x - canopy.getCanopy()) <= canopy.getCanopy() / 2){
-				canopyScore += 5;
-				System.out.println("Canopy聚类得分，5分");
+				canopyScore += 5 + v;
+				System.out.println("Canopy聚类得分，5-10分"+canopyScore);
 			}else{
-				canopyScore += 2;
-				System.out.println("Canopy聚类得分，2分");
+				canopyScore += v;
+				System.out.println("Canopy聚类得分，0-5分"+canopyScore);
 			}
+			System.out.println("x: "+x);
 		}
-		System.out.println("canopyScore: "+canopyScore);
+		
+		System.out.println("canopy: "+canopy.getCanopy());
 	}
 	
 	/**
