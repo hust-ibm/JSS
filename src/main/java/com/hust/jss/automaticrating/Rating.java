@@ -81,6 +81,7 @@ public class Rating {
 	 */
 	public void startRating(){
 		init();
+		
 		switch (taskName) {
 		case "爬虫":	
 		{
@@ -93,6 +94,7 @@ public class Rating {
 		case "数据预处理":	
 		{
 			for (String string : fileList) {
+				try{
 				GetResultOfTask2 task2 = new GetResultOfTask2();
 				int result = task2.getTotalResult(taskId, string);
 				Result rs = new Result();
@@ -106,7 +108,9 @@ public class Rating {
 					// TODO Auto-generated catch block
 					System.out.println("评分失败！");
 					e.printStackTrace();
-				}*/
+				}*/}catch( Exception e){
+					System.out.println(e);continue;
+				}
 			}
 		}
 			break;
@@ -114,6 +118,7 @@ public class Rating {
 		{
 			//实验三自动评分
 			for (String string : fileList) {
+				try{
 				GetResultOfTask3 task3 = new GetResultOfTask3(string,taskId);
 				int result = task3.getScore();
 				Result rs = new Result();
@@ -127,7 +132,9 @@ public class Rating {
 					// TODO Auto-generated catch block
 					System.out.println("评分失败！");
 					e.printStackTrace();
-				}*/
+				}*/}catch( Exception e){
+					System.out.println(e);continue;
+				}
 			}
 		}
 			break;
@@ -135,6 +142,7 @@ public class Rating {
 		{
 			//实验四自动评分
 			for (String string : fileList) {
+				try{
 				GetResultOfTask4 task4 = new GetResultOfTask4();
 				int result = task4.getTotalResult(taskId,string);
 				Result rs = new Result();
@@ -148,7 +156,9 @@ public class Rating {
 					// TODO Auto-generated catch block
 					System.out.println("评分失败！");
 					e.printStackTrace();
-				}*/
+				}*/}catch( Exception e){
+					System.out.println(e);continue;
+				}
 			}
 		}
 			break;
@@ -156,6 +166,7 @@ public class Rating {
 			System.out.println("自动评分失败");
 			break;
 		}
+		
 	}
 	
 	//返回成绩集合
